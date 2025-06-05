@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zstep - Giải pháp tối ưu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            max-width: 1000px;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .logo {
+            color: white;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .features {
+            padding: 20px;
+        }
+
+        .feature-item {
+            background: #f8f9ff;
+            border: 2px solid #e6ebff;
+            border-radius: 15px;
+            padding: 18px 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-item::before {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(74, 172, 254, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(74, 172, 254, 0.3);
+            border-color: #4facfe;
+        }
+
+        .feature-item:hover::before {
+            left: 100%;
+        }
+
+        .feature-icon {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(74, 172, 254, 0.4);
+        }
+
+        .feature-text {
+            color: #2c3e50;
+            font-size: 16px;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .zalo-section {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e6ebff 100%);
+            padding: 25px 20px;
+            border-radius: 20px;
+            margin: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .zalo-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #4facfe, #00f2fe, #4facfe);
+            border-radius: 22px;
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .zalo-logo {
+            width: 40px;
+            height: 40px;
+            background: #0084ff;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0, 132, 255, 0.4);
+        }
+
+        .zalo-text {
+            color: #2c3e50;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .contact-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .contact-btn:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 10px;
+            }
+            
+            .logo {
+                font-size: 2em;
+            }
+            
+            .feature-text {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🚀 Zstep</div>
+        </div>
+
+        <div class="features">
+            <div class="feature-item" onclick="highlightFeature(this)">
+                <div class="feature-icon">📱</div>
+                <div class="feature-text">Tự động nuôi dưỡng khách hàng qua Zalo</div>
+            </div>
+
+            <div class="feature-item" onclick="highlightFeature(this)">
+                <div class="feature-icon">💼</div>
+                <div class="feature-text">Nâng cao tỷ lệ chuyển đổi và giữ chân khách</div>
+            </div>
+
+            <div class="feature-item" onclick="highlightFeature(this)">
+                <div class="feature-icon">⏰</div>
+                <div class="feature-text">Tiết kiệm thời gian tối ưu nhân sự</div>
+            </div>
+
+            <div class="feature-item" onclick="highlightFeature(this)">
+                <div class="feature-icon">📊</div>
+                <div class="feature-text">Số hóa hành vi khách hàng</div>
+            </div>
+
+            <div class="feature-item" onclick="highlightFeature(this)">
+                <div class="feature-icon">🛡️</div>
+                <div class="feature-text">Chăm sóc liên tục không để khách rời rung</div>
+            </div>
+        </div>
+
+        <div class="zalo-section">
+            <div class="zalo-logo">Z</div>
+            <div class="zalo-text">
+                <strong>Giải pháp tối ưu qua Zalo</strong> - nơi 75% dân số 
+                Việt Nam đang sử dụng mỗi ngày
+            </div>
+            <button class="contact-btn" onclick="contactUs()">Liên hệ tư vấn</button>
+        </div>
+    </div>
+
+    <script>
+        function highlightFeature(element) {
+            // Remove highlight from all items
+            document.querySelectorAll('.feature-item').forEach(item => {
+                item.style.background = '#f8f9ff';
+                item.style.borderColor = '#e6ebff';
+            });
+            
+            // Highlight clicked item
+            element.style.background = 'linear-gradient(135deg, #e6f3ff 0%, #cce7ff 100%)';
+            element.style.borderColor = '#4facfe';
+            
+            // Add a pulse effect
+            element.style.animation = 'pulse 0.6s ease';
+            setTimeout(() => {
+                element.style.animation = '';
+            }, 600);
+        }
+
+        function contactUs() {
+            // Add click animation
+            const btn = event.target;
+            btn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                btn.style.transform = '';
+            }, 150);
+
+            // You can add actual contact functionality here
+            alert('Cảm ơn bạn đã quan tâm! Chúng tôi sẽ liên hệ sớm nhất.');
+        }
+
+        // Add CSS for pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add some interactive particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 4px;
+                height: 4px;
+                background: linear-gradient(45deg, #4facfe, #00f2fe);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 1000;
+                animation: float-up 3s linear forwards;
+            `;
+            
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = window.innerHeight + 'px';
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 3000);
+        }
+
+        // Add float-up animation
+        const particleStyle = document.createElement('style');
+        particleStyle.textContent = `
+            @keyframes float-up {
+                to {
+                    transform: translateY(-100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(particleStyle);
+
+        // Create particles periodically
+        setInterval(createParticle, 2000);
+    </script>
+</body>
+</html>

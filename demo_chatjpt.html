@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Zstep</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        width: 60%;
+        margin: 20px auto;
+        border: 1px solid #ccc;
+      }
+
+      .header {
+        background: linear-gradient(to bottom, #3f5fd5, #00c6ff);
+        color: white;
+        padding: 10px;
+        text-align: center;
+      }
+
+      .header img {
+        vertical-align: middle;
+        height: 30px;
+      }
+
+      .header span {
+        font-size: 24px;
+        font-weight: bold;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+
+      .features {
+        background: linear-gradient(to bottom, #3f5fd5, #00c6ff);
+        padding: 15px;
+        color: white;
+      }
+
+      .features .item {
+        background-color: white;
+        color: #333;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+      }
+
+      .features .item::before {
+        content: "✔️";
+        margin-right: 8px;
+        color: #007bff;
+      }
+
+      .footer {
+        background-color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .footer img {
+        vertical-align: middle;
+        height: 24px;
+        margin-right: 8px;
+      }
+
+      .contact-button {
+        background-color: #003d66;
+        color: white;
+        padding: 10px 20px;
+        display: inline-block;
+        margin: 15px auto;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .issues-section {
+        padding: 20px;
+      }
+
+      .issues-section h2 {
+        text-align: center;
+        color: #0056d2;
+      }
+
+      .issues-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .issue-box {
+        background: white;
+        border-left: 5px solid #0056d2;
+        padding: 15px;
+        border-radius: 8px;
+        width: 300px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .issue-box h3 {
+        color: #d22e2e;
+        margin-top: 0;
+      }
+      .illustration-container {
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <img src="C:\Users\test\Downloads/lp-logo.png" alt="Zalo logo" />
+        <span>Zstep</span>
+      </div>
+
+      <div class="features">
+        <div class="item">Tự động nuôi dưỡng khách hàng qua Zalo</div>
+        <div class="item">Nâng cao tỷ lệ chuyển đổi và giữ chân khách hàng</div>
+        <div class="item">Tiết kiệm thời gian tối ưu nhân sự</div>
+        <div class="item">Số hoá hành vi khách hàng</div>
+        <div class="item">Chăm sóc liên tục không để khách rơi rụng</div>
+      </div>
+
+      <div class="footer">
+        <img src="C:\Users\test\Downloads/download.png" alt="Zalo icon" />
+        Giải pháp tối ưu qua Zalo – nơi 75% dân số Việt Nam đang sử dụng mỗi
+        ngày
+      </div>
+
+      <div class="issues-section">
+        <h2>NHÂN VIÊN MỆT MỎI KHI CHĂM SÓC KHÁCH QUA ĐIỆN THOẠI</h2>
+        <div class="illustration-container">
+          <div class="character">
+            <img src="C:\Users\test\Downloads/lp.png" alt="Zalo icon" />
+          </div>
+          <div class="character">
+            <img src="C:\Users\test\Downloads/lp1.png" alt="Zalo icon" />
+          </div>
+        </div>
+        <div class="issues-container">
+          <div class="issue-box">
+            <h3>Khó tiếp cận khách hàng</h3>
+            <p>
+              • 65% khách không nghe máy, từ chối cuộc gọi hoặc cảm thấy sợ lạ.
+            </p>
+            <p>• Gọi vào thời điểm không phù hợp, gây khó chịu.</p>
+          </div>
+          <div class="issue-box">
+            <h3>Dễ gây phản cảm hoặc</h3>
+            <p>• Một số khách hàng cảm thấy bị làm phiền hoặc bị "ép mua".</p>
+            <p>• Dễ ảnh hưởng đến hình ảnh thương hiệu nếu xử lý không khéo.</p>
+          </div>
+          <div class="issue-box">
+            <h3>Tốn nhiều thời gian và chi phí</h3>
+            <p>• Mỗi cuộc gọi cần thời gian xử lý riêng, khó mở rộng quy mô.</p>
+            <p>• Phải thuê thêm nhân sự và đào tạo.</p>
+          </div>
+          <div class="issue-box">
+            <h3>Khó lưu trữ và khai thác dữ liệu</h3>
+            <p>• Dữ liệu từ cuộc gọi khó được ghi nhận chính xác và đồng bộ.</p>
+            <p>
+              • Thiếu thông tin dẫn đến khó đo lường hiệu quả và theo dõi lịch
+              sử chăm sóc.
+            </p>
+          </div>
+          <div class="issue-box">
+            <h3>Chất lượng tương tác không đồng đều</h3>
+            <p>
+              • Phụ thuộc vào năng lực nhân viên – dễ xảy ra sai sót, truyền đạt
+              sai thông tin.
+            </p>
+            <p>
+              • Không kiểm soát được nội dung cuộc gọi, khó đánh giá và cải
+              thiện chất lượng sát sao.
+            </p>
+          </div>
+          <div class="issue-box">
+            <h3>Khó cá nhân hóa trải nghiệm</h3>
+            <p>
+              • Thường chăm sóc theo lối mòn, mẫu chung, thiếu hiểu biết về
+              khách hàng cụ thể.
+            </p>
+            <p>• Không "thấu cảm", không được quan tâm đúng mức.</p>
+          </div>
+
+          <h2 style="text-align: center; color: #0056d2; margin-top: 40px">
+            NHÂN VIÊN GẶP KHÓ KHĂN KHI CHĂM SÓC KHÁCH QUA EMAIL
+          </h2>
+
+          <div class="illustration-container">
+            <div class="character">
+              <img src="C:\Users\test\Downloads/lp3.png" alt="Zalo icon" />
+            </div>
+            <div class="character-email" style="margin-left: 70px">
+              <img src="C:\Users\test\Downloads/lp4.png" alt="Zalo icon" />
+            </div>
+          </div>
+          <div class="issues-container">
+            <div class="issue-box">
+              <h3>Thông tin không đến được khách hàng</h3>
+              <p>
+                • Người dùng ít kiểm tra email cá nhân, đặc biệt ở Việt Nam.
+              </p>
+              <p>• Email dễ rơi vào mục spam hoặc quảng cáo.</p>
+              <p>• Khách sợ bị tấn công, virus nên không mở email.</p>
+            </div>
+            <div class="issue-box">
+              <h3>Dữ liệu khách hàng bị rời rạc</h3>
+              <p>• Không thể theo dõi hành vi khách hàng.</p>
+              <p>
+                • Thiếu liên kết giữa nội dung email và các hành động tiếp theo
+                để tạo các kịch bản phù hợp.
+              </p>
+            </div>
+            <div class="issue-box">
+              <h3>Khó đo lường tác động thực tế đến doanh thu</h3>
+              <p>• Khó xác định chính xác email nào mang lại đơn hàng.</p>
+              <p>
+                • Tỷ lệ mở/click thấp, khó chuyển đổi thành doanh thu cụ thể.
+              </p>
+            </div>
+            <div class="issue-box">
+              <h3>Khó phản hồi nhanh</h3>
+              <p>
+                • Email là kênh giao tiếp một chiều, thiếu tính tương tác tức
+                thì.
+              </p>
+              <p>
+                • Mất cơ hội hồi sớm kịp thời, khách hàng dễ bỏ sang đơn vị khác
+                nhanh hơn.
+              </p>
+            </div>
+            <div class="issue-box">
+              <h3>Khó xây dựng mối quan hệ cá nhân</h3>
+              <p>• Người dùng Việt Nam chủ yếu dùng Zalo để nhắn tin.</p>
+              <p>
+                • Không dễ để thể hiện sự quan tâm cá nhân như khi gọi điện.
+              </p>
+            </div>
+            <div class="issue-box">
+              <h3>Giảm uy tín thương hiệu</h3>
+              <p>• Dễ gây phản cảm làm giảm uy tín thương hiệu nếu gửi sai.</p>
+              <p>• Giam điểm uy tín tên miền, ảnh hưởng đến email sau.</p>
+            </div>
+
+            <h2 style="text-align: center; color: #0056d2; margin-top: 40px">
+              Zstep GIẢI PHÁP CHĂM SÓC KHÁCH HÀNG QUA ZALO
+            </h2>
+
+            <table
+              style="
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+                font-size: 14px;
+              "
+            >
+              <thead style="background-color: #0056d2; color: white">
+                <tr>
+                  <th style="padding: 10px; border: 1px solid #ccc">
+                    Tiêu chí
+                  </th>
+                  <th style="padding: 10px; border: 1px solid #ccc">
+                    Zstep+Zalo
+                  </th>
+                  <th style="padding: 10px; border: 1px solid #ccc">
+                    Telecall (Gọi điện)
+                  </th>
+                  <th style="padding: 10px; border: 1px solid #ccc">
+                    Email Marketing
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Khả năng tiếp cận
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Rất cao, 75% người Việt dùng Zalo
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Phụ thuộc vào việc nghe máy
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Dễ vào spam hoặc bỏ qua
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Tự động hóa
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Linh hoạt, thông minh
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Không có
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Có, nhưng khó thiết lập
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Tương tác 2 chiều
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Chủ động, tự nhiên, ngay trong Zalo
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Gọi, nhưng không hiệu quả lâu dài
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Khó phản hồi, không realtime
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #ccc">Chi phí</td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Rẻ, không tốn nguồn lực lớn
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Cao, phụ thuộc nhân lực
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Rẻ, nhưng hiệu quả thấp
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Tỷ lệ mở/click
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Trên 70%
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">~20–30%</td>
+                  <td style="padding: 10px; border: 1px solid #ccc">~15–25%</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Cá nhân hóa
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Theo hành vi, dữ liệu, thông minh
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Trực tiếp nếu làm tốt
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Giới hạn khả năng phân nhóm
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div
+              style="
+                background: #e6f0ff;
+                padding: 20px;
+                border-radius: 10px;
+                margin-top: 30px;
+                font-size: 15px;
+                display: flex;
+              "
+            >
+              <img
+                src="C:\Users\test\Downloads/lp5.png"
+                alt="Zalo icon"
+                style="height: 100%; vertical-align: middle; margin-right: 10px"
+              />
+              <div style="width: 56%; line-height: 2rem">
+                <strong>Zstep</strong> được phát triển bởi
+                <strong>Watermelon</strong> – đội ngũ đã giúp hơn
+                <strong>100.000 doanh nghiệp Nhật Bản</strong> thành công chuyển
+                đổi chăm sóc khách hàng qua LINE. <br />
+                Giờ đây, chúng tôi mang toàn bộ kinh nghiệm đó về Việt Nam – qua
+                <strong>Zalo</strong>.
+              </div>
+            </div>
+            <!-- 
+            <h2 style="text-align: center; color: #0056d2; margin-top: 40px">
+              Zstep GIẢI PHÁP CHĂM SÓC KHÁCH HÀNG QUA ZALO
+            </h2> -->
+
+            <!-- <table
+              style="
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+                font-size: 14px;
+              "
+            >
+              <thead style="background-color: #0056d2; color: white">
+                <tr>
+                  <th style="padding: 10px; border: 1px solid #ccc">
+                    Tiêu chí
+                  </th>
+                  <th style="padding: 10px; border: 1px solid #ccc">
+                    Zstep+Zalo
+                  </th>
+                  <th style="padding: 10px; border: 1px solid #ccc">
+                    Telecall (Gọi điện)
+                  </th>
+                  <th style="padding: 10px; border: 1px solid #ccc">
+                    Email Marketing
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Khả năng tiếp cận
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Rất cao, 75% người Việt dùng Zalo
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Phụ thuộc vào việc nghe máy
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Dễ vào spam hoặc bỏ qua
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Tự động hóa
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Linh hoạt, thông minh
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Không có
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Có, nhưng khó thiết lập
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Tương tác 2 chiều
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Chủ động, tự nhiên, ngay trong Zalo
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Gọi, nhưng không hiệu quả lâu dài
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Khó phản hồi, không realtime
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #ccc">Chi phí</td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Rẻ, không tốn nguồn lực lớn
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Cao, phụ thuộc nhân lực
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Rẻ, nhưng hiệu quả thấp
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Tỷ lệ mở/click
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Trên 70%
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">~20–30%</td>
+                  <td style="padding: 10px; border: 1px solid #ccc">~15–25%</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Cá nhân hóa
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Theo hành vi, dữ liệu, thông minh
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Trực tiếp nếu làm tốt
+                  </td>
+                  <td style="padding: 10px; border: 1px solid #ccc">
+                    Giới hạn khả năng phân nhóm
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div
+              style="
+                background: #e6f0ff;
+                padding: 20px;
+                border-radius: 10px;
+                margin-top: 30px;
+                font-size: 15px;
+              "
+            >
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/36/Zalo_icon.png"
+                alt="Zalo Icon"
+                style="height: 40px; vertical-align: middle; margin-right: 10px"
+              />
+              <strong>Zstep</strong> được phát triển bởi
+              <strong>Watermelon</strong> – đội ngũ đã giúp hơn
+              <strong>100.000 doanh nghiệp Nhật Bản</strong> thành công chuyển
+              đổi chăm sóc khách hàng qua LINE. <br />
+              Giờ đây, chúng tôi mang toàn bộ kinh nghiệm đó về Việt Nam – qua
+              <strong>Zalo</strong>.
+            </div> -->
+
+            <h2 style="text-align: center; color: #0056d2; margin-top: 50px">
+              Zstep GIẢI PHÁP CHĂM SÓC KHÁCH HÀNG QUA ZALO
+            </h2>
+
+            <div
+              style="
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                gap: 16px;
+                margin-top: 20px;
+                font-size: 14px;
+              "
+            >
+              <div
+                style="
+                  flex: 1 1 calc(48%);
+                  background: #f8fbff;
+                  border: 1px solid #cce0ff;
+                  border-radius: 8px;
+                  padding: 16px;
+                "
+              >
+                <h3 style="color: #0056d2">
+                  📱 75% người Việt dùng Zalo hằng ngày
+                </h3>
+                <p>
+                  Là nền tảng nội địa có mức độ phủ sóng cao nhất tại Việt Nam,
+                  giúp doanh nghiệp tiếp cận khách hàng một cách dễ dàng, trực
+                  tiếp và liên tục.
+                </p>
+              </div>
+
+              <div
+                style="
+                  flex: 1 1 calc(48%);
+                  background: #f8fbff;
+                  border: 1px solid #cce0ff;
+                  border-radius: 8px;
+                  padding: 16px;
+                "
+              >
+                <h3 style="color: #0056d2">🚫 Không spam – không bị chặn</h3>
+                <p>
+                  Gửi tin nhắn qua Zalo giúp doanh nghiệp tiếp cận khách hàng
+                  một cách hợp pháp, không bị xem là spam, không bị chặn như SMS
+                  hay cuộc gọi lạ.
+                </p>
+              </div>
+
+              <div
+                style="
+                  flex: 1 1 calc(48%);
+                  background: #f8fbff;
+                  border: 1px solid #cce0ff;
+                  border-radius: 8px;
+                  padding: 16px;
+                "
+              >
+                <h3 style="color: #0056d2">🤝 Tương tác 2 chiều mượt mà</h3>
+                <p>
+                  Khách hàng trò chuyện trực tiếp với doanh nghiệp ngay trong
+                  ứng dụng Zalo quen thuộc. Doanh nghiệp dễ dàng phản hồi và cá
+                  nhân hóa quá trình chăm sóc đặc biệt.
+                </p>
+              </div>
+
+              <div
+                style="
+                  flex: 1 1 calc(48%);
+                  background: #f8fbff;
+                  border: 1px solid #cce0ff;
+                  border-radius: 8px;
+                  padding: 16px;
+                "
+              >
+                <h3 style="color: #0056d2">⚙️ Tự động hóa + Cá nhân hóa</h3>
+                <p>
+                  Dễ dàng thiết lập kịch bản tin nhắn tự động dựa trên hành vi,
+                  lịch sử giao dịch và nhu cầu từng người để cá nhân hóa trải
+                  nghiệm chăm sóc tối đa.
+                </p>
+              </div>
+
+              <div
+                style="
+                  flex: 1 1 calc(48%);
+                  background: #f8fbff;
+                  border: 1px solid #cce0ff;
+                  border-radius: 8px;
+                  padding: 16px;
+                "
+              >
+                <h3 style="color: #0056d2">📈 Tỷ lệ mở & click vượt trội</h3>
+                <p>
+                  Với hơn 70% người dùng đọc tin nhắn trong 5 phút khi nhận từ
+                  OA, Zalo mang lại tỷ lệ tương tác cao gấp nhiều lần so với
+                  email hay gọi điện.
+                </p>
+              </div>
+
+              <div
+                style="
+                  flex: 1 1 calc(48%);
+                  background: #f8fbff;
+                  border: 1px solid #cce0ff;
+                  border-radius: 8px;
+                  padding: 16px;
+                "
+              >
+                <h3 style="color: #0056d2">📂 Lưu giữ tài sản chiến lược</h3>
+                <p>
+                  Toàn bộ tương tác đều được lưu trữ, giúp xây dựng lịch sử
+                  khách hàng, phân nhóm và triển khai các chiến lược dài hạn
+                  hiệu quả.
+                </p>
+              </div>
+
+              <div
+                style="
+                  flex: 1 1 100%;
+                  background: #fff3f3;
+                  border: 1px solid #ffa5a5;
+                  border-radius: 8px;
+                  padding: 16px;
+                "
+              >
+                <h3 style="color: #d8000c">
+                  🇻🇳 Thương hiệu Việt – sự tin cậy đến từ thân thuộc
+                </h3>
+                <p>
+                  Zalo thống trị trên hầu hết người Việt và được tin dùng rộng
+                  rãi, tạo sự an tâm và tin tưởng khi khách hàng tương tác với
+                  doanh nghiệp qua nền tảng này.
+                </p>
+              </div>
+
+              <h2 style="text-align: center; color: #0056d2; margin-top: 50px">
+                LỢI ÍCH KHI DÙNG ZSTEP
+              </h2>
+
+              <div
+                style="
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 20px;
+                  margin-top: 20px;
+                  font-size: 14px;
+                "
+              >
+                <div style="flex: 1 1 100%; text-align: center">
+                  <img src="C:\Users\test\Downloads/lp5.png"
+                    alt="Zstep"
+                    style="height: 50px; vertical-align: middle"
+                  />
+                  <span
+                    style="
+                      font-size: 28px;
+                      font-weight: bold;
+                      color: #0056d2;
+                      margin-left: 8px;
+                    "
+                    >Zstep</span
+                  >
+                </div>
+
+                <div
+                  style="
+                    flex: 1 1 calc(48%);
+                    background: #f8fbff;
+                    border-left: 4px solid #0056d2;
+                    padding: 16px;
+                    border-radius: 6px;
+                  "
+                >
+                  <h3 style="color: #0056d2">
+                    🤖 Tự động nuôi dưỡng khách hàng qua Zalo
+                  </h3>
+                  <p>
+                    Tạo và vận hành các kịch bản chăm sóc khách hàng liên tục,
+                    cá nhân hóa theo hành vi và lịch sử tương tác.
+                  </p>
+                </div>
+
+                <div
+                  style="
+                    flex: 1 1 calc(48%);
+                    background: #fff6ef;
+                    border-left: 4px solid #ff6600;
+                    padding: 16px;
+                    border-radius: 6px;
+                  "
+                >
+                  <h3 style="color: #e65c00">
+                    📈 Nâng cao tỷ lệ chuyển đổi và giữ chân khách hàng
+                  </h3>
+                  <p>
+                    Nâng cao hiệu quả tiếp thị, từ đó gia tăng doanh thu và tối
+                    ưu vòng đời khách hàng.
+                  </p>
+                </div>
+
+                <div
+                  style="
+                    flex: 1 1 calc(48%);
+                    background: #f8fbff;
+                    border-left: 4px solid #0056d2;
+                    padding: 16px;
+                    border-radius: 6px;
+                  "
+                >
+                  <h3 style="color: #0056d2">🧠 Số hoá hành vi khách hàng</h3>
+                  <p>
+                    Ghi nhận và phân loại khách hàng dựa trên hành vi, từ đó
+                    giúp doanh nghiệp tối ưu hóa chiến lược tiếp cận và bán
+                    hàng.
+                  </p>
+                </div>
+
+                <div
+                  style="
+                    flex: 1 1 calc(48%);
+                    background: #fff6ef;
+                    border-left: 4px solid #ff6600;
+                    padding: 16px;
+                    border-radius: 6px;
+                  "
+                >
+                  <h3 style="color: #e65c00">
+                    ⏱️ Tiết kiệm thời gian tối ưu nhân sự
+                  </h3>
+                  <p>
+                    Tự động hóa công việc lặp lại và chăm sóc khách hàng tinh
+                    gọn, nhẹ nhàng giúp nhân viên tập trung vào nhiệm vụ chính
+                    như tư vấn, nâng cao hiệu quả, giảm áp lực và tối ưu quy
+                    trình vận hành.
+                  </p>
+                </div>
+
+                <div
+                  style="
+                    flex: 1 1 100%;
+                    background: #f8fbff;
+                    border-left: 4px solid #0056d2;
+                    padding: 16px;
+                    border-radius: 6px;
+                  "
+                >
+                  <h3 style="color: #0056d2">
+                    🔁 Chăm sóc liên tục không để khách rơi rụng
+                  </h3>
+                  <p>
+                    Đảm bảo mọi khách hàng đều được theo dõi, chăm sóc sát sao,
+                    lưu lại lịch sử tương tác để quản lý và phục vụ hiệu quả
+                    hơn. Nhờ đó, doanh nghiệp gia tăng tỷ lệ mua lại và vòng đời
+                    khách hàng.
+                  </p>
+                </div>
+
+                <h2
+                  style="text-align: center; color: #0056d2; margin-top: 50px"
+                >
+                  KHÁCH HÀNG NÓI GÌ VỀ CHÚNG TÔI
+                </h2>
+
+                <div
+                  style="
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 20px;
+                    margin-top: 20px;
+                    font-size: 14px;
+                  "
+                >
+                  <div style="flex: 1 1 100%; text-align: center">
+                    <img
+                        src="C:\Users\test\Downloads/lp5.png" alt="Zalo icon"
+                      style="height: 60%"
+                    />
+                  </div>
+
+                  <!-- Feedback 1 -->
+                  <div
+                    style="
+                      flex: 1 1 calc(48%);
+                      background: #f1f7ff;
+                      border-left: 4px solid #0056d2;
+                      border-radius: 6px;
+                      padding: 16px;
+                    "
+                  >
+                    <h4 style="margin: 0">
+                      Anh: <strong>Đại lý ôtô Toyota, Ford</strong>
+                    </h4>
+                    <p>
+                      Trước đây chúng tôi dùng tele call lấy đánh giá khách hàng
+                      và đặc biệt bảo dưỡng. Sau khi triển khai Zstep đã giúp
+                      chúng tôi giảm 60% chi phí, lượng đánh giá thành công tăng
+                      lên gấp 3 lần giúp chúng tôi đánh giá chính xác chất lượng
+                      dịch vụ.
+                    </p>
+                  </div>
+
+                  <!-- Feedback 2 -->
+                  <div
+                    style="
+                      flex: 1 1 calc(48%);
+                      background: #f1f7ff;
+                      border-left: 4px solid #0056d2;
+                      border-radius: 6px;
+                      padding: 16px;
+                    "
+                  >
+                    <h4 style="margin: 0">
+                      Anh: <strong>Trương Công Hiếu</strong> <br /><small
+                        >Trung tâm tiếng Anh</small
+                      >
+                    </h4>
+                    <p>
+                      • Chỉ trong 3 tháng sử dụng Zstep, số lượng học viên đăng
+                      ký mới tăng 185%.<br />
+                      • Trước đây chúng tôi phải gọi điện từng khách một. Giờ
+                      chỉ cần soạn kịch bản nhu cầu, phân loại học viên và gửi
+                      nội dung phù hợp – gần như hoàn toàn tự động.
+                    </p>
+                  </div>
+
+                  <!-- Feedback 3 -->
+                  <div
+                    style="
+                      flex: 1 1 calc(48%);
+                      background: #f1f7ff;
+                      border-left: 4px solid #0056d2;
+                      border-radius: 6px;
+                      padding: 16px;
+                    "
+                  >
+                    <h4 style="margin: 0">
+                      Chị: <strong>Nguyễn Thị Nga</strong> <br /><small
+                        >Thẩm mỹ viện</small
+                      >
+                    </h4>
+                    <p>
+                      • Khách cũ quay lại đặt lịch tăng rõ rệt sau khi chúng tôi
+                      thiết lập chuỗi tin nhắn chăm sóc qua Zstep.<br />
+                      • Mỗi khách đều nhận được tin nhắn sinh nhật kèm ưu đãi
+                      riêng – rất dễ thương và gần gũi, làm họ nhớ tới dịch vụ
+                      của mình.
+                    </p>
+                  </div>
+
+                  <!-- Feedback 4 -->
+                <div
+                    style="
+                      flex: 1 1 calc(48%);
+                      background: #f1f7ff;
+                      border-left: 4px solid #0056d2;
+                      border-radius: 6px;
+                      padding: 16px;
+                    "
+                  >
+                    <h4 style="margin: 0">
+                      Chị: <strong>Lê Thị Lan</strong> <br /><small
+                        >Đại lý bất động sản</small
+                      >
+                    </h4>
+                    <p>
+                      • Chúng tôi dùng Zstep để thu thập thông tin khách hàng
+                      sau khi họ bấm đăng ký trên web.<br />
+                      • Khách được gửi tin nhắn theo nhu cầu cụ thể, dẫn tới tỉ
+                      lệ phản hồi gấp đôi so với gọi đơn thuần.<br />
+                      • Tỷ lệ chốt tăng 142% trong 6 tháng.
+                    </p>
+                </div>
+
+
+                  
+                </div>
+
+
+                <h2 style="text-align:center; color:#0056d2; margin-top:50px;">KHÁCH HÀNG TIÊU BIỂU</h2>
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 20px;">
+
+  <!-- Logo items -->
+  <div style="flex: 0 1 100px;">
+    <img src="PATH_TO_IMAGE/toyota_my_dinh.png" alt="Toyota Mỹ Đình" style="width: 100px; height: auto;">
+  </div>
+  <div style="flex: 0 1 100px;">
+    <img src="PATH_TO_IMAGE/toyota_thanh_xuan.png" alt="Toyota Thanh Xuân" style="width: 100px; height: auto;">
+  </div>
+  <div style="flex: 0 1 100px;">
+    <img src="PATH_TO_IMAGE/toyota_bac_ninh.png" alt="Toyota Bắc Ninh" style="width: 100px; height: auto;">
+  </div>
+  <div style="flex: 0 1 100px;">
+    <img src="PATH_TO_IMAGE/thanh_xuan_ford.png" alt="Thanh Xuân Ford" style="width: 100px; height: auto;">
+  </div>
+  <div style="flex: 0 1 100px;">
+    <img src="PATH_TO_IMAGE/ha_noi_ford.png" alt="Hà Nội Ford" style="width: 100px; height: auto;">
+  </div>
+  <div style="flex: 0 1 100px;">
+    <img src="PATH_TO_IMAGE/thang_long_ford.png" alt="Thăng Long Ford" style="width: 100px; height: auto;">
+  </div>
+  <div style="flex: 0 1 100px;">
+    <img src="PATH_TO_IMAGE/toyota_lang_son.png" alt="Toyota Lạng Sơn" style="width: 100px; height: auto;">
+  </div>
+  <div style="flex: 0 1 100px;">
+    <img src="PATH_TO_IMAGE/toyota_tu_son.png" alt="Toyota Từ Sơn" style="width: 100px; height: auto;">
+  </div>
+  <div style="flex: 0 1 100px;">
+    <img src="PATH_TO_IMAGE/quang_ninh_ford.png" alt="Quảng Ninh Ford" style="width: 100px; height: auto;">
+  </div>
+  <div style="flex: 0 1 100px;">
+    <img src="PATH_TO_IMAGE/missona.png" alt="Missona" style="width: 100px; height: auto;">
+  </div>
+  <div style="flex: 0 1 100px;">
+    <img src="PATH_TO_IMAGE/eruwa.png" alt="Eruwa" style="width: 100px; height: auto;">
+  </div>
+  <div style="flex: 0 1 100px;">
+    <img src="PATH_TO_IMAGE/idealvision.png" alt="Idealvision" style="width: 100px; height: auto;">
+  </div>
+
+</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

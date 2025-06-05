@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KHÁCH HÀNG NÓI GÌ VỀ CHÚNG TÔI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+           max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            padding: 50px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="70" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="80" r="2.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header-text {
+            flex: 1;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .underline {
+            width: 80px;
+            height: 3px;
+            background: white;
+            margin-bottom: 20px;
+        }
+        
+        .header-illustration {
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .illustration-woman {
+            font-size: 80px;
+            color: white;
+        }
+        
+        .zstep-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: #2563eb;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .testimonials-section {
+            padding: 50px 40px;
+            background: #f8fafc;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            border-top: 4px solid #2563eb;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .customer-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563eb, #3b82f6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .customer-info h4 {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+        
+        .customer-company {
+            font-size: 14px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .company-icon {
+            width: 16px;
+            height: 16px;
+            background: #e5e7eb;
+            border-radius: 3px;
+        }
+        
+        .testimonial-content {
+            line-height: 1.6;
+            color: #374151;
+            font-size: 15px;
+        }
+        
+        .testimonial-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 15px 0;
+        }
+        
+        .testimonial-content li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .testimonial-content li:before {
+            content: '•';
+            color: #2563eb;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .highlight-stat {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #0ea5e9, #0284c7);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .footer h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .contact-button {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(245, 158, 11, 0.3);
+        }
+        
+        .contact-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .header-illustration {
+                width: 150px;
+                height: 150px;
+                margin-top: 20px;
+            }
+            
+            .illustration-woman {
+                font-size: 60px;
+            }
+            
+            .testimonials-section {
+                padding: 30px 20px;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .testimonial-card {
+                padding: 25px 20px;
+            }
+            
+            .footer {
+                padding: 30px 20px;
+            }
+            
+            .contact-button {
+                padding: 12px 30px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>KHÁCH HÀNG NÓI GÌ<br>VỀ CHÚNG TÔI</h1>
+                    <div class="underline"></div>
+                </div>
+                <div class="header-illustration">
+                    <div class="illustration-woman">👩‍💼</div>
+                    <div class="zstep-badge">ZS</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonials-section">
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="customer-avatar">A</div>
+                        <div class="customer-info">
+                            <h4>Anh:</h4>
+                            <div class="customer-company">
+                                <div class="company-icon"></div>
+                                Đại lý oto toyota, Ford
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        Trước đây chúng tôi dùng tele call lấy đánh giá khách hàng và các lịch hẹn xem xe. Sau khi triển khai Zstep đã giúp chúng tôi giảm <span class="highlight-stat">60% chi phí</span>, lượng dành giá thành công tăng lên gấp 3 lần giúp chúng tôi đánh giá chính xác chất lượng khách điều mới.
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="customer-avatar">A</div>
+                        <div class="customer-info">
+                            <h4>Anh: Trương Công Hiếu</h4>
+                            <div class="customer-company">
+                                <div class="company-icon"></div>
+                                Trung tâm tiếng anh:
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <ul>
+                            <li>Chỉ trong 3 tháng sử dụng Zstep, số lượng học viên đăng ký mới tăng <span class="highlight-stat">185%</span>.</li>
+                            <li>Trước đây chúng tôi phải gọi điện từng khách một. Giờ chỉ cần chatbot tự hỏi thăm học viên và gửi thông tin phù hợp - gần như hoàn toàn tự động.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="customer-avatar">C</div>
+                        <div class="customer-info">
+                            <h4>Chị: Nguyễn Thị Nga</h4>
+                            <div class="customer-company">
+                                <div class="company-icon"></div>
+                                Thẩm mỹ viện
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <ul>
+                            <li>Khách cũ quay lại đặt lịch tăng rõ rệt sau khi chúng tôi thiết lập chuỗi tin nhắn chăm sóc qua Zstep.</li>
+                            <li>Mỗi khách đều nhận được tin nhắc sinh nhật kèm ưu đãi riêng - điều mà trước đây không thể làm nổi vì quá tốn thời gian.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="customer-avatar">C</div>
+                        <div class="customer-info">
+                            <h4>Chị: Lê Thi</h4>
+                            <div class="customer-company">
+                                <div class="company-icon"></div>
+                                Kinh doanh bất động sản
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        <ul>
+                            <li>Chúng tôi dùng Zstep để thu thập thông tin khách hàng sau khi họ xem bất động sản trên web.</li>
+                            <li>Khách được gắn thẻ tự động theo khu vực quan tâm và ngân sách, giúp đội sales dễ tư vấn hơn.</li>
+                            <li>Tỷ lệ chốt deal tăng <span class="highlight-stat">142% trong 6 tháng</span>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <h3>Liên hệ tư vấn</h3>
+            <button class="contact-button">Liên hệ ngay</button>
+        </div>
+    </div>
+</body>
+</html>

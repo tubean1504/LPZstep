@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vấn đề chăm sóc khách hàng - Zstep</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .title {
+            color: white;
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+            line-height: 1.2;
+        }
+
+        .illustration-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .character {
+            background: white;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            position: relative;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .character:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .character:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .speech-bubble {
+            position: absolute;
+            background: #ff6b6b;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            top: -40px;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #ff6b6b;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            padding: 40px 30px;
+        }
+
+        .problem-card {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e6f3ff 100%);
+            border: 2px solid #e1ecf4;
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .problem-card:hover::before {
+            opacity: 1;
+        }
+
+        .problem-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .problem-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .icon-phone { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); }
+        .icon-alarm { background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%); }
+        .icon-storage { background: linear-gradient(135deg, #26c6da 0%, #00acc1 100%); }
+        .icon-quality { background: linear-gradient(135deg, #ab47bc 0%, #8e24aa 100%); }
+        .icon-time { background: linear-gradient(135deg, #ff7043 0%, #f4511e 100%); }
+        .icon-experience { background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%); }
+
+        .problem-title {
+            color: #2c3e50;
+            font-size: 1.3em;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .problem-content {
+            color: #5a6c7d;
+            line-height: 1.6;
+        }
+
+        .problem-item {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .problem-item::before {
+            content: '•';
+            color: #667eea;
+            font-size: 1.5em;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        .highlight {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-btn {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 18px 45px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 20px rgba(255,255,255,0.3);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.4);
+            background: #f8f9ff;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .problems-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .problem-card {
+                padding: 20px;
+            }
+            
+            .title {
+                font-size: 1.8em;
+            }
+            
+            .character {
+                width: 60px;
+                height: 60px;
+                margin: 0 10px;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">NHÂN VIÊN MỆT MỎI KHI CHĂM SÓC KHÁCH QUA ĐIỆN THOẠI</h1>
+            
+            <div class="illustration-container">
+                <div class="character">
+                    <span style="font-size: 30px;">🤔</span>
+                    <div class="speech-bubble">?</div>
+                </div>
+                <div class="character">
+                    <span style="font-size: 30px;">😤</span>
+                    <div class="speech-bubble">ĐỂ CHỜ CHỊ NÀU</div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">65%</span>
+                    <span class="stat-label">Khách không nghe máy</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">40%</span>
+                    <span class="stat-label">Thời gian lãng phí</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="problems-grid">
+            <div class="problem-card fade-in" style="animation-delay: 0.1s;">
+                <div class="problem-header">
+                    <div class="problem-icon icon-phone">📞</div>
+                    <div class="problem-title">Khó tiếp cận khách hàng</div>
+                </div>
+                <div class="problem-content">
+                    <div class="problem-item"><span class="highlight">65%</span> Khách không nghe máy, từ chối cuộc gọi hoặc chặn số là</div>
+                    <div class="problem-item">Gọi vào thời điểm <span class="highlight">không phù hợp</span> nhỏ với khách</div>
+                </div>
+            </div>
+
+            <div class="problem-card fade-in" style="animation-delay: 0.2s;">
+                <div class="problem-header">
+                    <div class="problem-icon icon-alarm">⚠️</div>
+                    <div class="problem-title">Dễ gây phản cảm hoặc</div>
+                </div>
+                <div class="problem-content">
+                    <div class="problem-item">Một số khách hàng <span class="highlight">sợ bị lừa</span> bởi gọi làm phiền hoặc bị <span class="highlight">"ép mua"</span></div>
+                    <div class="problem-item">Dễ ảnh <span class="highlight">hưởng đến hình ảnh</span> thương hiệu nếu xử lý không khéo</div>
+                </div>
+            </div>
+
+            <div class="problem-card fade-in" style="animation-delay: 0.3s;">
+                <div class="problem-header">
+                    <div class="problem-icon icon-time">⏰</div>
+                    <div class="problem-title">Tốn nhiều thời gian và chi phí</div>
+                </div>
+                <div class="problem-content">
+                    <div class="problem-item">Mỗi cuộc gọi cần thời gian xử lý riêng, nhỏ với khách số lượng lớn</div>
+                    <div class="problem-item">Phải thuê nhiều nhân viên telesales</div>
+                    <div class="problem-item">— Tốn chi phí nhân sự và đào tạo</div>
+                </div>
+            </div>
+
+            <div class="problem-card fade-in" style="animation-delay: 0.4s;">
+                <div class="problem-header">
+                    <div class="problem-icon icon-storage">💾</div>
+                    <div class="problem-title">Khó lưu trữ và khai thác dữ liệu</div>
+                </div>
+                <div class="problem-content">
+                    <div class="problem-item">Dữ liệu từ cuộc gọi khó được ghi nhận và phân tích đầy đủ</div>
+                    <div class="problem-item">Thiếu thông tin tập trung để phản hồi hành vi, theo dõi lịch sử <span class="highlight">chăm sóc</span></div>
+                </div>
+            </div>
+
+            <div class="problem-card fade-in" style="animation-delay: 0.5s;">
+                <div class="problem-header">
+                    <div class="problem-icon icon-quality">🎯</div>
+                    <div class="problem-title">Chất lượng tương tác</div>
+                </div>
+                <div class="problem-content">
+                    <div class="problem-item">Phụ thuộc vào kỹ năng giao tiếp của nhân viên</div>
+                    <div class="problem-item">— dễ xảy ra sai sót, truyền đạt thông tin không thống nhất</div>
+                    <div class="problem-item">Không kiểm soát được nội dung cuộc gọi nếu không ghi âm hoặc giám sát chi tiết</div>
+                </div>
+            </div>
+
+            <div class="problem-card fade-in" style="animation-delay: 0.6s;">
+                <div class="problem-header">
+                    <div class="problem-icon icon-experience">📱</div>
+                    <div class="problem-title">Khó cá nhân hóa trải nghiệm</div>
+                </div>
+                <div class="problem-content">
+                    <div class="problem-item">Nội dung cuộc gọi thường là mẫu chung, thiếu tính cá nhân để tạo sự khác biệt</div>
+                    <div class="problem-item">Gây cảm giác bị <span class="highlight">"spam"</span>, không được quan tâm thực sự</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2 style="margin-bottom: 20px; font-size: 1.8em;">Giải pháp tối ưu với Zstep!</h2>
+            <p style="margin-bottom: 30px; font-size: 1.1em; opacity: 0.9;">
+                Chăm sóc khách hàng tự động qua Zalo - hiệu quả hơn, tiết kiệm hơn, thân thiện hơn
+            </p>
+            <button class="cta-btn" onclick="contactNow()">Liên hệ tư vấn</button>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling and animations
+        window.addEventListener('scroll', () => {
+            const cards = document.querySelectorAll('.problem-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (isVisible) {
+                    card.style.transform = 'translateY(0)';
+                    card.style.opacity = '1';
+                }
+            });
+        });
+
+        function contactNow() {
+            const btn = event.target;
+            btn.style.transform = 'scale(0.95)';
+            
+            // Add ripple effect
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(102, 126, 234, 0.3);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            `;
+            
+            const rect = btn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (event.clientX - rect.left - size / 2) + 'px';
+            ripple.style.top = (event.clientY - rect.top - size / 2) + 'px';
+            
+            btn.style.position = 'relative';
+            btn.appendChild(ripple);
+            
+            setTimeout(() => {
+                btn.style.transform = '';
+                ripple.remove();
+            }, 600);
+
+            // Show contact info
+            setTimeout(() => {
+                alert('🚀 Cảm ơn bạn quan tâm đến Zstep!\n\n📞 Hotline: 1900-xxxx\n📧 Email: info@zstep.vn\n💬 Zalo: ZstepVietnam\n\nChúng tôi sẽ liên hệ trong 24h!');
+            }, 100);
+        }
+
+        // Add ripple animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add intersection observer for better performance
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

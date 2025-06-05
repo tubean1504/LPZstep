@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vấn đề chăm sóc khách hàng qua Email - Zstep</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 8s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .title {
+            color: white;
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+            line-height: 1.2;
+        }
+
+        .email-illustration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin: 20px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .email-character {
+            text-align: center;
+            position: relative;
+        }
+
+        .character-avatar {
+            width: 100px;
+            height: 100px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .character-avatar:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .character-avatar:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .spam-label {
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            transform: rotate(15deg);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: rotate(15deg) scale(1); }
+            50% { transform: rotate(15deg) scale(1.1); }
+        }
+
+        .problems-container {
+            padding: 40px 30px;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        .problem-card {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e6f3ff 100%);
+            border: 2px solid #e1ecf4;
+            border-radius: 20px;
+            padding: 25px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(66, 133, 244, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(66, 133, 244, 0.2);
+            border-color: #4285f4;
+        }
+
+        .problem-card:hover::before {
+            left: 100%;
+        }
+
+        .problem-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .problem-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .icon-info { background: linear-gradient(135deg, #4285f4 0%, #1a73e8 100%); }
+        .icon-data { background: linear-gradient(135deg, #34a853 0%, #137333 100%); }
+        .icon-automation { background: linear-gradient(135deg, #fbbc04 0%, #f9ab00 100%); }
+        .icon-personalization { background: linear-gradient(135deg, #ea4335 0%, #d33b2c 100%); }
+        .icon-relationship { background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%); }
+        .icon-brand { background: linear-gradient(135deg, #ff7043 0%, #f4511e 100%); }
+
+        .problem-title {
+            color: #2c3e50;
+            font-size: 1.3em;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .problem-content {
+            color: #5a6c7d;
+            line-height: 1.6;
+        }
+
+        .problem-item {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .problem-item::before {
+            content: '•';
+            color: #4285f4;
+            font-size: 1.5em;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        .highlight {
+            color: #4285f4;
+            font-weight: bold;
+        }
+
+        .spam-text {
+            color: #ea4335;
+            font-weight: bold;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            padding: 40px 30px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-btn {
+            background: white;
+            color: #4285f4;
+            border: none;
+            padding: 18px 45px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 6px 20px rgba(255,255,255,0.3);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.4);
+            background: #f8f9ff;
+        }
+
+        .email-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+            color: #fff;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .problems-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .email-illustration {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .character-avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 30px;
+            }
+            
+            .title {
+                font-size: 1.8em;
+            }
+            
+            .problems-container {
+                padding: 20px;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .email-icon {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255,255,255,0.6);
+            animation: floatEmail 4s ease-in-out infinite;
+        }
+
+        @keyframes floatEmail {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            25% { transform: translateY(-15px) translateX(10px); }
+            50% { transform: translateY(-5px) translateX(-5px); }
+            75% { transform: translateY(-10px) translateX(15px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">NHÂN VIÊN GẶP KHÓ KHĂN KHI CHĂM SÓC KHÁCH QUA EMAIL</h1>
+            
+            <div class="email-illustration">
+                <div class="email-character">
+                    <div class="character-avatar">
+                        👩‍💻
+                        <div class="spam-label">SPAM</div>
+                    </div>
+                </div>
+                <div class="email-character">
+                    <div class="character-avatar">
+                        🧑‍💼
+                        <div class="spam-label">SPAM</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="email-stats">
+                <div class="stat-box">
+                    <span class="stat-number">23%</span>
+                    <span class="stat-label">Tỷ lệ mở email</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">2.5%</span>
+                    <span class="stat-label">Tỷ lệ phản hồi</span>
+                </div>
+            </div>
+
+            <!-- Floating email icons -->
+            <div class="email-icon" style="top: 20%; left: 10%; animation-delay: 0s;">📧</div>
+            <div class="email-icon" style="top: 30%; right: 15%; animation-delay: 1s;">✉️</div>
+            <div class="email-icon" style="bottom: 25%; left: 20%; animation-delay: 2s;">📨</div>
+            <div class="email-icon" style="bottom: 35%; right: 25%; animation-delay: 3s;">📬</div>
+        </div>
+
+        <div class="problems-container">
+            <div class="problems-grid">
+                <div class="problem-card fade-in">
+                    <div class="problem-header">
+                        <div class="problem-icon icon-info">📧</div>
+                        <div class="problem-title">Thông tin không đến được khách hàng</div>
+                    </div>
+                    <div class="problem-content">
+                        <div class="problem-item">Người dùng ít kiểm tra email cá nhân, đặc biệt ở <span class="highlight">Việt Nam</span></div>
+                        <div class="problem-item">Email dễ <span class="spam-text">rơi vào mục Spam</span> hoặc quảng cáo</div>
+                        <div class="problem-item">Khách sợ bị <span class="highlight">lừa đảo</span>, vì rút nên không mở <span class="highlight">email lạ</span></div>
+                    </div>
+                </div>
+
+                <div class="problem-card fade-in">
+                    <div class="problem-header">
+                        <div class="problem-icon icon-data">📊</div>
+                        <div class="problem-title">Dữ liệu khách hàng bị rời rạc</div>
+                    </div>
+                    <div class="problem-content">
+                        <div class="problem-item"><span class="highlight">Không thể theo dõi hành vi</span> khách hàng qua email</div>
+                        <div class="problem-item">Thiếu liên kết giữa nội dung email và các <span class="highlight">hành động tiếp theo</span> để tạo các kịch bản phù hợp</div>
+                    </div>
+                </div>
+
+                <div class="problem-card fade-in">
+                    <div class="problem-header">
+                        <div class="problem-icon icon-automation">⚙️</div>
+                        <div class="problem-title">Khó tự động hóa đến mức hiệu quả</div>
+                    </div>
+                    <div class="problem-content">
+                        <div class="problem-item">Khó xác định chính xác email nào cần gửi hàng</div>
+                        <div class="problem-item">Tỷ lệ mở click thấp, khó chuyển đổi thành hành động mua hàng</div>
+                    </div>
+                </div>
+
+                <div class="problem-card fade-in">
+                    <div class="problem-header">
+                        <div class="problem-icon icon-personalization">🎯</div>
+                        <div class="problem-title">Khó phân hỏi nhanh</div>
+                    </div>
+                    <div class="problem-content">
+                        <div class="problem-item">Email là kênh <span class="highlight">giao tiếp một chiều</span>, thiếu tính tương tác tức thời</div>
+                        <div class="problem-item">Mất cơ hội chăm sóc kịp thời, không có thể chuyển sang đơn vị <span class="highlight">khác nhanh hơn</span></div>
+                    </div>
+                </div>
+
+                <div class="problem-card fade-in">
+                    <div class="problem-header">
+                        <div class="problem-icon icon-relationship">💔</div>
+                        <div class="problem-title">Khó xây dựng mối quan hệ cá nhân</div>
+                    </div>
+                    <div class="problem-content">
+                        <div class="problem-item">Người dùng Việt Nam chủ yếu dùng <span class="highlight">Zalo để giao tiếp</span></div>
+                        <div class="problem-item">Không có để thể hiện sự quan tâm cá nhân như khi chat hoặc gọi điện</div>
+                    </div>
+                </div>
+
+                <div class="problem-card fade-in">
+                    <div class="problem-header">
+                        <div class="problem-icon icon-brand">🏷️</div>
+                        <div class="problem-title">Giảm uy tín thương hiệu</div>
+                    </div>
+                    <div class="problem-content">
+                        <div class="problem-item">Dễ gây phản cảm làm giảm uy tín thương hiệu</div>
+                        <div class="problem-item">Cảm điếm uy tín thấp miền, ảnh hưởng đến email sau</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2 style="margin-bottom: 20px; font-size: 1.8em;">Zstep - Giải pháp chăm sóc khách hàng qua Zalo!</h2>
+            <p style="margin-bottom: 30px; font-size: 1.1em; opacity: 0.9;">
+                ✅ Tỷ lệ đọc tin nhắn cao hơn 300% so với email<br>
+                ✅ Tương tác 2 chiều tức thời và thân thiện<br>
+                ✅ Tự động hóa thông minh với AI
+            </p>
+            <button class="cta-btn" onclick="contactNow()">Liên hệ tư vấn</button>
+        </div>
+    </div>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Contact button functionality
+        function contactNow() {
+            const btn = event.target;
+            btn.style.transform = 'scale(0.95)';
+            
+            // Create ripple effect
+            const ripple = document.createElement('div');
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(66, 133, 244, 0.3);
+                transform: scale(0);
+                animation: ripple 0.6s linear;
+                pointer-events: none;
+            `;
+            
+            const rect = btn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (event.clientX - rect.left - size / 2) + 'px';
+            ripple.style.top = (event.clientY - rect.top - size / 2) + 'px';
+            
+            btn.style.position = 'relative';
+            btn.appendChild(ripple);
+            
+            setTimeout(() => {
+                btn.style.transform = '';
+                ripple.remove();
+            }, 600);
+
+            // Show contact modal
+            setTimeout(() => {
+                showContactModal();
+            }, 100);
+        }
+
+        function showContactModal() {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                animation: fadeIn 0.3s ease;
+            `;
+
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                padding: 40px;
+                border-radius: 20px;
+                text-align: center;
+                max-width: 400px;
+                margin: 20px;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                animation: slideUp 0.3s ease;
+            `;
+
+            modalContent.innerHTML = `
+                <h3 style="color: #4285f4; margin-bottom: 20px; font-size: 1.5em;">🚀 Liên hệ Zstep</h3>
+                <div style="margin-bottom: 15px; color: #666;">
+                    📞 <strong>Hotline:</strong> 1900-ZSTEP
+                </div>
+                <div style="margin-bottom: 15px; color: #666;">
+                    📧 <strong>Email:</strong> info@zstep.vn
+                </div>
+                <div style="margin-bottom: 15px; color: #666;">
+                    💬 <strong>Zalo:</strong> ZstepVietnam
+                </div>
+                <div style="margin-bottom: 25px; color: #666;">
+                    🌐 <strong>Website:</strong> zstep.vn
+                </div>
+                <p style="color: #4285f4; font-weight: bold; margin-bottom: 20px;">
+                    Chúng tôi sẽ liên hệ trong vòng 24h!
+                </p>
+                <button onclick="closeModal()" style="
+                    background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+                    color: white;
+                    border: none;
+                    padding: 12px 30px;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    font-weight: bold;
+                ">Đóng</button>
+            `;
+
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+
+            window.closeModal = () => {
+                modal.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => {
+                    document.body.removeChild(modal);
+                }, 300);
+            };
+
+            modal.onclick = (e) => {
+                if (e.target === modal) closeModal();
+            };
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+            @keyframes slideUp {
+                from { transform: translateY(30px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add staggered animation delays
+        document.querySelectorAll('.problem-card').forEach((card, index) => {
+            card.style.transitionDelay = `${index * 0.1}s`;
+        });
+    </script>
+</body>
+</html>

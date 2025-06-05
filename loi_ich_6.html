@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LỢI ÍCH KHI DÙNG ZSTEP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: white;
+            color: #2196F3;
+            padding: 40px;
+            border-bottom: 3px solid #2196F3;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .underline {
+            width: 80px;
+            height: 3px;
+            background: #2196F3;
+            margin-bottom: 30px;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            color: #2196F3;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 20px 30px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: #2196F3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .benefits-section {
+            padding: 40px;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .benefit-card {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #2196F3;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(33, 150, 243, 0.1);
+            background: #f0f7ff;
+        }
+        
+        .benefit-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .benefit-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .icon-automation {
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+        }
+        
+        .icon-conversion {
+            background: linear-gradient(135deg, #FF9800, #FFB74D);
+        }
+        
+        .icon-efficiency {
+            background: linear-gradient(135deg, #9C27B0, #BA68C8);
+        }
+        
+        .icon-optimization {
+            background: linear-gradient(135deg, #2196F3, #64B5F6);
+        }
+        
+        .icon-care {
+            background: linear-gradient(135deg, #E91E63, #F06292);
+        }
+        
+        .benefit-content h3 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #FF5722;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        
+        .benefit-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #444;
+        }
+        
+        .highlight {
+            color: #2196F3;
+            font-weight: 600;
+        }
+        
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .footer {
+            background: #1565c0;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .contact-button {
+            background: linear-gradient(135deg, #FF9800, #FF7043);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(255, 152, 0, 0.3);
+        }
+        
+        .contact-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .logo-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                font-size: 36px;
+                padding: 15px 20px;
+            }
+            
+            .benefits-section {
+                padding: 30px 20px;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .benefit-card {
+                padding: 20px;
+            }
+            
+            .footer {
+                padding: 20px;
+            }
+            
+            .contact-button {
+                padding: 12px 30px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LỢI ÍCH KHI DÙNG ZSTEP</h1>
+            <div class="underline"></div>
+            <div class="logo-section">
+                <div class="logo">
+                    Zstep
+                    <div class="logo-icon">⭐</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="benefits-section">
+            <div class="benefits-grid">
+                <div class="left-column">
+                    <div class="benefit-card">
+                        <div class="benefit-header">
+                            <div class="benefit-icon icon-automation">🤖</div>
+                            <div class="benefit-content">
+                                <h3>Tự động nuôi dưỡng khách hàng qua Zalo</h3>
+                            </div>
+                        </div>
+                        <div class="benefit-description">
+                            Tạo và vận hành các kịch bản chăm sóc khách hàng linh hoạt, cá nhân hóa theo hành vi và lịch sử tương tác.
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-header">
+                            <div class="benefit-icon icon-efficiency">⏱️</div>
+                            <div class="benefit-content">
+                                <h3>Tiết kiệm thời gian tối ưu nhân sự</h3>
+                            </div>
+                        </div>
+                        <div class="benefit-description">
+                            Tự động hóa <span class="highlight">công việc lặp lại</span> và lọc trước khách hàng tiềm năng giúp nhân viên <span class="highlight">tập trung</span> vào khách hàng tiềm năng, nâng cao hiệu quả, giảm áp lực và tạo môi trường làm việc tích cực.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="right-column">
+                    <div class="benefit-card">
+                        <div class="benefit-header">
+                            <div class="benefit-icon icon-conversion">📈</div>
+                            <div class="benefit-content">
+                                <h3>Nâng cao tỷ lệ chuyển đổi và giữ chân khách hàng</h3>
+                            </div>
+                        </div>
+                        <div class="benefit-description">
+                            Nâng cao hiệu quả tiếp thị, tỷ lệ gia tăng doanh thu và tối ưu vòng đời khách hàng.
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-header">
+                            <div class="benefit-icon icon-optimization">📊</div>
+                            <div class="benefit-content">
+                                <h3>Số hóa hành vi khách hàng</h3>
+                            </div>
+                        </div>
+                        <div class="benefit-description">
+                            Phân tích và phân loại khách hàng dựa trên hành động thực tế, giúp tối ưu hóa chiến lược tiếp cận và bán hàng.
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-card">
+                        <div class="benefit-header">
+                            <div class="benefit-icon icon-care">💬</div>
+                            <div class="benefit-content">
+                                <h3>Chăm sóc liên tục không để khách rơi rụng</h3>
+                            </div>
+                        </div>
+                        <div class="benefit-description">
+                            Tự động gửi tin nhắn nhắc lịch, ưu đãi hoặc nội dung theo sau <span class="highlight">mua gói duy trì mối quan hệ với khách hàng</span>. Nhờ đó, doanh nghiệp giữ tầng lò lá mua lại và kéo dài vòng đời khách hàng.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <button class="contact-button">Liên hệ tư vấn</button>
+        </div>
+    </div>
+</body>
+</html>
