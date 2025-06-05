@@ -489,9 +489,8 @@
 	}
 
 	.cta-btn:hover {
-		transform: translateY(-3px);
+		transform: translateX(-50%);
 		box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
-		background: #f8f9ff;
 	}
 
 	.stats {
@@ -824,9 +823,8 @@
 	}
 
 	.cta-btn:hover {
-		transform: translateY(-3px);
+		transform: translateX(-50%);
 		box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
-		background: #f8f9ff;
 	}
 
 	.email-stats {
@@ -3013,29 +3011,6 @@
 	});
 	// Contact button functionality
 	function contactNow() {
-		const btn = event.target;
-		btn.style.transform = "scale(0.95)";
-		// Create ripple effect
-		const ripple = document.createElement("div");
-		ripple.style.cssText = `
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(66, 133, 244, 0.3);
-                transform: scale(0);
-                animation: ripple 0.6s linear;
-                pointer-events: none;
-            `;
-		const rect = btn.getBoundingClientRect();
-		const size = Math.max(rect.width, rect.height);
-		ripple.style.width = ripple.style.height = size + "px";
-		ripple.style.left = event.clientX - rect.left - size / 2 + "px";
-		ripple.style.top = event.clientY - rect.top - size / 2 + "px";
-		btn.style.position = "relative";
-		btn.appendChild(ripple);
-		setTimeout(() => {
-			btn.style.transform = "";
-			ripple.remove();
-		}, 600);
 		// Show contact modal
 		setTimeout(() => {
 			showContactModal();
