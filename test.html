@@ -1,3418 +1,3693 @@
 <!DOCTYPE html>
 <html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zstep - Giải pháp chăm sóc khách hàng qua Zalo</title>
+    <!-- Gộp CSS -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Zstep - Giải pháp chăm sóc khách hàng qua Zalo</title>
-	<!-- Gộp CSS -->
-	<style>
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-	body {
-		font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-		min-height: 100vh;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
+      .container {
+        background: white;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        max-width: 1000px;
+        position: relative;
+      }
 
-	.container {
-		background: white;
-		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-		overflow: hidden;
-		max-width: 1000px;
-		position: relative;
-	}
+      .header {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe33 100%);
+        padding: 30px 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
 
-	.header {
-		background: linear-gradient(135deg, #4facfe 0%, #00f2fe33 100%);
-		padding: 30px 20px;
-		text-align: center;
-		position: relative;
-		overflow: hidden;
-	}
+      .header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        animation: float 6s ease-in-out infinite;
+      }
 
-	.header::before {
-		content: "";
-		position: absolute;
-		top: -50%;
-		left: -50%;
-		width: 200%;
-		height: 200%;
-		background: radial-gradient(circle,
-			rgba(255, 255, 255, 0.1) 0%,
-			transparent 70%);
-		animation: float 6s ease-in-out infinite;
-	}
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
 
-	@keyframes float {
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+        }
+      }
 
-		0%,
-		100% {
-			transform: translateY(0px) rotate(0deg);
-		}
+      .logo-zstep {
+        color: white;
+        font-size: 2.5em;
+        font-weight: bold;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 2;
+      }
 
-		50% {
-			transform: translateY(-20px) rotate(180deg);
-		}
-	}
+      .features {
+        padding: 20px;
+      }
 
-	.logo-zstep {
-		color: white;
-		font-size: 2.5em;
-		font-weight: bold;
-		text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-		position: relative;
-		z-index: 2;
-	}
+      .feature-item {
+        background: #f8f9ff;
+        border: 2px solid #e6ebff;
+        border-radius: 15px;
+        padding: 11px 15px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
 
-	.features {
-		padding: 20px;
-	}
+      .feature-item::before {
+        content: "";
+        position: absolute;
+        left: -100%;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(74, 172, 254, 0.1),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
 
-	.feature-item {
-		background: #f8f9ff;
-		border: 2px solid #e6ebff;
-		border-radius: 15px;
-		padding: 11px 15px;
-		margin-bottom: 15px;
-		display: flex;
-		align-items: center;
-		transition: all 0.3s ease;
-		cursor: pointer;
-		position: relative;
-		overflow: hidden;
-	}
+      .feature-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(74, 172, 254, 0.3);
+        border-color: #4facfe;
+      }
 
-	.feature-item::before {
-		content: "";
-		position: absolute;
-		left: -100%;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(90deg,
-			transparent,
-			rgba(74, 172, 254, 0.1),
-			transparent);
-		transition: left 0.5s ease;
-	}
+      .feature-item:hover::before {
+        left: 100%;
+      }
 
-	.feature-item:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 8px 25px rgba(74, 172, 254, 0.3);
-		border-color: #4facfe;
-	}
+      .feature-icon {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(74, 172, 254, 0.4);
+      }
 
-	.feature-item:hover::before {
-		left: 100%;
-	}
+      .feature-text {
+        color: #2c3e50;
+        font-size: 16px;
+        font-weight: 500;
+        flex: 1;
+      }
 
-	.feature-icon {
-		background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-		color: white;
-		width: 35px;
-		height: 35px;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-right: 15px;
-		font-weight: bold;
-		box-shadow: 0 4px 15px rgba(74, 172, 254, 0.4);
-	}
+      .zalo-section {
+        background: linear-gradient(135deg, #f8f9ff 0%, #e6ebff 100%);
+        padding: 25px 20px;
+        border-radius: 20px;
+        margin: 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
 
-	.feature-text {
-		color: #2c3e50;
-		font-size: 16px;
-		font-weight: 500;
-		flex: 1;
-	}
+      .zalo-section::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, #4facfe, #00f2fe, #4facfe);
+        border-radius: 22px;
+        z-index: -1;
+        animation: borderGlow 3s linear infinite;
+      }
 
-	.zalo-section {
-		background: linear-gradient(135deg, #f8f9ff 0%, #e6ebff 100%);
-		padding: 25px 20px;
-		border-radius: 20px;
-		margin: 20px;
-		text-align: center;
-		position: relative;
-		overflow: hidden;
-	}
+      @keyframes borderGlow {
+        0% {
+          transform: rotate(0deg);
+        }
 
-	.zalo-section::before {
-		content: "";
-		position: absolute;
-		top: -2px;
-		left: -2px;
-		right: -2px;
-		bottom: -2px;
-		background: linear-gradient(45deg, #4facfe, #00f2fe, #4facfe);
-		border-radius: 22px;
-		z-index: -1;
-		animation: borderGlow 3s linear infinite;
-	}
+        100% {
+          transform: rotate(360deg);
+        }
+      }
 
-	@keyframes borderGlow {
-		0% {
-			transform: rotate(0deg);
-		}
+      .zalo-logo {
+        width: 40px;
+        height: 40px;
+        background: #0084ff;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 15px rgba(0, 132, 255, 0.4);
+      }
 
-		100% {
-			transform: rotate(360deg);
-		}
-	}
+      .zalo-text {
+        color: #2c3e50;
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
 
-	.zalo-logo {
-		width: 40px;
-		height: 40px;
-		background: #0084ff;
-		border-radius: 50%;
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		color: white;
-		font-weight: bold;
-		margin-bottom: 15px;
-		box-shadow: 0 4px 15px rgba(0, 132, 255, 0.4);
-	}
+      .contact-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 30px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+      }
 
-	.zalo-text {
-		color: #2c3e50;
-		font-size: 15px;
-		line-height: 1.6;
-		margin-bottom: 20px;
-	}
+      .contact-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
+      }
 
-	.contact-btn {
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-		color: white;
-		border: none;
-		padding: 15px 40px;
-		border-radius: 30px;
-		font-size: 16px;
-		font-weight: bold;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-	}
+      .contact-btn:active {
+        transform: translateY(0);
+      }
 
-	.contact-btn:hover {
-		transform: translateY(-2px);
-		box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
-	}
+      @media (max-width: 480px) {
+        .logo-zstep {
+          font-size: 2em;
+        }
 
-	.contact-btn:active {
-		transform: translateY(0);
-	}
+        .feature-text {
+          font-size: 14px;
+        }
+      }
 
-	@media (max-width: 480px) {
-		.logo-zstep {
-			font-size: 2em;
-		}
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-		.feature-text {
-			font-size: 14px;
-		}
-	}
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
 
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
+      .header-phone {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px 15px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
 
-	body {
-		font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-		min-height: 100vh;
-	}
+      .header-phone::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        animation: rotate 10s linear infinite;
+      }
 
-	.header-phone {
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-		padding: 20px 15px;
-		text-align: center;
-		position: relative;
-		overflow: hidden;
-	}
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
 
-	.header-phone::before {
-		content: "";
-		position: absolute;
-		top: -50%;
-		left: -50%;
-		width: 200%;
-		height: 200%;
-		background: radial-gradient(circle,
-			rgba(255, 255, 255, 0.1) 0%,
-			transparent 70%);
-		animation: rotate 10s linear infinite;
-	}
+        100% {
+          transform: rotate(360deg);
+        }
+      }
 
-	@keyframes rotate {
-		0% {
-			transform: rotate(0deg);
-		}
+      .title-phone {
+        color: white;
+        font-weight: bold;
+        margin-bottom: 63px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 2;
+        line-height: 1.2;
+      }
 
-		100% {
-			transform: rotate(360deg);
-		}
-	}
+      .illustration-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 30px 0;
+        position: relative;
+        z-index: 2;
+      }
 
-	.title-phone {
-		color: white;
-		font-weight: bold;
-		margin-bottom: 63px;
-		text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-		position: relative;
-		z-index: 2;
-		line-height: 1.2;
-	}
+      .character {
+        border-radius: 50%;
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 20px;
+        position: relative;
+        animation: bounce 2s ease-in-out infinite;
+      }
 
-	.illustration-container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin: 30px 0;
-		position: relative;
-		z-index: 2;
-	}
+      .character:nth-child(1) {
+        animation-delay: 0s;
+      }
 
-	.character {
-		border-radius: 50%;
-		width: 80px;
-		height: 80px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin: 0 20px;
-		position: relative;
-		animation: bounce 2s ease-in-out infinite;
-	}
+      .character:nth-child(2) {
+        animation-delay: 0.5s;
+      }
 
-	.character:nth-child(1) {
-		animation-delay: 0s;
-	}
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateY(0);
+        }
 
-	.character:nth-child(2) {
-		animation-delay: 0.5s;
-	}
+        40% {
+          transform: translateY(-10px);
+        }
 
-	@keyframes bounce {
+        60% {
+          transform: translateY(-5px);
+        }
+      }
 
-		0%,
-		20%,
-		50%,
-		80%,
-		100% {
-			transform: translateY(0);
-		}
+      .speech-bubble {
+        position: absolute;
+        background: #ff6b6b;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        top: -40px;
+        white-space: nowrap;
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+      }
 
-		40% {
-			transform: translateY(-10px);
-		}
+      .speech-bubble::after {
+        content: "";
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 8px solid #ff6b6b;
+      }
 
-		60% {
-			transform: translateY(-5px);
-		}
-	}
+      .problems-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 25px;
+        padding: 40px 30px;
+      }
 
-	.speech-bubble {
-		position: absolute;
-		background: #ff6b6b;
-		color: white;
-		padding: 8px 12px;
-		border-radius: 15px;
-		font-size: 12px;
-		top: -40px;
-		white-space: nowrap;
-		box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-	}
+      .problem-card {
+        background: linear-gradient(135deg, #f8f9ff 0%, #e6f3ff 100%);
+        border: 2px solid #e1ecf4;
+        border-radius: 20px;
+        padding: 25px;
+        transition: all 0.4s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
 
-	.speech-bubble::after {
-		content: "";
-		position: absolute;
-		bottom: -8px;
-		left: 50%;
-		transform: translateX(-50%);
-		width: 0;
-		height: 0;
-		border-left: 8px solid transparent;
-		border-right: 8px solid transparent;
-		border-top: 8px solid #ff6b6b;
-	}
+      .problem-card::before {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+        border-radius: 22px;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
 
-	.problems-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-		gap: 25px;
-		padding: 40px 30px;
-	}
+      .problem-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+      }
 
-	.problem-card {
-		background: linear-gradient(135deg, #f8f9ff 0%, #e6f3ff 100%);
-		border: 2px solid #e1ecf4;
-		border-radius: 20px;
-		padding: 25px;
-		transition: all 0.4s ease;
-		cursor: pointer;
-		position: relative;
-		overflow: hidden;
-	}
+      .problem-card:hover::before {
+        opacity: 1;
+      }
 
-	.problem-card::before {
-		content: "";
-		position: absolute;
-		top: -2px;
-		left: -2px;
-		right: -2px;
-		bottom: -2px;
-		background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
-		border-radius: 22px;
-		z-index: -1;
-		opacity: 0;
-		transition: opacity 0.4s ease;
-	}
+      .problem-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
 
-	.problem-card:hover {
-		transform: translateY(-8px);
-		box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
-	}
+      .problem-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        margin-right: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
 
-	.problem-card:hover::before {
-		opacity: 1;
-	}
-
-	.problem-header {
-		display: flex;
-		align-items: center;
-		margin-bottom: 20px;
-	}
-
-	.problem-icon {
-		width: 50px;
-		height: 50px;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: white;
-		font-size: 20px;
-		font-weight: bold;
-		margin-right: 15px;
-		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-	}
-
-	/* .icon-alarm { background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%); }
+      /* .icon-alarm { background: linear-gradient(135deg, #ffa726 0%, #fb8c00 100%); }
         .icon-storage { background: linear-gradient(135deg, #26c6da 0%, #00acc1 100%); }
         .icon-quality { background: linear-gradient(135deg, #ab47bc 0%, #8e24aa 100%); }
         .icon-time { background: linear-gradient(135deg, #ff7043 0%, #f4511e 100%); }
         .icon-experience { background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%); } */
-	.problem-title {
-		color: #2c3e50;
-		font-size: 1.3em;
-		font-weight: bold;
-		flex: 1;
-	}
+      .problem-title {
+        color: #2c3e50;
+        font-size: 1.3em;
+        font-weight: bold;
+        flex: 1;
+      }
 
-	.problem-content {
-		color: #5a6c7d;
-		line-height: 1.6;
-	}
+      .problem-content {
+        color: #5a6c7d;
+        line-height: 1.6;
+      }
 
-	.problem-item {
-		margin-bottom: 12px;
-		padding-left: 20px;
-		position: relative;
-	}
+      .problem-item {
+        margin-bottom: 12px;
+        padding-left: 20px;
+        position: relative;
+      }
 
-	.problem-item::before {
-		content: "•";
-		color: #667eea;
-		font-size: 1.5em;
-		position: absolute;
-		left: 0;
-		top: -2px;
-	}
+      .problem-item::before {
+        content: "•";
+        color: #667eea;
+        font-size: 1.5em;
+        position: absolute;
+        left: 0;
+        top: -2px;
+      }
 
-	.highlight {
-		color: #667eea;
-		font-weight: bold;
-	}
+      .highlight {
+        color: #667eea;
+        font-weight: bold;
+      }
 
-	.cta-section {
-		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-		padding: 40px 30px;
-		text-align: center;
-		color: white;
-		margin-top: 30px;
-	}
+      .cta-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 40px 30px;
+        text-align: center;
+        color: white;
+        margin-top: 30px;
+      }
 
-	.cta-btn {
-		color: #667eea;
-		border: none;
-		padding: 18px 45px;
-		border-radius: 30px;
-		font-size: 14px;
-		font-weight: bold;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
-		position: fixed;
-		bottom: 25px;
-		width: 223px;
-		left: 50%;
-		transform: translateX(-50%);
-		background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
-		z-index: 100;
-	}
+      .cta-btn {
+        color: #667eea;
+        border: none;
+        padding: 18px 45px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+        position: fixed;
+        bottom: 25px;
+        width: 223px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+        z-index: 100;
+      }
 
-	.cta-btn:hover {
-		transform: translateX(-50%);
-		box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
-	}
+      .cta-btn:hover {
+        transform: translateX(-50%);
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
+      }
 
-	.stats {
-		display: flex;
-		justify-content: center;
-		gap: 19px;
-		margin: 57px 0 0 0;
-		flex-wrap: wrap;
-	}
+      .stats {
+        display: flex;
+        justify-content: center;
+        gap: 19px;
+        margin: 57px 0 0 0;
+        flex-wrap: wrap;
+      }
 
-	.stat-item {
-		text-align: center;
-		padding: 15px;
-		background: rgba(255, 255, 255, 0.1);
-		border-radius: 15px;
-		backdrop-filter: blur(10px);
-	}
+      .stat-item {
+        text-align: center;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+      }
 
-	.stat-number {
-		font-size: 2em;
-		font-weight: bold;
-		display: block;
-	}
+      .stat-number {
+        font-size: 2em;
+        font-weight: bold;
+        display: block;
+      }
 
-	.stat-label {
-		font-size: 0.9em;
-		opacity: 0.9;
-	}
+      .stat-label {
+        font-size: 0.9em;
+        opacity: 0.9;
+      }
 
-	@media (max-width: 768px) {
-		.problems-grid {
-			grid-template-columns: 1fr;
-			padding: 20px;
-		}
+      @media (max-width: 768px) {
+        .problems-grid {
+          grid-template-columns: 1fr;
+          padding: 20px;
+        }
 
-		.problem-card {
-			padding: 20px;
-		}
+        .problem-card {
+          padding: 20px;
+        }
 
-		.title {
-			font-size: 1.2em;
-		}
+        .title {
+          font-size: 1.2em;
+        }
 
-		.character {
-			width: 60px;
-			height: 60px;
-			margin: 0 10px;
-		}
-	}
+        .character {
+          width: 60px;
+          height: 60px;
+          margin: 0 10px;
+        }
+      }
 
-	@media (max-width: 467px) {
-		.character:last-child {
-			margin-left: 75px !important;
-		}
-	}
+      @media (max-width: 467px) {
+        .character:last-child {
+          margin-left: 75px !important;
+        }
+      }
 
-	.fade-in {
-		opacity: 0;
-		transform: translateY(30px);
-		animation: fadeInUp 0.6s ease forwards;
-	}
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeInUp 0.6s ease forwards;
+      }
 
-	@keyframes fadeInUp {
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-	.header-email {
-		background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
-		padding: 20px 10px;
-		text-align: center;
-		position: relative;
-		overflow: hidden;
-	}
+      .header-email {
+        background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+        padding: 20px 10px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
 
-	.header-email::before {
-		content: "";
-		position: absolute;
-		top: -50%;
-		left: -50%;
-		width: 200%;
-		height: 200%;
-		background: radial-gradient(circle,
-			rgba(255, 255, 255, 0.1) 0%,
-			transparent 70%);
-		animation: rotate 8s linear infinite;
-	}
+      .header-email::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%
+        );
+        animation: rotate 8s linear infinite;
+      }
 
-	@keyframes rotate {
-		0% {
-			transform: rotate(0deg);
-		}
+      @keyframes rotate {
+        0% {
+          transform: rotate(0deg);
+        }
 
-		100% {
-			transform: rotate(360deg);
-		}
-	}
+        100% {
+          transform: rotate(360deg);
+        }
+      }
 
-	.title-email {
-		color: white;
-		font-size: 1.2em;
-		font-weight: bold;
-		margin-bottom: 30px;
-		text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-		position: relative;
-		z-index: 2;
-		line-height: 1.2;
-	}
+      .title-email {
+        color: white;
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 30px;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        position: relative;
+        z-index: 2;
+        line-height: 1.2;
+      }
 
-	.email-illustration {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		/* gap: 40px; */
-		margin: 20px 0;
-		position: relative;
-		z-index: 2;
-	}
+      .email-illustration {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* gap: 40px; */
+        margin: 20px 0;
+        position: relative;
+        z-index: 2;
+      }
 
-	.email-character {
-		text-align: center;
-		position: relative;
-	}
+      .email-character {
+        text-align: center;
+        position: relative;
+      }
 
-	.character-avatar {
-		width: 230px;
-		height: 230px;
-		background: white;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 40px;
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-		margin-bottom: 15px;
-		position: relative;
-		animation: float 3s ease-in-out infinite;
-	}
+      .character-avatar {
+        width: 230px;
+        height: 230px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        margin-bottom: 15px;
+        position: relative;
+        animation: float 3s ease-in-out infinite;
+      }
 
-	.character-avatar:nth-child(1) {
-		animation-delay: 0s;
-	}
+      .character-avatar:nth-child(1) {
+        animation-delay: 0s;
+      }
 
-	.character-avatar:nth-child(2) {
-		animation-delay: 1s;
-	}
+      .character-avatar:nth-child(2) {
+        animation-delay: 1s;
+      }
 
-	@keyframes float {
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
 
-		0%,
-		100% {
-			transform: translateY(0px);
-		}
+        50% {
+          transform: translateY(-10px);
+        }
+      }
 
-		50% {
-			transform: translateY(-10px);
-		}
-	}
+      .spam-label {
+        background: #ff6b6b;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: bold;
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        transform: rotate(15deg);
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        animation: pulse 2s infinite;
+      }
 
-	.spam-label {
-		background: #ff6b6b;
-		color: white;
-		padding: 5px 10px;
-		border-radius: 10px;
-		font-size: 12px;
-		font-weight: bold;
-		position: absolute;
-		top: -10px;
-		right: -10px;
-		transform: rotate(15deg);
-		box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
-		animation: pulse 2s infinite;
-	}
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: rotate(15deg) scale(1);
+        }
 
-	@keyframes pulse {
+        50% {
+          transform: rotate(15deg) scale(1.1);
+        }
+      }
 
-		0%,
-		100% {
-			transform: rotate(15deg) scale(1);
-		}
+      .problems-container {
+        padding: 40px 30px;
+      }
 
-		50% {
-			transform: rotate(15deg) scale(1.1);
-		}
-	}
+      .problems-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 25px;
+      }
 
-	.problems-container {
-		padding: 40px 30px;
-	}
+      .problem-card {
+        background: linear-gradient(135deg, #f8f9ff 0%, #e6f3ff 100%);
+        border: 2px solid #e1ecf4;
+        border-radius: 20px;
+        padding: 25px;
+        transition: all 0.4s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
 
-	.problems-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-		gap: 25px;
-	}
+      .problem-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(66, 133, 244, 0.1),
+          transparent
+        );
+        transition: left 0.6s ease;
+      }
 
-	.problem-card {
-		background: linear-gradient(135deg, #f8f9ff 0%, #e6f3ff 100%);
-		border: 2px solid #e1ecf4;
-		border-radius: 20px;
-		padding: 25px;
-		transition: all 0.4s ease;
-		cursor: pointer;
-		position: relative;
-		overflow: hidden;
-	}
+      .problem-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(66, 133, 244, 0.2);
+        border-color: #4285f4;
+      }
 
-	.problem-card::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: -100%;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(90deg,
-			transparent,
-			rgba(66, 133, 244, 0.1),
-			transparent);
-		transition: left 0.6s ease;
-	}
+      .problem-card:hover::before {
+        left: 100%;
+      }
 
-	.problem-card:hover {
-		transform: translateY(-8px);
-		box-shadow: 0 15px 40px rgba(66, 133, 244, 0.2);
-		border-color: #4285f4;
-	}
+      .problem-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
 
-	.problem-card:hover::before {
-		left: 100%;
-	}
+      .problem-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        margin-right: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      }
 
-	.problem-header {
-		display: flex;
-		align-items: center;
-		margin-bottom: 20px;
-	}
-
-	.problem-icon {
-		width: 50px;
-		height: 50px;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: white;
-		font-size: 20px;
-		font-weight: bold;
-		margin-right: 15px;
-		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-	}
-
-	/* .icon-info { background: linear-gradient(135deg, #4285f4 0%, #1a73e8 100%); }
+      /* .icon-info { background: linear-gradient(135deg, #4285f4 0%, #1a73e8 100%); }
         .icon-data { background: linear-gradient(135deg, #34a853 0%, #137333 100%); }
         .icon-automation { background: linear-gradient(135deg, #fbbc04 0%, #f9ab00 100%); }
         .icon-personalization { background: linear-gradient(135deg, #ea4335 0%, #d33b2c 100%); }
         .icon-relationship { background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%); }
         .icon-brand { background: linear-gradient(135deg, #ff7043 0%, #f4511e 100%); } */
-	.problem-title {
-		color: #2c3e50;
-		font-size: 1.3em;
-		font-weight: bold;
-		flex: 1;
-	}
-
-	.problem-content {
-		color: #5a6c7d;
-		line-height: 1.6;
-	}
-
-	.problem-item {
-		margin-bottom: 12px;
-		padding-left: 20px;
-		position: relative;
-	}
-
-	.problem-item::before {
-		content: "•";
-		color: #4285f4;
-		font-size: 1.5em;
-		position: absolute;
-		left: 0;
-		top: -2px;
-	}
-
-	.highlight {
-		color: #4285f4;
-		font-weight: bold;
-	}
-
-	.spam-text {
-		color: #ea4335;
-		font-weight: bold;
-	}
-
-	.cta-section {
-		background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
-		padding: 40px 30px;
-		text-align: center;
-		color: white;
-	}
-
-	.cta-btn {
-		color: #fff;
-		border: none;
-		padding: 18px 45px;
-		border-radius: 30px;
-		font-size: 14px;
-		font-weight: bold;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
-	}
-
-	.cta-btn:hover {
-		transform: translateX(-50%);
-		box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
-	}
-
-	.email-stats {
-		display: flex;
-		justify-content: center;
-		gap: 40px;
-		flex-wrap: wrap;
-	}
-
-	.stat-box {
-		background: rgba(255, 255, 255, 0.15);
-		padding: 20px;
-		border-radius: 15px;
-		text-align: center;
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(255, 255, 255, 0.2);
-	}
-
-	.stat-number {
-		font-size: 2.5em;
-		font-weight: bold;
-		display: block;
-		color: #fff;
-	}
-
-	.stat-label {
-		font-size: 0.9em;
-		opacity: 0.9;
-		color: #fff;
-	}
-
-	@media (max-width: 768px) {
-		.problems-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.illustration-container {
-			margin-top: 60px;
-		}
-
-		.character-avatar {
-			width: 140px;
-			height: 140px;
-			font-size: 30px;
-		}
-
-		.title {
-			font-size: 1.2em;
-		}
-
-		.problems-container {
-			padding: 20px;
-		}
-	}
-
-	.fade-in {
-		opacity: 0;
-		transform: translateY(30px);
-		transition: all 0.6s ease;
-	}
-
-	.fade-in.visible {
-		opacity: 1;
-		transform: translateY(0);
-	}
-
-	.email-icon {
-		position: absolute;
-		font-size: 20px;
-		color: rgba(255, 255, 255, 0.6);
-		animation: floatEmail 4s ease-in-out infinite;
-	}
-
-	@keyframes floatEmail {
-
-		0%,
-		100% {
-			transform: translateY(0px) translateX(0px);
-		}
-
-		25% {
-			transform: translateY(-15px) translateX(10px);
-		}
-
-		50% {
-			transform: translateY(-5px) translateX(-5px);
-		}
-
-		75% {
-			transform: translateY(-10px) translateX(15px);
-		}
-	}
-
-	.header-customer-care {
-		background: linear-gradient(135deg, #2196f3, #1976d2);
-		padding: 20px 15px;
-		text-align: center;
-	}
-
-	.header-customer-care h1 {
-		font-size: 24px;
-		font-weight: bold;
-		margin-bottom: 10px;
-		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-	}
-
-	.underline {
-		width: 60px;
-		height: 3px;
-		background: white;
-		margin: 0 auto;
-	}
-
-	.comparison-table {
-		width: 100%;
-		border-collapse: collapse;
-		margin: 0;
-	}
-
-	.table-header {
-		background: #2196f3;
-		color: white;
-	}
-
-	.table-header th {
-		padding: 15px 10px;
-		text-align: center;
-		font-weight: 600;
-		font-size: 14px;
-		border-right: 1px solid rgba(255, 255, 255, 0.2);
-	}
-
-	.table-header th:last-child {
-		border-right: none;
-	}
-
-	.table-row {
-		border-bottom: 1px solid #e0e0e0;
-	}
-
-	.table-row:nth-child(even) {
-		background: #f8f9ff;
-	}
-
-	.table-row:hover {
-		background: #e3f2fd;
-		transition: background 0.3s ease;
-	}
-
-	.table-row td {
-		padding: 15px 10px;
-		border-right: 1px solid #e0e0e0;
-		font-size: 13px;
-		vertical-align: top;
-	}
-
-	.table-row td:last-child {
-		border-right: none;
-	}
-
-	.feature-name {
-		font-weight: 600;
-		color: #2196f3;
-		background: #f0f7ff !important;
-	}
-
-	.zstep-highlight {
-		background: #e8f5e8;
-		font-weight: 500;
-	}
-
-	.bottom-section {
-		background: linear-gradient(135deg, #00bcd4, #2196f3);
-		color: white;
-		padding: 30px;
-		display: flex;
-		align-items: center;
-		gap: 20px;
-	}
-
-	.logo-container {
-		background: white;
-		padding: 20px;
-		border-radius: 15px;
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-		flex-shrink: 0;
-	}
-
-	.logo {
-		font-size: 48px;
-		font-weight: bold;
-		text-align: center;
-		width: 160px;
-		height: 100px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		border-radius: 10px;
-	}
-
-	.description {
-		flex: 1;
-		line-height: 1.6;
-	}
-
-	.description p {
-		margin-bottom: 15px;
-		font-size: 16px;
-	}
-
-	.highlight-text {
-		background: #ff9800;
-		color: white;
-		padding: 2px 6px;
-		border-radius: 4px;
-		font-weight: bold;
-	}
-
-	.footer {
-		background: linear-gradient(135deg, #4facfe 0%, #00f2fe33 100%);
-		color: white;
-		padding: 15px 30px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.footer-logo {
-		font-size: 24px;
-		font-weight: bold;
-	}
-
-	.contact-button {
-		background: #2196f3;
-		color: white;
-		padding: 8px 20px;
-		border: none;
-		border-radius: 20px;
-		font-weight: 500;
-		cursor: pointer;
-		transition: all 0.3s ease;
-	}
-
-	.contact-button:hover {
-		background: #1976d2;
-		transform: translateY(-2px);
-		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-	}
-
-	@media (max-width: 768px) {
-		.container-customer-care {}
-
-		.header-customer-care {
-			padding: 20px;
-		}
-
-		.header-customer-care h1 {
-			font-size: 20px;
-		}
-
-		.table-header th,
-		.table-row td {
-			padding: 10px 5px;
-			font-size: 12px;
-		}
-
-		.bottom-section {
-			flex-direction: column;
-			text-align: center;
-			gap: 15px;
-		}
-
-		.logo-container {
-			align-self: center;
-		}
-
-		.footer {
-			flex-direction: column;
-			gap: 10px;
-			text-align: center;
-		}
-	}
-
-	.header-customer-care1 {
-		background: linear-gradient(135deg, #2196f3, #1976d2);
-		color: white;
-		padding: 30px;
-		text-align: center;
-	}
-
-	.header-customer-care1 h1 {
-		font-size: 28px;
-		font-weight: bold;
-		margin-bottom: 10px;
-		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-	}
-
-	.underline {
-		width: 80px;
-		height: 3px;
-		background: white;
-		margin: 0 auto;
-	}
-
-	.features-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 30px;
-		padding: 40px;
-	}
-
-	@media (max-width: 768px) {
-		.features-grid {
-			grid-template-columns: 1fr;
-			gap: 20px;
-			padding: 30px 20px;
-		}
-	}
-
-	.feature-card {
-		background: white;
-		border-radius: 15px;
-		padding: 25px;
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-		border: 2px solid #f0f0f0;
-		transition: all 0.3s ease;
-		position: relative;
-	}
-
-	.feature-card:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-		border-color: #2196f3;
-	}
-
-	.feature-icon {
-		width: 60px;
-		height: 60px;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 24px;
-		background: linear-gradient(135deg, #2196f3, #64b5f6);
-		color: white;
-	}
-
-	.feature-title {
-		font-size: 18px;
-		font-weight: bold;
-		color: #2196f3;
-		margin-bottom: 10px;
+      .problem-title {
+        color: #2c3e50;
+        font-size: 1.3em;
+        font-weight: bold;
+        flex: 1;
+      }
+
+      .problem-content {
+        color: #5a6c7d;
+        line-height: 1.6;
+      }
+
+      .problem-item {
+        margin-bottom: 12px;
+        padding-left: 20px;
+        position: relative;
+      }
+
+      .problem-item::before {
+        content: "•";
+        color: #4285f4;
+        font-size: 1.5em;
+        position: absolute;
+        left: 0;
+        top: -2px;
+      }
+
+      .highlight {
+        color: #4285f4;
+        font-weight: bold;
+      }
+
+      .spam-text {
+        color: #ea4335;
+        font-weight: bold;
+      }
+
+      .cta-section {
+        background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+        padding: 40px 30px;
+        text-align: center;
+        color: white;
+      }
+
+      .cta-btn {
+        color: #fff;
+        border: none;
+        padding: 18px 45px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+      }
+
+      .cta-btn:hover {
+        transform: translateX(-50%);
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
+      }
+
+      .email-stats {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+      }
+
+      .stat-box {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .stat-number {
+        font-size: 2.5em;
+        font-weight: bold;
+        display: block;
+        color: #fff;
+      }
+
+      .stat-label {
+        font-size: 0.9em;
+        opacity: 0.9;
+        color: #fff;
+      }
+
+      @media (max-width: 768px) {
+        .problems-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .illustration-container {
+          margin-top: 60px;
+        }
+
+        .character-avatar {
+          width: 140px;
+          height: 140px;
+          font-size: 30px;
+        }
+
+        .title {
+          font-size: 1.2em;
+        }
+
+        .problems-container {
+          padding: 20px;
+        }
+      }
+
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .email-icon {
+        position: absolute;
+        font-size: 20px;
+        color: rgba(255, 255, 255, 0.6);
+        animation: floatEmail 4s ease-in-out infinite;
+      }
+
+      @keyframes floatEmail {
+        0%,
+        100% {
+          transform: translateY(0px) translateX(0px);
+        }
+
+        25% {
+          transform: translateY(-15px) translateX(10px);
+        }
+
+        50% {
+          transform: translateY(-5px) translateX(-5px);
+        }
+
+        75% {
+          transform: translateY(-10px) translateX(15px);
+        }
+      }
+
+      .header-customer-care {
+        background: linear-gradient(135deg, #2196f3, #1976d2);
+        padding: 20px 15px;
+        text-align: center;
+      }
+
+      .header-customer-care h1 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .underline {
+        width: 60px;
+        height: 3px;
+        background: white;
+        margin: 0 auto;
+      }
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+      }
+
+      .table-header {
+        background: #2196f3;
+        color: white;
+      }
+
+      .table-header th {
+        padding: 15px 10px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 14px;
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .table-header th:last-child {
+        border-right: none;
+      }
+
+      .table-row {
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .table-row:nth-child(even) {
+        background: #f8f9ff;
+      }
+
+      .table-row:hover {
+        background: #e3f2fd;
+        transition: background 0.3s ease;
+      }
+
+      .table-row td {
+        padding: 15px 10px;
+        border-right: 1px solid #e0e0e0;
+        font-size: 13px;
+        vertical-align: top;
+      }
+
+      .table-row td:last-child {
+        border-right: none;
+      }
+
+      .feature-name {
+        font-weight: 600;
+        color: #2196f3;
+        background: #f0f7ff !important;
+      }
+
+      .zstep-highlight {
+        background: #e8f5e8;
+        font-weight: 500;
+      }
+
+      .bottom-section {
+        background: linear-gradient(135deg, #00bcd4, #2196f3);
+        color: white;
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .logo-container {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        flex-shrink: 0;
+      }
+
+      .logo {
+        font-size: 48px;
+        font-weight: bold;
+        text-align: center;
+        width: 160px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+      }
+
+      .description {
+        flex: 1;
+        line-height: 1.6;
+      }
+
+      .description p {
+        margin-bottom: 15px;
+        font-size: 16px;
+      }
+
+      .highlight-text {
+        background: #ff9800;
+        color: white;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: bold;
+      }
+
+      .footer {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe33 100%);
+        color: white;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer-logo {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .contact-button {
+        background: #2196f3;
+        color: white;
+        padding: 8px 20px;
+        border: none;
+        border-radius: 20px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .contact-button:hover {
+        background: #1976d2;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      @media (max-width: 768px) {
+        .container-customer-care {
+        }
+
+        .header-customer-care {
+          padding: 20px;
+        }
+
+        .header-customer-care h1 {
+          font-size: 20px;
+        }
+
+        .table-header th,
+        .table-row td {
+          padding: 10px 5px;
+          font-size: 12px;
+        }
+
+        .bottom-section {
+          flex-direction: column;
+          text-align: center;
+          gap: 15px;
+        }
+
+        .logo-container {
+          align-self: center;
+        }
+
+        .footer {
+          flex-direction: column;
+          gap: 10px;
+          text-align: center;
+        }
+      }
+
+      .header-customer-care1 {
+        background: linear-gradient(135deg, #2196f3, #1976d2);
+        color: white;
+        padding: 30px;
+        text-align: center;
+      }
+
+      .header-customer-care1 h1 {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .underline {
+        width: 80px;
+        height: 3px;
+        background: white;
+        margin: 0 auto;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        padding: 40px;
+      }
+
+      @media (max-width: 768px) {
+        .features-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+          padding: 30px 20px;
+        }
+      }
+
+      .feature-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border: 2px solid #f0f0f0;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        border-color: #2196f3;
+      }
+
+      .feature-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        background: linear-gradient(135deg, #2196f3, #64b5f6);
+        color: white;
+      }
+
+      .feature-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #2196f3;
+        margin-bottom: 10px;
         padding-left: 15px;
-	}
+      }
 
-	.feature-subtitle {
-		font-size: 14px;
-		color: #666;
-		margin-bottom: 15px;
-		font-weight: 500;
-	}
+      .feature-subtitle {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 15px;
+        font-weight: 500;
+      }
 
-	.feature-description {
-		font-size: 14px;
-		line-height: 1.6;
-		color: #444;
+      .feature-description {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #444;
         padding-top: 12px;
-	}
+      }
 
-	.highlight {
-		color: #ff5722;
-		font-weight: bold;
-	}
+      .highlight {
+        color: #ff5722;
+        font-weight: bold;
+      }
 
-	.stats-highlight {
-		background: linear-gradient(135deg, #4caf50, #66bb6a);
-		color: white;
-		padding: 15px;
-		border-radius: 10px;
-		margin: 15px 0;
-		text-align: center;
-		font-weight: bold;
-	}
+      .stats-highlight {
+        background: linear-gradient(135deg, #4caf50, #66bb6a);
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 15px 0;
+        text-align: center;
+        font-weight: bold;
+      }
 
-	.testimonial-section {
-		background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-		padding: 40px;
-		text-align: center;
-	}
+      .testimonial-section {
+        background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        padding: 40px;
+        text-align: center;
+      }
 
-	.testimonial-text {
-		font-size: 18px;
-		font-weight: 500;
-		color: #1565c0;
-		margin-bottom: 20px;
-		font-style: italic;
-	}
+      .testimonial-text {
+        font-size: 18px;
+        font-weight: 500;
+        color: #1565c0;
+        margin-bottom: 20px;
+        font-style: italic;
+      }
 
-	.bottom-section {
-		background: linear-gradient(135deg, #00bcd4, #2196f3);
-		color: white;
-		padding: 40px;
-		display: flex;
-		align-items: center;
-		gap: 30px;
-		position: relative;
-		overflow: hidden;
-	}
+      .bottom-section {
+        background: linear-gradient(135deg, #00bcd4, #2196f3);
+        color: white;
+        padding: 40px;
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        position: relative;
+        overflow: hidden;
+      }
 
-	.bottom-section::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		right: 0;
-		width: 200px;
-		height: 100%;
-		background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="80" fill="rgba(255,255,255,0.1)"/></svg>');
-		background-size: contain;
-		background-repeat: no-repeat;
-	}
+      .bottom-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: 100%;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="80" fill="rgba(255,255,255,0.1)"/></svg>');
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
 
-	.consultant-image {
-		width: 120px;
-		height: 120px;
-		border-radius: 50%;
-		background: linear-gradient(135deg, #ff9800, #ffb74d);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 48px;
-		color: white;
-		flex-shrink: 0;
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-	}
+      .consultant-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff9800, #ffb74d);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+        color: white;
+        flex-shrink: 0;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
 
-	.consultant-info {
-		flex: 1;
-		z-index: 2;
-	}
+      .consultant-info {
+        flex: 1;
+        z-index: 2;
+      }
 
-	.consultant-info h3 {
-		font-size: 22px;
-		margin-bottom: 15px;
-	}
+      .consultant-info h3 {
+        font-size: 22px;
+        margin-bottom: 15px;
+      }
 
-	.consultant-info p {
-		font-size: 16px;
-		line-height: 1.6;
-		margin-bottom: 10px;
-	}
+      .consultant-info p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+      }
 
-	.footer {
-		background: linear-gradient(135deg, #4facfe 0%, #00f2fe33 100%);
-		color: white;
-		padding: 20px 40px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
+      .footer {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe33 100%);
+        color: white;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-	.contact-button {
-		background: linear-gradient(135deg, #ff9800, #ff7043);
-		color: white;
-		padding: 15px 40px;
-		border: none;
-		border-radius: 30px;
-		font-weight: bold;
-		font-size: 16px;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		box-shadow: 0 5px 20px rgba(255, 152, 0, 0.3);
-	}
+      .contact-button {
+        background: linear-gradient(135deg, #ff9800, #ff7043);
+        color: white;
+        padding: 15px 40px;
+        border: none;
+        border-radius: 30px;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 5px 20px rgba(255, 152, 0, 0.3);
+      }
 
-	.contact-button:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 10px 30px rgba(255, 152, 0, 0.4);
-	}
+      .contact-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(255, 152, 0, 0.4);
+      }
 
-	@media (max-width: 768px) {
-		.container-customer-care1 {}
+      @media (max-width: 768px) {
+        .container-customer-care1 {
+        }
 
-		.header-customer-care1 {
-			padding: 25px 20px;
-		}
+        .header-customer-care1 {
+          padding: 25px 20px;
+        }
 
-		.header-customer-care1 h1 {
-			font-size: 22px;
-		}
+        .header-customer-care1 h1 {
+          font-size: 22px;
+        }
 
-		/* .features-grid {
+        /* .features-grid {
           grid-template-columns: 1fr;
           gap: 20px;
           padding: 30px 20px;
         } */
-		.feature-card {
-			padding: 20px;
-		}
+        .feature-card {
+          padding: 20px;
+        }
 
-		.testimonial-section {
-			padding: 30px 20px;
-		}
+        .testimonial-section {
+          padding: 30px 20px;
+        }
 
-		.bottom-section {
-			flex-direction: column;
-			text-align: center;
-			gap: 20px;
-			padding: 30px 20px;
-		}
+        .bottom-section {
+          flex-direction: column;
+          text-align: center;
+          gap: 20px;
+          padding: 30px 20px;
+        }
 
-		.footer {
-			padding: 20px;
-		}
+        .footer {
+          padding: 20px;
+        }
 
-		.contact-button {
-			padding: 12px 30px;
-			font-size: 14px;
-		}
-	}
+        .contact-button {
+          padding: 12px 30px;
+          font-size: 14px;
+        }
+      }
 
-	.header-benefits {
-		background: white;
-		color: #2196f3;
-		padding: 40px;
-		border-bottom: 3px solid #2196f3;
-	}
+      .header-benefits {
+        background: white;
+        color: #2196f3;
+        padding: 40px;
+        border-bottom: 3px solid #2196f3;
+      }
 
-	.header-benefits h1 {
-		font-size: 28px;
-		font-weight: bold;
-		margin-bottom: 15px;
-	}
+      .header-benefits h1 {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
 
-	.underline-benefits {
-		width: 80px;
-		height: 3px;
-		background: #2196f3;
-		margin-bottom: 30px;
-	}
+      .underline-benefits {
+        width: 80px;
+        height: 3px;
+        background: #2196f3;
+        margin-bottom: 30px;
+      }
 
-	.logo-section-benefits {
-		display: flex;
-		align-items: center;
-		gap: 20px;
-	}
+      .logo-section-benefits {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
 
-	.logo-benefits {
-		font-size: 48px;
-		font-weight: bold;
-		color: #2196f3;
-		background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-		padding: 20px 30px;
-		border-radius: 15px;
-		display: flex;
-		align-items: center;
-		gap: 10px;
-	}
+      .logo-benefits {
+        font-size: 48px;
+        font-weight: bold;
+        color: #2196f3;
+        background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        padding: 20px 30px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
-	.logo-icon-benefits {
-		width: 40px;
-		height: 40px;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: white;
-		font-size: 20px;
-		margin-bottom: 23px;
-	}
+      .logo-icon-benefits {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+        margin-bottom: 23px;
+      }
 
-	.benefits-section {
-		padding: 40px;
-	}
+      .benefits-section {
+        padding: 40px;
+      }
 
-	.benefits-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 30px;
-	}
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+      }
 
-	.benefit-card {
-		background: #f8f9ff;
-		border-radius: 15px;
-		padding: 25px;
-		border-left: 5px solid #2196f3;
-		transition: all 0.3s ease;
-		position: relative;
-	}
+      .benefit-card {
+        background: #f8f9ff;
+        border-radius: 15px;
+        padding: 25px;
+        border-left: 5px solid #2196f3;
+        transition: all 0.3s ease;
+        position: relative;
+      }
 
-	.benefit-card:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 15px 35px rgba(33, 150, 243, 0.1);
-		background: #f0f7ff;
-	}
+      .benefit-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(33, 150, 243, 0.1);
+        background: #f0f7ff;
+      }
 
-	.benefit-header {
-		display: flex;
-		align-items: flex-start;
-		gap: 15px;
-		margin-bottom: 15px;
-	}
+      .benefit-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
 
-	.benefit-icon {
-		width: 50px;
-		height: 50px;
-		border-radius: 10px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 20px;
-		color: white;
-		flex-shrink: 0;
-	}
+      .benefit-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: white;
+        flex-shrink: 0;
+      }
 
-	.icon-conversion {
-		background: linear-gradient(135deg, #ff9800, #ffb74d);
-	}
+      .icon-conversion {
+        background: linear-gradient(135deg, #ff9800, #ffb74d);
+      }
 
-	.icon-efficiency {
-		background: linear-gradient(135deg, #9c27b0, #ba68c8);
-	}
+      .icon-efficiency {
+        background: linear-gradient(135deg, #9c27b0, #ba68c8);
+      }
 
-	.icon-optimization {
-		background: linear-gradient(135deg, #2196f3, #64b5f6);
-	}
+      .icon-optimization {
+        background: linear-gradient(135deg, #2196f3, #64b5f6);
+      }
 
-	.icon-care {
-		background: linear-gradient(135deg, #e91e63, #f06292);
-	}
+      .icon-care {
+        background: linear-gradient(135deg, #e91e63, #f06292);
+      }
 
-	.benefit-content h3 {
-		font-size: 18px;
-		font-weight: bold;
-		color: #ff5722;
-		margin-bottom: 8px;
-		line-height: 1.3;
-	}
+      .benefit-content h3 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #ff5722;
+        margin-bottom: 8px;
+        line-height: 1.3;
+      }
 
-	.benefit-description {
-		font-size: 14px;
-		line-height: 1.6;
-		color: #444;
-	}
+      .benefit-description {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #444;
+      }
 
-	.highlight {
-		color: #2196f3;
-		font-weight: 600;
-	}
+      .highlight {
+        color: #2196f3;
+        font-weight: 600;
+      }
 
-	.left-column {
-		display: flex;
-		flex-direction: column;
-		gap: 30px;
-	}
+      .left-column {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
 
-	.right-column {
-		display: flex;
-		flex-direction: column;
-		gap: 30px;
-	}
+      .right-column {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
 
-	/* .footer {
+      /* .footer {
         background: linear-gradient(135deg, #4facfe 0%, #00f2fe33 100%);
         color: white;
         padding: 25px;
         text-align: center;
       } */
-	.contact-button {
-		background: linear-gradient(135deg, #ff9800, #ff7043);
-		color: white;
-		padding: 15px 40px;
-		border: none;
-		border-radius: 30px;
-		font-weight: bold;
-		font-size: 16px;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		box-shadow: 0 5px 20px rgba(255, 152, 0, 0.3);
-	}
+      .contact-button {
+        background: linear-gradient(135deg, #ff9800, #ff7043);
+        color: white;
+        padding: 15px 40px;
+        border: none;
+        border-radius: 30px;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 5px 20px rgba(255, 152, 0, 0.3);
+      }
 
-	.contact-button:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 10px 30px rgba(255, 152, 0, 0.4);
-	}
+      .contact-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(255, 152, 0, 0.4);
+      }
 
-	@media (max-width: 768px) {
-		.container-benefits {}
+      @media (max-width: 768px) {
+        .container-benefits {
+        }
 
-		.header-benefits {
-			padding: 30px 20px;
-		}
+        .header-benefits {
+          padding: 30px 20px;
+        }
 
-		.header-benefits h1 {
-			font-size: 24px;
-		}
+        .header-benefits h1 {
+          font-size: 24px;
+        }
 
-		.logo-section-benefits {
-			flex-direction: column;
-			text-align: center;
-		}
+        .logo-section-benefits {
+          flex-direction: column;
+          text-align: center;
+        }
 
-		.logo-benefits {
-			font-size: 36px;
-			padding: 15px 20px;
-		}
+        .logo-benefits {
+          font-size: 36px;
+          padding: 15px 20px;
+        }
 
-		.benefits-section {
-			padding: 30px 20px;
-		}
+        .benefits-section {
+          padding: 30px 20px;
+        }
 
-		.benefits-grid {
-			grid-template-columns: 1fr;
-			gap: 20px;
-		}
+        .benefits-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
 
-		.benefit-card {
-			padding: 20px;
-		}
+        .benefit-card {
+          padding: 20px;
+        }
 
-		.footer {
-			padding: 20px;
-		}
+        .footer {
+          padding: 20px;
+        }
 
-		.contact-button {
-			padding: 12px 30px;
-			font-size: 14px;
-		}
-	}
+        .contact-button {
+          padding: 12px 30px;
+          font-size: 14px;
+        }
+      }
 
-	.header-we {
-		background: linear-gradient(135deg, #2563eb, #1d4ed8);
-		color: white;
-		padding: 50px 40px;
-		position: relative;
-		overflow: hidden;
-	}
+      .header-we {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: white;
+        padding: 50px 40px;
+        position: relative;
+        overflow: hidden;
+      }
 
-	.header-we::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="70" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="80" r="2.5" fill="rgba(255,255,255,0.1)"/></svg>');
-		opacity: 0.3;
-	}
+      .header-we::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="70" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="80" r="2.5" fill="rgba(255,255,255,0.1)"/></svg>');
+        opacity: 0.3;
+      }
 
-	.header-content-we {
-		position: relative;
-		z-index: 2;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
+      .header-content-we {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
 
-	.header-text-we {
-		flex: 1;
-	}
+      .header-text-we {
+        flex: 1;
+      }
 
-	.header h1 {
-		font-size: 1.5rem;
-		font-weight: bold;
-		margin-bottom: 15px;
-		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-	}
+      .header h1 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
 
-	.underline-we {
-		width: 80px;
-		height: 3px;
-		background: white;
-		margin-bottom: 20px;
-	}
+      .underline-we {
+        width: 80px;
+        height: 3px;
+        background: white;
+        margin-bottom: 20px;
+      }
 
-	.header-illustration {
-		width: 200px;
-		height: 200px;
-		background: rgba(255, 255, 255, 0.1);
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		position: relative;
-	}
+      .header-illustration {
+        width: 200px;
+        height: 200px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
 
-	.illustration-woman {
-		font-size: 80px;
-		color: white;
-	}
+      .illustration-woman {
+        font-size: 80px;
+        color: white;
+      }
 
-	.zstep-badge {
-		position: absolute;
-		top: -12px;
-		left: 41px;
-		background: white;
-		color: #2563eb;
-		padding: 8px 15px;
-		border-radius: 20px;
-		font-weight: bold;
-		font-size: 14px;
-	}
+      .zstep-badge {
+        position: absolute;
+        top: -12px;
+        left: 41px;
+        background: white;
+        color: #2563eb;
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 14px;
+      }
 
-	.testimonials-section {
-		padding: 50px 40px;
-		background: #f8fafc;
-	}
+      .testimonials-section {
+        padding: 50px 40px;
+        background: #f8fafc;
+      }
 
-	.testimonials-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 30px;
-	}
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+      }
 
-	.testimonial-card {
-		background: white;
-		border-radius: 20px;
-		padding: 30px;
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-		transition: all 0.3s ease;
-		position: relative;
-		border-top: 4px solid #2563eb;
-	}
+      .testimonial-card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        position: relative;
+        border-top: 4px solid #2563eb;
+      }
 
-	.testimonial-card:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-	}
+      .testimonial-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
 
-	.testimonial-header {
-		display: flex;
-		align-items: center;
-		gap: 3px;
-		margin-bottom: 20px;
-	}
+      .testimonial-header {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        margin-bottom: 20px;
+      }
 
-	.customer-avatar {
-		width: 50px;
-		height: 50px;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: white;
-		font-weight: bold;
-		font-size: 18px;
-	}
+      .customer-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+      }
 
-	.customer-info h4 {
-		font-size: 16px;
-		font-weight: bold;
-		color: #1e293b;
-		margin-bottom: 5px;
-	}
+      .customer-info h4 {
+        font-size: 16px;
+        font-weight: bold;
+        color: #1e293b;
+        margin-bottom: 5px;
+      }
 
-	.customer-company {
-		font-size: 14px;
-		color: #64748b;
-		display: flex;
-		align-items: center;
-		gap: 5px;
-	}
+      .customer-company {
+        font-size: 14px;
+        color: #64748b;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
 
-	.testimonial-content {
-		line-height: 1.6;
-		color: #374151;
-		font-size: 15px;
-	}
+      .testimonial-content {
+        line-height: 1.6;
+        color: #374151;
+        font-size: 15px;
+      }
 
-	.testimonial-content ul {
-		list-style: none;
-		padding-left: 0;
-		margin: 15px 0;
-	}
+      .testimonial-content ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 15px 0;
+      }
 
-	.testimonial-content li {
-		position: relative;
-		padding-left: 20px;
-		margin-bottom: 10px;
-	}
+      .testimonial-content li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 10px;
+      }
 
-	.testimonial-content li:before {
-		content: "•";
-		color: #2563eb;
-		font-weight: bold;
-		position: absolute;
-		left: 0;
-	}
+      .testimonial-content li:before {
+        content: "•";
+        color: #2563eb;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
 
-	.highlight-stat {
-		background: linear-gradient(135deg, #10b981, #059669);
-		color: white;
-		padding: 3px 8px;
-		border-radius: 12px;
-		font-weight: bold;
-		font-size: 13px;
-	}
+      .highlight-stat {
+        background: linear-gradient(135deg, #10b981, #059669);
+        color: white;
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-weight: bold;
+        font-size: 13px;
+      }
 
-	/* .footer {
+      /* .footer {
         background: linear-gradient(135deg, #0ea5e9, #0284c7);
         color: white;
         padding: 40px;
         text-align: center;
       } */
-	.footer h3 .contact-we {
-		font-size: 24px;
-		margin-bottom: 20px;
-	}
+      .footer h3 .contact-we {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
 
-	.contact-button-we {
-		background: linear-gradient(135deg, #f59e0b, #d97706);
-		color: white;
-		padding: 15px 40px;
-		border: none;
-		border-radius: 30px;
-		font-weight: bold;
-		font-size: 16px;
-		cursor: pointer;
-		transition: all 0.3s ease;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		box-shadow: 0 5px 20px rgba(245, 158, 11, 0.3);
-	}
+      .contact-button-we {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        color: white;
+        padding: 15px 40px;
+        border: none;
+        border-radius: 30px;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 5px 20px rgba(245, 158, 11, 0.3);
+      }
 
-	.contact-button-we:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
-	}
+      .contact-button-we:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
+      }
 
-	@media (max-width: 768px) {
-		.underline-we {
-			margin-left: 78px;
-		}
+      @media (max-width: 768px) {
+        .underline-we {
+          margin-left: 78px;
+        }
 
-		.header-we {
-			padding: 20px 20px;
-		}
+        .header-we {
+          padding: 20px 20px;
+        }
 
-		.header-content-we {
-			flex-direction: column;
-			text-align: center;
-		}
+        .header-content-we {
+          flex-direction: column;
+          text-align: center;
+        }
 
-		.header-we h1 {
-			font-size: 24px;
-		}
+        .header-we h1 {
+          font-size: 24px;
+        }
 
-		.header-illustration {
-			width: 150px;
-			height: 150px;
-			margin-top: 50px;
-		}
+        .header-illustration {
+          width: 150px;
+          height: 150px;
+          margin-top: 50px;
+        }
 
-		.illustration-woman {
-			font-size: 60px;
-		}
+        .illustration-woman {
+          font-size: 60px;
+        }
 
-		.testimonials-section {
-			padding: 30px 20px;
-		}
+        .testimonials-section {
+          padding: 30px 20px;
+        }
 
-		.testimonials-grid {
-			grid-template-columns: 1fr;
-			gap: 20px;
-		}
+        .testimonials-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
 
-		.testimonial-card {
-			padding: 25px 20px;
-		}
+        .testimonial-card {
+          padding: 25px 20px;
+        }
 
-		.footer {
-			padding: 30px 20px;
-		}
+        .footer {
+          padding: 30px 20px;
+        }
 
-		.contact-button-we {
-			padding: 12px 30px;
-			font-size: 14px;
-		}
+        .contact-button-we {
+          padding: 12px 30px;
+          font-size: 14px;
+        }
 
-		.zstep-badge {
-			top: -32px;
-			left: 13px;
-		}
-	}
+        .zstep-badge {
+          top: -32px;
+          left: 13px;
+        }
+      }
 
-	.header-typical-customers {
-		padding: 40px;
-		position: relative;
-		z-index: 1;
-	}
+      .header-typical-customers {
+        padding: 40px;
+        position: relative;
+        z-index: 1;
+      }
 
-	.title-typical-customers {
-		color: #1e4799;
-		font-size: 2.5rem;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		margin-bottom: 10px;
-	}
+      .title-typical-customers {
+        color: #1e4799;
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+      }
 
-	.underline-typical-customers {
-		width: 80px;
-		height: 4px;
-		background: linear-gradient(90deg, #1e4799, #4169e1);
-		border-radius: 2px;
-		margin-bottom: 40px;
-	}
+      .underline-typical-customers {
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #1e4799, #4169e1);
+        border-radius: 2px;
+        margin-bottom: 40px;
+      }
 
-	.customers-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 11px;
-		padding: 0 33px;
-		position: relative;
-		z-index: 1;
-	}
+      .customers-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 11px;
+        padding: 0 33px;
+        position: relative;
+        z-index: 1;
+      }
 
-	.customer-card {
-		background: white;
-		border-radius: 15px;
-		padding: 10px;
-		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-		transition: all 0.3s ease;
-		border: 2px solid transparent;
-		position: relative;
-		overflow: hidden;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
+      .customer-card {
+        background: white;
+        border-radius: 15px;
+        padding: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        border: 2px solid transparent;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-	.customer-card::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		/* background: linear-gradient(45deg, rgba(255,255,255,0.8), rgba(240,248,255,0.8)); */
-		z-index: -1;
-	}
+      .customer-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /* background: linear-gradient(45deg, rgba(255,255,255,0.8), rgba(240,248,255,0.8)); */
+        z-index: -1;
+      }
 
-	.customer-card:hover {
-		transform: translateY(-10px);
-		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-		border-color: #4169e1;
-	}
+      .customer-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        border-color: #4169e1;
+      }
 
-	/* .toyota-card {
+      /* .toyota-card {
             background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
             color: white;
         } */
-	.toyota-card .brand-name {
-		color: white;
-		font-size: 0;
-		font-weight: 800;
-		text-align: center;
-		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-	}
-
-	.toyota-card .dealer-name {
-		color: rgba(255, 255, 255, 0.9);
-		font-size: 1rem;
-		text-align: center;
-		background: rgba(0, 0, 0, 0.2);
-		padding: 8px 15px;
-		border-radius: 20px;
-		backdrop-filter: blur(10px);
-	}
-
-	.ford-card {
-		background: linear-gradient(135deg, #fff 0%, #fff 100%);
-		color: white;
-	}
-
-	.ford-card .brand-name {
-		color: white;
-		font-size: 1.8rem;
-		font-weight: 700;
-		text-align: center;
-		text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-	}
-
-	.ford-card .dealer-name {
-		color: rgba(255, 255, 255, 0.9);
-		font-size: 0.9rem;
-		text-align: center;
-		background: rgba(255, 255, 255, 0.1);
-		padding: 8px 15px;
-		border-radius: 20px;
-		backdrop-filter: blur(10px);
-	}
-
-	.other-brand {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 120px;
-	}
-
-	.other-brand .brand-name {
-		font-size: 1.5rem;
-		font-weight: 600;
-		text-align: center;
-		color: #333;
-	}
-
-	.missiona {
-		color: #e74c3c;
-	}
-
-	.elcowa {
-		color: #27ae60;
-	}
-
-	.idealvision {
-		color: #3498db;
-	}
-
-	.footer {
-		background: linear-gradient(135deg, #4facfe 0%, #00f2fe33 100%);
-		padding: 30px 40px;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 20px;
-	}
-
-	.footer-item {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		color: white;
-		font-size: 0.9rem;
-	}
-
-	.footer-icon {
-		width: 24px;
-		height: 24px;
-		background: rgba(255, 255, 255, 0.2);
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	@media (max-width: 768px) {
-		.title-typical-customers {
-			font-size: 2rem;
-		}
-
-		.customers-grid {
-			grid-template-columns: repeat(2, 1fr);
-			padding: 0 20px;
-		}
-
-		.header {
-			padding: 30px 20px;
-		}
-
-		.footer {
-			padding: 20px;
-			flex-direction: column;
-			text-align: center;
-		}
-
-		.brand-name img {
-			width: 90%;
-		}
-
-		.zstep-badge {
-			top: -45px;
-		}
-	}
-
-	@media (min-width: 414px) and (max-width: 768px) {
-		.custom-image {
-			width: 100%;
-		}
-
-		.zstep-badge {
-			top: -36px;
-			left: 19px;
-		}
-	}
-
-	@media (max-width: 600px) {
-		.card .header {
-			flex-direction: column;
-			padding: 18px 8px;
-			margin-bottom: 18px;
-		}
-
-		.card .company-name {
-			font-size: 20px;
-		}
-
-		.card .subtitle {
-			font-size: 15px;
-			margin-bottom: 3px;
-		}
-
-		.card .tagline {
-			font-size: 13px;
-		}
-	}
-
-	.zalo-float-btn {
-		position: fixed;
-		/* bottom: 37px; */
-		bottom: 89px;
-		right: 30px;
-		z-index: 9999;
-		background: #fff;
-		box-shadow: 0 4px 20px rgba(0, 132, 255, 0.3);
-		border-radius: 30px;
-		height: 60px;
-		min-width: 220px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 8px;
-		padding: 0 24px;
-		padding: 0 18px;
-		transition: box-shadow 0.2s;
-		animation: zalo-pulse-shake 1.6s infinite;
-	}
-
-	.zalo-float-btn:hover {
-		box-shadow: 0 8px 30px rgba(0, 132, 255, 0.5);
-		background: #f0f8ff;
-	}
-
-	.zalo-float-icon {
-		width: 38px;
-		height: 38px;
-	}
-
-	@keyframes zalo-pulse-shake {
-		0% {
-			transform: scale(1) translateX(0);
-			box-shadow: 0 4px 20px rgba(0, 132, 255, 0.3);
-		}
-
-		10% {
-			transform: scale(1.05) translateX(-2px);
-		}
-
-		20% {
-			transform: scale(1.08) translateX(2px);
-		}
-
-		30% {
-			transform: scale(1.1) translateX(-2px);
-		}
-
-		40% {
-			transform: scale(1.08) translateX(2px);
-		}
-
-		50% {
-			transform: scale(1.05) translateX(-2px);
-		}
-
-		60% {
-			transform: scale(1.03) translateX(2px);
-		}
-
-		70% {
-			transform: scale(1.01) translateX(-1px);
-		}
-
-		80% {
-			transform: scale(1) translateX(1px);
-		}
-
-		100% {
-			transform: scale(1) translateX(0);
-			box-shadow: 0 4px 20px rgba(0, 132, 255, 0.3);
-		}
-	}
-
-	@media (max-width: 600px) {
-		.zalo-float-btn {
-			right: 15px;
-			width: auto;
-			height: 50px;
-			padding: 0 10px;
-		}
-
-		.zalo-float-icon {
-			width: 28px;
-			height: 28px;
-		}
-	}
-
-	.card {
-		background: white;
-		padding: 40px 30px;
-		box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-		width: 100%;
-		text-align: left;
-	}
-
-	.header {
-		text-align: center;
-		margin-bottom: 30px;
-	}
-
-	.company-name {
-		font-size: 28px;
-		font-weight: bold;
-		color: #1e3c72;
-		margin-bottom: 5px;
-		letter-spacing: 1px;
-	}
-
-	.subtitle {
-		font-size: 18px;
-		font-weight: bold;
-		color: #1e3c72;
-		margin-bottom: 5px;
-	}
-
-	.tagline {
-		font-size: 16px;
-		font-weight: bold;
-		color: #1e3c72;
-	}
-
-	.info-section {
-		margin-top: 25px;
-	}
-
-	.info-item {
-		display: flex;
-		align-items: flex-start;
-		margin-bottom: 20px;
-		padding-left: 0;
-	}
-
-	.icon {
-		width: 35px;
-		height: 35px;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-right: 15px;
-		flex-shrink: 0;
-		color: white;
-		font-size: 16px;
-	}
-
-	.info-content {
-		flex: 1;
-	}
-
-	.info-title {
-		font-weight: bold;
-		color: #1e3c72;
-		margin-bottom: 3px;
-		font-size: 14px;
-	}
-
-	.info-detail {
-		color: #666;
-		font-size: 13px;
-		line-height: 1.4;
-	}
-
-	.business-info {
-		border-top: 2px solid #e0e0e0;
-		padding-top: 20px;
-		margin-top: 25px;
-	}
-
-	.business-item {
-		display: flex;
-		align-items: center;
-		margin-bottom: 15px;
-	}
-
-	.business-icon {
-		width: 60px;
-		height: 60px;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-right: 12px;
-		color: white;
-		font-size: 12px;
-	}
-
-	.business-text {
-		color: #666;
-		font-size: 13px;
-	}
-
-	.highlight {
-		color: #1e3c72;
-		font-weight: bold;
-	}
-
-	.timeline-header {
-		display: flex;
-		align-items: center;
-		margin-bottom: 40px;
-		padding-bottom: 20px;
-		border-bottom: 3px solid #e74c3c;
-		margin-top: 15px;
-		padding: 20px;
-	}
-
-	.timeline-icon {
-		width: 30px;
-		height: 30px;
-		background: #e74c3c;
-		border-radius: 50%;
-		margin-right: 15px;
-		position: relative;
-	}
-
-	.timeline-icon::before {
-		content: '';
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 0;
-		height: 0;
-		border-left: 8px solid transparent;
-		border-right: 8px solid transparent;
-		border-top: 12px solid white;
-	}
-
-	.timeline-title {
-		font-size: 1.5rem;
-		font-weight: bold;
-		color: #2c3e50;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		margin: 0;
-	}
-
-	.timeline-content {
-		position: relative;
-		padding: 20px;
-	}
-
-	.timeline-line {
-		position: absolute;
-		left: 30px;
-		top: 0;
-		bottom: 0;
-		width: 3px;
-		background: #3498db;
-		z-index: 1;
-	}
-
-	.timeline-item {
-		position: relative;
-		margin-bottom: 40px;
-		padding-left: 80px;
-	}
-
-	.timeline-year {
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 50px;
-		height: 50px;
-		background: #3498db;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-weight: bold;
-		color: white;
-		font-size: 14px;
-		z-index: 2;
-		border: 5px solid white;
-		box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
-	}
-
-	.timeline-card {
-		background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-		border-radius: 12px;
-		padding: 25px;
-		border-left: 5px solid #3498db;
-		box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-		transition: transform 0.3s ease, box-shadow 0.3s ease;
-	}
-
-	.timeline-card:hover {
-		transform: translateY(-5px);
-		box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-	}
-
-	.timeline-description {
-		color: #555;
-		line-height: 1.6;
-		font-size: 15px;
-	}
-
-	.highlight {
-		color: #e74c3c;
-		font-weight: bold;
-	}
-
-	.highlight-blue {
-		color: #3498db;
-		font-weight: bold;
-	}
-
-	.special-year {
-		background: #e74c3c !important;
-		box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3) !important;
-	}
-
-	.special-card {
-		border-left-color: #e74c3c;
-		background: linear-gradient(135deg, #fff5f5 0%, #fee);
-	}
-
-	.company-stats {
-		display: inline-block;
-		background: #27ae60;
-		color: white;
-		padding: 4px 12px;
-		border-radius: 20px;
-		font-size: 13px;
-		font-weight: bold;
-		margin: 5px 5px 0 0;
-	}
-
-	.platform-tag {
-		display: inline-block;
-		background: #9b59b6;
-		color: white;
-		padding: 3px 10px;
-		border-radius: 15px;
-		font-size: 12px;
-		margin: 3px 3px 0 0;
-	}
-
-	.introdue-header {
-		background: linear-gradient(135deg, #4facfe 0%, #00f2fe33 100%);
-		margin-top: 15px;
-		padding: 20px;
-		display: flex;
-		align-items: center;
-	}
-
-	.header-icon {
-		width: 40px;
-		height: 40px;
-		background: white;
-		border-radius: 50%;
-		margin-right: 18px;
-		position: relative;
-		flex-shrink: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.header-icon::before {
-		content: '';
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 0;
-		height: 0;
-		border-left: 10px solid transparent;
-		border-right: 10px solid transparent;
-		border-top: 15px solid #1e3c72;
-	}
-
-	.header-title {
-		font-size: 1.8rem;
-		font-weight: bold;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-	}
-
-	.intro-text {
-		background: rgba(255, 255, 255, 0.15);
-		padding: 25px;
-		border-radius: 15px;
-		backdrop-filter: blur(10px);
-		border: 1px solid rgba(255, 255, 255, 0.2);
-	}
-
-	.intro-text p {
-		font-size: 16px;
-		line-height: 1.6;
-		margin: 0;
-	}
-
-	/* .features-grid {
+      .toyota-card .brand-name {
+        color: white;
+        font-size: 0;
+        font-weight: 800;
+        text-align: center;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .toyota-card .dealer-name {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1rem;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 8px 15px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+      }
+
+      .ford-card {
+        background: linear-gradient(135deg, #fff 0%, #fff 100%);
+        color: white;
+      }
+
+      .ford-card .brand-name {
+        color: white;
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-align: center;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .ford-card .dealer-name {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.9rem;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 8px 15px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+      }
+
+      .other-brand {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 120px;
+      }
+
+      .other-brand .brand-name {
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-align: center;
+        color: #333;
+      }
+
+      .missiona {
+        color: #e74c3c;
+      }
+
+      .elcowa {
+        color: #27ae60;
+      }
+
+      .idealvision {
+        color: #3498db;
+      }
+
+      .footer {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe33 100%);
+        padding: 20px 40px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .footer-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        font-size: 0.9rem;
+      }
+
+      .footer-icon {
+        width: 24px;
+        height: 24px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      @media (max-width: 768px) {
+        .title-typical-customers {
+          font-size: 2rem;
+        }
+
+        .customers-grid {
+          grid-template-columns: repeat(2, 1fr);
+          padding: 0 20px;
+        }
+
+        .header {
+          padding: 30px 20px;
+        }
+
+        .footer {
+          padding: 20px;
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .brand-name img {
+          width: 90%;
+        }
+
+        .zstep-badge {
+          top: -45px;
+        }
+      }
+
+      @media (min-width: 414px) and (max-width: 768px) {
+        .custom-image {
+          width: 100%;
+        }
+
+        .zstep-badge {
+          top: -36px;
+          left: 19px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .card .header {
+          flex-direction: column;
+          padding: 18px 8px;
+          margin-bottom: 18px;
+        }
+
+        .card .company-name {
+          font-size: 20px;
+        }
+
+        .card .subtitle {
+          font-size: 15px;
+          margin-bottom: 3px;
+        }
+
+        .card .tagline {
+          font-size: 13px;
+        }
+      }
+
+      .zalo-float-btn {
+        position: fixed;
+        /* bottom: 37px; */
+        bottom: 89px;
+        right: 30px;
+        z-index: 9999;
+        background: #fff;
+        box-shadow: 0 4px 20px rgba(0, 132, 255, 0.3);
+        border-radius: 30px;
+        height: 60px;
+        min-width: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 0 24px;
+        padding: 0 18px;
+        transition: box-shadow 0.2s;
+        animation: zalo-pulse-shake 1.6s infinite;
+      }
+
+      .zalo-float-btn:hover {
+        box-shadow: 0 8px 30px rgba(0, 132, 255, 0.5);
+        background: #f0f8ff;
+      }
+
+      .zalo-float-icon {
+        width: 38px;
+        height: 38px;
+      }
+
+      @keyframes zalo-pulse-shake {
+        0% {
+          transform: scale(1) translateX(0);
+          box-shadow: 0 4px 20px rgba(0, 132, 255, 0.3);
+        }
+
+        10% {
+          transform: scale(1.05) translateX(-2px);
+        }
+
+        20% {
+          transform: scale(1.08) translateX(2px);
+        }
+
+        30% {
+          transform: scale(1.1) translateX(-2px);
+        }
+
+        40% {
+          transform: scale(1.08) translateX(2px);
+        }
+
+        50% {
+          transform: scale(1.05) translateX(-2px);
+        }
+
+        60% {
+          transform: scale(1.03) translateX(2px);
+        }
+
+        70% {
+          transform: scale(1.01) translateX(-1px);
+        }
+
+        80% {
+          transform: scale(1) translateX(1px);
+        }
+
+        100% {
+          transform: scale(1) translateX(0);
+          box-shadow: 0 4px 20px rgba(0, 132, 255, 0.3);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .zalo-float-btn {
+          right: 15px;
+          width: auto;
+          height: 50px;
+          padding: 0 10px;
+        }
+
+        .zalo-float-icon {
+          width: 28px;
+          height: 28px;
+        }
+      }
+
+      .card {
+        background: white;
+        padding: 40px 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        text-align: left;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .company-name {
+        font-size: 28px;
+        font-weight: bold;
+        color: #1e3c72;
+        margin-bottom: 5px;
+        letter-spacing: 1px;
+      }
+
+      .subtitle {
+        font-size: 18px;
+        font-weight: bold;
+        color: #1e3c72;
+        margin-bottom: 5px;
+      }
+
+      .tagline {
+        font-size: 16px;
+        font-weight: bold;
+        color: #1e3c72;
+      }
+
+      .info-section {
+        margin-top: 25px;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        padding-left: 0;
+      }
+
+      .icon {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        flex-shrink: 0;
+        color: white;
+        font-size: 16px;
+      }
+
+      .info-content {
+        flex: 1;
+      }
+
+      .info-title {
+        font-weight: bold;
+        color: #1e3c72;
+        margin-bottom: 3px;
+        font-size: 14px;
+      }
+
+      .info-detail {
+        color: #666;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .business-info {
+        border-top: 2px solid #e0e0e0;
+        padding-top: 20px;
+        margin-top: 25px;
+      }
+
+      .business-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .business-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 12px;
+        color: white;
+        font-size: 12px;
+      }
+
+      .business-text {
+        color: #666;
+        font-size: 13px;
+      }
+
+      .highlight {
+        color: #1e3c72;
+        font-weight: bold;
+      }
+
+      .timeline-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 3px solid #e74c3c;
+        margin-top: 15px;
+        padding: 20px;
+      }
+
+      .timeline-icon {
+        width: 30px;
+        height: 30px;
+        background: #e74c3c;
+        border-radius: 50%;
+        margin-right: 15px;
+        position: relative;
+      }
+
+      .timeline-icon::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0;
+        height: 0;
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 12px solid white;
+      }
+
+      .timeline-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #2c3e50;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 0;
+      }
+
+      .timeline-content {
+        position: relative;
+        padding: 20px;
+      }
+
+      .timeline-line {
+        position: absolute;
+        left: 30px;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: #3498db;
+        z-index: 1;
+      }
+
+      .timeline-item {
+        position: relative;
+        margin-bottom: 40px;
+        padding-left: 80px;
+      }
+
+      .timeline-year {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 50px;
+        height: 50px;
+        background: #3498db;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+        font-size: 14px;
+        z-index: 2;
+        border: 5px solid white;
+        box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+      }
+
+      .timeline-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 12px;
+        padding: 25px;
+        border-left: 5px solid #3498db;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .timeline-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .timeline-description {
+        color: #555;
+        line-height: 1.6;
+        font-size: 15px;
+      }
+
+      .highlight {
+        color: #e74c3c;
+        font-weight: bold;
+      }
+
+      .highlight-blue {
+        color: #3498db;
+        font-weight: bold;
+      }
+
+      .special-year {
+        background: #e74c3c !important;
+        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3) !important;
+      }
+
+      .special-card {
+        border-left-color: #e74c3c;
+        background: linear-gradient(135deg, #fff5f5 0%, #fee);
+      }
+
+      .company-stats {
+        display: inline-block;
+        background: #27ae60;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: bold;
+        margin: 5px 5px 0 0;
+      }
+
+      .platform-tag {
+        display: inline-block;
+        background: #9b59b6;
+        color: white;
+        padding: 3px 10px;
+        border-radius: 15px;
+        font-size: 12px;
+        margin: 3px 3px 0 0;
+      }
+
+      .introdue-header {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe33 100%);
+        margin-top: 15px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      .header-icon {
+        width: 40px;
+        height: 40px;
+        background: white;
+        border-radius: 50%;
+        margin-right: 18px;
+        position: relative;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .header-icon::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 15px solid #1e3c72;
+      }
+
+      .header-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .intro-text {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 25px;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .intro-text p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      /* .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
             gap: 30px;
         } */
-	.feature-card {
-		background: white;
-		border-radius: 20px;
-		overflow: hidden;
-		box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-		transition: transform 0.3s ease, box-shadow 0.3s ease;
-	}
+      .feature-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
 
-	.feature-card:hover {
-		transform: translateY(-10px);
-		box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-	}
+      .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+      }
 
-	.feature-number {
-		position: absolute;
-		top: -15px;
-		left: 20px;
-		width: 30px;
-		height: 30px;
-		background: #e74c3c;
-		border-radius: 50%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-weight: bold;
-		color: white;
-		font-size: 14px;
-	}
+      .feature-number {
+        position: absolute;
+        top: -15px;
+        left: 20px;
+        width: 30px;
+        height: 30px;
+        background: #e74c3c;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+        font-size: 14px;
+      }
 
-	.feature-illustration {
-		width: 120px;
-		height: 80px;
-		background: rgba(255, 255, 255, 0.2);
-		border-radius: 10px;
-		margin: 0 auto 15px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 40px;
-		position: relative;
-		overflow: hidden;
-	}
+      .feature-illustration {
+        width: 120px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        margin: 0 auto 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        position: relative;
+        overflow: hidden;
+      }
 
-	.business-chart {
-		background: linear-gradient(45deg, #27ae60, #2ecc71);
-		position: relative;
-	}
+      .business-chart {
+        background: linear-gradient(45deg, #27ae60, #2ecc71);
+        position: relative;
+      }
 
-	.japan-flag {
-		background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-		position: relative;
-	}
+      .japan-flag {
+        background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+        position: relative;
+      }
 
-	.japan-flag::after {
-		content: '🇯🇵💼';
-		font-size: 25px;
-	}
+      .japan-flag::after {
+        content: "🇯🇵💼";
+        font-size: 25px;
+      }
 
-	.lean-startup {
-		background: linear-gradient(45deg, #f39c12, #e67e22);
-		position: relative;
-	}
+      .lean-startup {
+        background: linear-gradient(45deg, #f39c12, #e67e22);
+        position: relative;
+      }
 
-	.lean-startup::after {
-		content: '🚀📈';
-		font-size: 30px;
-	}
+      .lean-startup::after {
+        content: "🚀📈";
+        font-size: 30px;
+      }
 
-	.support-247 {
-		background: linear-gradient(45deg, #3498db, #2980b9);
-		position: relative;
-	}
+      .support-247 {
+        background: linear-gradient(45deg, #3498db, #2980b9);
+        position: relative;
+      }
 
-	.support-247::after {
-		content: '🕐💬';
-		font-size: 30px;
-	}
+      .support-247::after {
+        content: "🕐💬";
+        font-size: 30px;
+      }
 
-	.feature-title {
-		font-size: 18px;
-		font-weight: bold;
-		color: #d55d38;
-		margin-bottom: 10px;
-	}
+      .feature-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #d55d38;
+        margin-bottom: 10px;
+      }
 
-	.feature-subtitle {
-		font-size: 14px;
-		color: rgba(255, 255, 255, 0.8);
-	}
+      .feature-subtitle {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.8);
+      }
 
-	.feature-content {
-		padding: 25px;
-		color: #333;
-	}
+      .feature-content {
+        padding: 25px;
+        color: #333;
+      }
 
-	.feature-description {
-		font-size: 14px;
-		line-height: 1.6;
-		color: #555;
-	}
+      .feature-description {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #555;
+      }
 
-	.highlight {
-		color: #e74c3c;
-		font-weight: bold;
-	}
+      .highlight {
+        color: #e74c3c;
+        font-weight: bold;
+      }
 
-	.highlight-blue {
-		color: #3498db;
-		font-weight: bold;
-	}
+      .highlight-blue {
+        color: #3498db;
+        font-weight: bold;
+      }
 
-	.highlight-green {
-		color: #27ae60;
-		font-weight: bold;
-	}
+      .highlight-green {
+        color: #27ae60;
+        font-weight: bold;
+      }
 
-	.stats-badge {
-		background: linear-gradient(45deg, #e74c3c, #c0392b);
-		color: white;
-		padding: 8px 15px;
-		border-radius: 25px;
-		font-weight: bold;
-		font-size: 16px;
-		display: inline-block;
-		margin: 10px 0;
-		box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-	}
+      .stats-badge {
+        background: linear-gradient(45deg, #e74c3c, #c0392b);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 25px;
+        font-weight: bold;
+        font-size: 16px;
+        display: inline-block;
+        margin: 10px 0;
+        box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+      }
 
-	.bottom-cards {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-		gap: 20px;
-	}
+      .bottom-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
 
-	.bottom-card {
-		background: rgb(85 84 84 / 10%);
-		backdrop-filter: blur(10px);
-		border-radius: 15px;
-		padding: 20px;
-		border: 1px solid rgba(255, 255, 255, 0.2);
-		text-align: center;
-	}
+      .bottom-card {
+        background: rgb(85 84 84 / 10%);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+      }
 
-	.bottom-card h3 {
-		color: #ffd700;
-		margin-bottom: 10px;
-		font-size: 18px;
-	}
+      .bottom-card h3 {
+        color: #ffd700;
+        margin-bottom: 10px;
+        font-size: 18px;
+      }
 
-	@media (max-width: 768px) {
-		.features-grid {
-			grid-template-columns: 1fr;
-		}
+      @media (max-width: 768px) {
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
 
-		.header-title {
-			font-size: 24px;
-		}
+        .header-title {
+          font-size: 24px;
+        }
 
-		.feature-card {
-			margin-bottom: 20px;
-		}
-	}
-	</style>
-</head>
-<a href="https://zalo.me/123456789" target="_blank" class="zalo-float-btn" title="Nhận tư vấn qua Zalo" style="display: flex; align-items: center; text-decoration: none; gap: 8px">
-	<img src="./image/zalo-icon-removebg-preview.png" alt="Zalo" class="zalo-float-icon" />
-	<span style="
+        .feature-card {
+          margin-bottom: 20px;
+        }
+      }
+    </style>
+  </head>
+  <a
+    href="https://zalo.me/123456789"
+    target="_blank"
+    class="zalo-float-btn"
+    title="Nhận tư vấn qua Zalo"
+    style="display: flex; align-items: center; text-decoration: none; gap: 8px"
+  >
+    <img
+      src="./image/zalo-icon-removebg-preview.png"
+      alt="Zalo"
+      class="zalo-float-icon"
+    />
+    <span
+      style="
         color: #0084ff;
         font-size: 15px;
         font-weight: bold;
         text-shadow: 0 1px 4px #fff;
-      ">Nhận tư vấn qua Zalo</span>
-</a>
+      "
+      >Nhận tư vấn qua Zalo</span
+    >
+  </a>
 
-<body>
-	<!-- Gộp nội dung HTML từ các file con vào đây -->
-	<header>
-		<!-- Từ header.html -->
-	</header>
-	<main>
-		<div class="container">
-			<div class="header">
-				<div class="logo-zstep">
-					<img src="./image/lp-logo-removebg-preview.png" alt="Zalo logo" />
-				</div>
-			</div>
-			<div class="features">
-				<div class="feature-item" onclick="highlightFeature(this)">
-					<div class="feature-icon">
-						<img src="./image/Screenshot_8-removebg-preview.png" alt="Zalo icon" />
-					</div>
-					<div class="feature-text"> Tự động nuôi dưỡng khách hàng qua Zalo </div>
-				</div>
-				<div class="feature-item" onclick="highlightFeature(this)">
-					<div class="feature-icon">
-						<img src="./image/Screenshot_9-removebg-preview.png" alt="Zalo icon" />
-					</div>
-					<div class="feature-text"> Nâng cao tỷ lệ chuyển đổi và giữ chân khách hàng </div>
-				</div>
-				<div class="feature-item" onclick="highlightFeature(this)">
-					<div class="feature-icon">
-						<img src="./image/Screenshot_10-removebg-preview.png" alt="Zalo icon" />
-					</div>
-					<div class="feature-text">Tiết kiệm thời gian tối ưu nhân sự</div>
-				</div>
-				<div class="feature-item" onclick="highlightFeature(this)">
-					<div class="feature-icon">
-						<img src="./image/Screenshot_10-removebg-preview.png" alt="Zalo icon" />
-					</div>
-					<div class="feature-text">Số hóa hành vi khách hàng</div>
-				</div>
-				<div class="feature-item" onclick="highlightFeature(this); scrollToCustomers();">
-					<div class="feature-icon">
-						<img src="./image/Screenshot_10-removebg-preview.png" alt="Zalo icon" />
-					</div>
-					<div class="feature-text"> Chăm sóc liên tục không để khách rời rụng </div>
-				</div>
-			</div>
-			<div class="header-phone">
-				<h1 class="title"> NHÂN VIÊN MỆT MỎI KHI CHĂM SÓC KHÁCH QUA ĐIỆN THOẠI </h1>
-				<div class="illustration-container">
-					<div class="character">
-						<img src="./image/lp-removebg-preview.png" alt="Zalo icon" />
-					</div>
-					<div class="character" style="margin-left: 100px">
-						<img src="./image/lp1-removebg-preview.png" alt="Zalo icon" />
-					</div>
-				</div>
-				<div class="stats">
-					<div class="stat-item">
-						<span class="stat-number">65%</span>
-						<span class="stat-label">Khách không nghe máy</span>
-					</div>
-					<div class="stat-item">
-						<span class="stat-number">40%</span>
-						<span class="stat-label">Thời gian lãng phí</span>
-					</div>
-				</div>
-			</div>
-			<div class="problems-grid">
-				<div class="problem-card fade-in" style="animation-delay: 0.1s">
-					<div class="problem-header">
-						<div class="problem-icon icon-phone">
-							<img src="./image/Screenshot_2-removebg-preview.png" alt="Zalo icon" style="width: 60px" />
-						</div>
-						<div class="problem-title">Khó tiếp cận khách hàng</div>
-					</div>
-					<div class="problem-content">
-						<div class="problem-item">
-							<span class="highlight">65%</span> Khách không nghe máy, từ chối cuộc gọi hoặc chặn số lạ. </div>
-						<div class="problem-item"> Gọi vào thời điểm <span class="highlight">không phù hợp,</span> gây khó chịu. </div>
-					</div>
-				</div>
-				<div class="problem-card fade-in" style="animation-delay: 0.2s">
-					<div class="problem-header">
-						<div class="problem-icon icon-phone">
-							<img src="./image/Screenshot_3-removebg-preview.png" alt="Zalo icon" style="width: 60px" />
-						</div>
-						<div class="problem-title">Dễ gây phản cảm hoặc phản ứng tiêu cực</div>
-					</div>
-					<div class="problem-content">
-						<div class="problem-item"> Một số khách hàng cảm thấy bị làm phiền hoặc bị<span class="highlight">"ép mua"</span>
-						</div>
-						<div class="problem-item"> Dễ ảnh <span class="highlight">hưởng đến hình ảnh</span> thương hiệu nếu xử lý không khéo. </div>
-					</div>
-				</div>
-				<div class="problem-card fade-in" style="animation-delay: 0.3s">
-					<div class="problem-header">
-						<div class="problem-icon icon-phone">
-							<img src="./image/Screenshot_4-removebg-preview.png" alt="Zalo icon" style="width: 60px" />
-						</div>
-						<div class="problem-title">Tốn nhiều thời gian và chi phí</div>
-					</div>
-					<div class="problem-content">
-						<div class="problem-item"> Mỗi cuộc gọi cần thời gian xử lý riêng, khó mở rộng quy mô. </div>
-						<div class="problem-item"> Phải thuê nhiều nhân viên telesale </div>
-						<div class="">-> Tốn chi phí nhân sự và đào tạo</div>
-					</div>
-				</div>
-				<div class="problem-card fade-in" style="animation-delay: 0.4s">
-					<div class="problem-header">
-						<div class="problem-icon icon-phone">
-							<img src="./image/Screenshot_5-removebg-preview.png" alt="Zalo icon" style="width: 60px" />
-						</div>
-						<div class="problem-title">Khó lưu trữ và khai thác dữ liệu</div>
-					</div>
-					<div class="problem-content">
-						<div class="problem-item"> Dữ liệu từ cuộc gọi khó được ghi nhận chính xác và đồng bộ. </div>
-						<div class="problem-item"> Thiếu thông tin tập trung để phân tích hành vi, theo dõi lịch sử <span class="highlight">chăm sóc</span>
-						</div>
-					</div>
-				</div>
-				<div class="problem-card fade-in" style="animation-delay: 0.5s">
-					<div class="problem-header">
-						<div class="problem-icon icon-phone">
-							<img src="./image/Screenshot_6-removebg-preview.png" alt="Zalo icon" style="width: 60px" />
-						</div>
-						<div class="problem-title">Chất lượng tương tác không đồng đều</div>
-					</div>
-					<div class="problem-content">
-						<div class="problem-item"> Phụ thuộc vào kỹ năng nhân viên </div>
-						<div class=""> -> dễ xảy ra sai sót, truyền đạt thông tin. </div>
-						<div class="problem-item"> Không kiểm soát được nội dung cuộc gọi nếu không ghi âm hoặc giám sát sát sao. </div>
-					</div>
-				</div>
-				<div class="problem-card fade-in" style="animation-delay: 0.6s">
-					<div class="problem-header">
-						<div class="problem-icon icon-phone">
-							<img src="./image/Screenshot_7-removebg-preview.png" alt="Zalo icon" style="width: 60px" />
-						</div>
-						<div class="problem-title">Khó cá nhân hóa trải nghiệm</div>
-					</div>
-					<div class="problem-content">
-						<div class="problem-item"> Nội dung cuộc gọi thường là mẫu chung, thiếu thông tin chi tiết theo từng khách hàng. </div>
-						<div class="problem-item"> Gây cảm giác bị <span class="highlight">"spam"</span>, không được quan tâm đúng mức. </div>
-					</div>
-				</div>
-			</div>
-			<div class="header-email">
-				<h4 class="title"> NHÂN VIÊN GẶP KHÓ KHĂN KHI CHĂM SÓC KHÁCH QUA EMAIL </h4>
-				<div class="email-illustration">
-					<div class="email-character">
-						<div class="character-avatar">
-							<img class="custom-image" src="./image/lp4__1_-removebg-preview.png" alt="Zalo icon" width="100%" />
-						</div>
-					</div>
-					<div class="email-character">
-						<div class="character-avatar" style="margin-left: 50px">
-							<img class="custom-image" src="./image/lp3__1_-removebg-preview.png" alt="Zalo icon" width="100%" />
-						</div>
-					</div>
-				</div>
-				<div class="email-stats">
-					<div class="stat-box">
-						<span class="stat-number">23%</span>
-						<span class="stat-label">Tỷ lệ mở email</span>
-					</div>
-					<div class="stat-box">
-						<span class="stat-number">2.5%</span>
-						<span class="stat-label">Tỷ lệ phản hồi</span>
-					</div>
-				</div>
-				<!-- Floating email icons -->
-				<div class="email-icon" style="top: 20%; left: 10%; animation-delay: 0s"> 📧 </div>
-				<div class="email-icon" style="top: 30%; right: 15%; animation-delay: 1s"> ✉️ </div>
-				<div class="email-icon" style="bottom: 25%; left: 20%; animation-delay: 2s"> 📨 </div>
-				<div class="email-icon" style="bottom: 35%; right: 25%; animation-delay: 3s"> 📬 </div>
-			</div>
-			<div class="problems-container">
-				<div class="problems-grid">
-					<div class="problem-card fade-in">
-						<div class="problem-header">
-							<div class="problem-icon icon-info">
-								<img src="./image/Screenshot_11-removebg-preview.png" alt="Zalo icon" />
-							</div>
-							<div class="problem-title"> Thông tin không đến được khách hàng </div>
-						</div>
-						<div class="problem-content">
-							<div class="problem-item"> Người dùng ít kiểm tra email cá nhân, đặc biệt ở <span class="highlight">Việt Nam</span>
-							</div>
-							<div class="problem-item"> Email dễ <span class="spam-text">rơi vào mục Spam</span> hoặc quảng cáo </div>
-							<div class="problem-item"> Khách sợ bị <span class="highlight">tấn công, virut</span>,nên không mở <span class="highlight">Email</span>
-							</div>
-						</div>
-					</div>
-					<div class="problem-card fade-in">
-						<div class="problem-header">
-							<div class="problem-icon icon-data">
-								<img src="./image/Screenshot_12-removebg-preview.png" alt="Zalo icon" />
-							</div>
-							<div class="problem-title">Dữ liệu khách hàng bị rời rạc</div>
-						</div>
-						<div class="problem-content">
-							<div class="problem-item">
-								<span class="highlight">Không thể theo dõi hành vi</span> khách hàng </div>
-							<div class="problem-item"> Thiếu liên kết giữa nội dung email và các <span class="highlight">hành động tiếp theo</span> để tạo các kịch bản phù hợp </div>
-						</div>
-					</div>
-					<div class="problem-card fade-in">
-						<div class="problem-header">
-							<div class="problem-icon icon-automation">
-								<img src="./image/Screenshot_13-removebg-preview.png" alt="Zalo icon" />
-							</div>
-							<div class="problem-title"> Khó đo lường tác động thực tế đến doanh thu </div>
-						</div>
-						<div class="problem-content">
-							<div class="problem-item"> Khó xác định chính xác email nào mang lại đơn hàng. </div>
-							<div class="problem-item"> Tỷ lệ mở/click thấp, khó chuyển đổi thành hành động mua hàng. </div>
-						</div>
-					</div>
-					<div class="problem-card fade-in">
-						<div class="problem-header">
-							<div class="problem-icon icon-personalization">
-								<img src="./image/Screenshot_14-removebg-preview.png" alt="Zalo icon" />
-							</div>
-							<div class="problem-title">Khó phân hỏi nhanh</div>
-						</div>
-						<div class="problem-content">
-							<div class="problem-item"> Email là kênh <span class="highlight">giao tiếp một chiều</span>, thiếu tính tương tác tức thời </div>
-							<div class="problem-item"> Mất cơ hội chăm sóc kịp thời, không có thể chuyển sang <span class="highlight">đơn vị khác</span>
-							</div>
-						</div>
-					</div>
-					<div class="problem-card fade-in">
-						<div class="problem-header">
-							<div class="problem-icon icon-relationship">
-								<img src="./image/Screenshot_15-removebg-preview.png" alt="Zalo icon" />
-							</div>
-							<div class="problem-title"> Khó xây dựng mối quan hệ cá nhân </div>
-						</div>
-						<div class="problem-content">
-							<div class="problem-item"> Người dùng Việt Nam chủ yếu dùng <span class="highlight">Zalo để giao tiếp</span>
-							</div>
-							<div class="problem-item"> Không có để thể hiện sự quan tâm cá nhân như khi chat hoặc gọi điện </div>
-						</div>
-					</div>
-					<div class="problem-card fade-in">
-						<div class="problem-header">
-							<div class="problem-icon icon-brand">
-								<img src="./image/Screenshot_16-removebg-preview.png" alt="Zalo icon" />
-							</div>
-							<div class="problem-title">Giảm uy tín thương hiệu</div>
-						</div>
-						<div class="problem-content">
-							<div class="problem-item"> Dễ gây phản cảm làm giảm uy tín thương hiệu </div>
-							<div class="problem-item"> Cảm điếm uy tín thấp miền, ảnh hưởng đến email sau. </div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="header-customer-care">
-				<h1>Zstep GIẢI PHÁP CHĂM SÓC KHÁCH HÀNG QUA ZALO</h1>
-				<div class="underline"></div>
-			</div>
-			<table class="comparison-table">
-				<thead class="table-header">
-					<tr>
-						<th style="width: 25%">Tiêu chí</th>
-						<th style="width: 25%">Zstep+Zalo</th>
-						<th style="width: 25%">Telecall<br />(Gọi điện)</th>
-						<th style="width: 25%">Email Marketing</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="table-row">
-						<td class="feature-name">Khả năng tiếp cận</td>
-						<td class="zstep-highlight">Rất cao, 75% người Việt dùng Zalo</td>
-						<td>Phụ thuộc vào việc nghe máy</td>
-						<td>Dễ vào spam hoặc bị lãng quên</td>
-					</tr>
-					<tr class="table-row">
-						<td class="feature-name">Tự động hóa</td>
-						<td class="zstep-highlight">Linh hoạt, thông minh</td>
-						<td>Không có</td>
-						<td>Có, nhưng khó thiết lập</td>
-					</tr>
-					<tr class="table-row">
-						<td class="feature-name">Tương tác 2 chiều</td>
-						<td class="zstep-highlight">Chat tự nhiên, ngay trong Zalo</td>
-						<td>Có, nhưng cần người thực hiện</td>
-						<td>Hạn chế, không realtime</td>
-					</tr>
-					<tr class="table-row">
-						<td class="feature-name">Chi phí</td>
-						<td class="zstep-highlight">Rẻ, không tốn nhân lực</td>
-						<td>Cao, phụ thuộc telesales</td>
-						<td>Rẻ, nhưng hiệu quả thấp</td>
-					</tr>
-					<tr class="table-row">
-						<td class="feature-name">Tỷ lệ mở/click</td>
-						<td class="zstep-highlight">Trên 70%</td>
-						<td>~20-30%</td>
-						<td>~15-25%</td>
-					</tr>
-					<tr class="table-row">
-						<td class="feature-name">Cá nhân hóa</td>
-						<td class="zstep-highlight">Theo hành vi, gắn mác thông minh</td>
-						<td>Trực tiếp nếu làm tốt</td>
-						<td>Giới hạn hiệu không dùng phần mềm chuyên</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="bottom-section">
-				<div class="logo-container">
-					<div class="logo">
-						<img src="./image/lp30-removebg-preview.png" alt="Zalo icon" />
-					</div>
-				</div>
-				<div class="description">
-					<p>
-						<strong>Zstep được phát triển bởi Watermelon</strong> - đội ngũ đã giúp hơn 100,000 doanh nghiệp <span class="highlight-text">Nhật Bản thành công chuyển đổi chăm sóc khách hàng của LINE</span>. </p>
-					<p> Giờ đây, chúng tôi mang toàn bộ <strong>Kinh nghiệm</strong> đó về <strong>Việt Nam</strong> - qua Zalo. </p>
-				</div>
-			</div>
-			<div class="header-customer-care1">
-				<h1>Zstep GIẢI PHÁP CHĂM SÓC KHÁCH HÀNG QUA ZALO</h1>
-				<div class="underline"></div>
-			</div>
-			<div class="features-grid">
-				<div class="feature-card">
-                    <div style="display: flex">
-                        <div class="feature-icon">
-						    <img src="./image/lp7__1_-removebg-preview.png" alt="Zalo icon" style="width: 120px; margin-bottom: 10px" />
-					</div>
-					    <div class="feature-title">75% người Việt đang dùng hàng ngày</div>
-                    </div>
-					<div class="feature-description"> Là nền tảng nhắn tin đã có mức độ phủ sóng cao nhất tại Việt Nam, giúp doanh nghiệp tiếp cận khách hàng một cáchdễ dàng, trực tiếp và liên tục. </div>
-				</div>
-				<div class="feature-card">
-                    <div style="display: flex">
-                        <div class="feature-icon">
-						    <img src="./image/lp8-removebg-preview.png" alt="Zalo icon" style="width: 120px; margin-bottom: 10px" />
-					</div>
-					    <div class="feature-title">Không spam – không bị chặn</div>
-                    </div>
+  <body>
+    <!-- Gộp nội dung HTML từ các file con vào đây -->
+    <header>
+      <!-- Từ header.html -->
+    </header>
+    <main>
+      <div class="container">
+        <div class="header">
+          <div class="logo-zstep">
+            <img src="./image/lp-logo-removebg-preview.png" alt="Zalo logo" />
+          </div>
+        </div>
+        <div class="features">
+          <div class="feature-item" onclick="highlightFeature(this)">
+            <div class="feature-icon">
+              <img
+                src="./image/Screenshot_8-removebg-preview.png"
+                alt="Zalo icon"
+              />
+            </div>
+            <div class="feature-text">
+              Tự động nuôi dưỡng khách hàng qua Zalo
+            </div>
+          </div>
+          <div class="feature-item" onclick="highlightFeature(this)">
+            <div class="feature-icon">
+              <img
+                src="./image/Screenshot_9-removebg-preview.png"
+                alt="Zalo icon"
+              />
+            </div>
+            <div class="feature-text">
+              Nâng cao tỷ lệ chuyển đổi và giữ chân khách hàng
+            </div>
+          </div>
+          <div class="feature-item" onclick="highlightFeature(this)">
+            <div class="feature-icon">
+              <img
+                src="./image/Screenshot_10-removebg-preview.png"
+                alt="Zalo icon"
+              />
+            </div>
+            <div class="feature-text">Tiết kiệm thời gian tối ưu nhân sự</div>
+          </div>
+          <div class="feature-item" onclick="highlightFeature(this)">
+            <div class="feature-icon">
+              <img
+                src="./image/Screenshot_10-removebg-preview.png"
+                alt="Zalo icon"
+              />
+            </div>
+            <div class="feature-text">Số hóa hành vi khách hàng</div>
+          </div>
+          <div
+            class="feature-item"
+            onclick="highlightFeature(this); scrollToCustomers();"
+          >
+            <div class="feature-icon">
+              <img
+                src="./image/Screenshot_10-removebg-preview.png"
+                alt="Zalo icon"
+              />
+            </div>
+            <div class="feature-text">
+              Chăm sóc liên tục không để khách rời rụng
+            </div>
+          </div>
+        </div>
+        <div class="header-phone">
+          <h1 class="title">
+            NHÂN VIÊN MỆT MỎI KHI CHĂM SÓC KHÁCH QUA ĐIỆN THOẠI
+          </h1>
+          <div class="illustration-container">
+            <div class="character">
+              <img src="./image/lp-removebg-preview.png" alt="Zalo icon" />
+            </div>
+            <div class="character" style="margin-left: 100px">
+              <img src="./image/lp1-removebg-preview.png" alt="Zalo icon" />
+            </div>
+          </div>
+          <div class="stats">
+            <div class="stat-item">
+              <span class="stat-number">65%</span>
+              <span class="stat-label">Khách không nghe máy</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number">40%</span>
+              <span class="stat-label">Thời gian lãng phí</span>
+            </div>
+          </div>
+        </div>
+        <div class="problems-grid">
+          <div class="problem-card fade-in" style="animation-delay: 0.1s">
+            <div class="problem-header">
+              <div class="problem-icon icon-phone">
+                <img
+                  src="./image/Screenshot_2-removebg-preview.png"
+                  alt="Zalo icon"
+                  style="width: 60px"
+                />
+              </div>
+              <div class="problem-title">Khó tiếp cận khách hàng</div>
+            </div>
+            <div class="problem-content">
+              <div class="problem-item">
+                <span class="highlight">65%</span> Khách không nghe máy, từ chối
+                cuộc gọi hoặc chặn số lạ.
+              </div>
+              <div class="problem-item">
+                Gọi vào thời điểm
+                <span class="highlight">không phù hợp,</span> gây khó chịu.
+              </div>
+            </div>
+          </div>
+          <div class="problem-card fade-in" style="animation-delay: 0.2s">
+            <div class="problem-header">
+              <div class="problem-icon icon-phone">
+                <img
+                  src="./image/Screenshot_3-removebg-preview.png"
+                  alt="Zalo icon"
+                  style="width: 60px"
+                />
+              </div>
+              <div class="problem-title">
+                Dễ gây phản cảm hoặc phản ứng tiêu cực
+              </div>
+            </div>
+            <div class="problem-content">
+              <div class="problem-item">
+                Một số khách hàng cảm thấy bị làm phiền hoặc bị<span
+                  class="highlight"
+                  >"ép mua"</span
+                >
+              </div>
+              <div class="problem-item">
+                Dễ ảnh <span class="highlight">hưởng đến hình ảnh</span> thương
+                hiệu nếu xử lý không khéo.
+              </div>
+            </div>
+          </div>
+          <div class="problem-card fade-in" style="animation-delay: 0.3s">
+            <div class="problem-header">
+              <div class="problem-icon icon-phone">
+                <img
+                  src="./image/Screenshot_4-removebg-preview.png"
+                  alt="Zalo icon"
+                  style="width: 60px"
+                />
+              </div>
+              <div class="problem-title">Tốn nhiều thời gian và chi phí</div>
+            </div>
+            <div class="problem-content">
+              <div class="problem-item">
+                Mỗi cuộc gọi cần thời gian xử lý riêng, khó mở rộng quy mô.
+              </div>
+              <div class="problem-item">Phải thuê nhiều nhân viên telesale</div>
+              <div class="">-> Tốn chi phí nhân sự và đào tạo</div>
+            </div>
+          </div>
+          <div class="problem-card fade-in" style="animation-delay: 0.4s">
+            <div class="problem-header">
+              <div class="problem-icon icon-phone">
+                <img
+                  src="./image/Screenshot_5-removebg-preview.png"
+                  alt="Zalo icon"
+                  style="width: 60px"
+                />
+              </div>
+              <div class="problem-title">Khó lưu trữ và khai thác dữ liệu</div>
+            </div>
+            <div class="problem-content">
+              <div class="problem-item">
+                Dữ liệu từ cuộc gọi khó được ghi nhận chính xác và đồng bộ.
+              </div>
+              <div class="problem-item">
+                Thiếu thông tin tập trung để phân tích hành vi, theo dõi lịch sử
+                <span class="highlight">chăm sóc</span>
+              </div>
+            </div>
+          </div>
+          <div class="problem-card fade-in" style="animation-delay: 0.5s">
+            <div class="problem-header">
+              <div class="problem-icon icon-phone">
+                <img
+                  src="./image/Screenshot_6-removebg-preview.png"
+                  alt="Zalo icon"
+                  style="width: 60px"
+                />
+              </div>
+              <div class="problem-title">
+                Chất lượng tương tác không đồng đều
+              </div>
+            </div>
+            <div class="problem-content">
+              <div class="problem-item">Phụ thuộc vào kỹ năng nhân viên</div>
+              <div class="">-> dễ xảy ra sai sót, truyền đạt thông tin.</div>
+              <div class="problem-item">
+                Không kiểm soát được nội dung cuộc gọi nếu không ghi âm hoặc
+                giám sát sát sao.
+              </div>
+            </div>
+          </div>
+          <div class="problem-card fade-in" style="animation-delay: 0.6s">
+            <div class="problem-header">
+              <div class="problem-icon icon-phone">
+                <img
+                  src="./image/Screenshot_7-removebg-preview.png"
+                  alt="Zalo icon"
+                  style="width: 60px"
+                />
+              </div>
+              <div class="problem-title">Khó cá nhân hóa trải nghiệm</div>
+            </div>
+            <div class="problem-content">
+              <div class="problem-item">
+                Nội dung cuộc gọi thường là mẫu chung, thiếu thông tin chi tiết
+                theo từng khách hàng.
+              </div>
+              <div class="problem-item">
+                Gây cảm giác bị <span class="highlight">"spam"</span>, không
+                được quan tâm đúng mức.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-email">
+          <h4 class="title">
+            NHÂN VIÊN GẶP KHÓ KHĂN KHI CHĂM SÓC KHÁCH QUA EMAIL
+          </h4>
+          <div class="email-illustration">
+            <div class="email-character">
+              <div class="character-avatar">
+                <img
+                  class="custom-image"
+                  src="./image/lp4__1_-removebg-preview.png"
+                  alt="Zalo icon"
+                  width="100%"
+                />
+              </div>
+            </div>
+            <div class="email-character">
+              <div class="character-avatar" style="margin-left: 50px">
+                <img
+                  class="custom-image"
+                  src="./image/lp3__1_-removebg-preview.png"
+                  alt="Zalo icon"
+                  width="100%"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="email-stats">
+            <div class="stat-box">
+              <span class="stat-number">23%</span>
+              <span class="stat-label">Tỷ lệ mở email</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number">2.5%</span>
+              <span class="stat-label">Tỷ lệ phản hồi</span>
+            </div>
+          </div>
+          <!-- Floating email icons -->
+          <div
+            class="email-icon"
+            style="top: 20%; left: 10%; animation-delay: 0s"
+          >
+            📧
+          </div>
+          <div
+            class="email-icon"
+            style="top: 30%; right: 15%; animation-delay: 1s"
+          >
+            ✉️
+          </div>
+          <div
+            class="email-icon"
+            style="bottom: 25%; left: 20%; animation-delay: 2s"
+          >
+            📨
+          </div>
+          <div
+            class="email-icon"
+            style="bottom: 35%; right: 25%; animation-delay: 3s"
+          >
+            📬
+          </div>
+        </div>
+        <div class="problems-container">
+          <div class="problems-grid">
+            <div class="problem-card fade-in">
+              <div class="problem-header">
+                <div class="problem-icon icon-info">
+                  <img
+                    src="./image/Screenshot_11-removebg-preview.png"
+                    alt="Zalo icon"
+                  />
+                </div>
+                <div class="problem-title">
+                  Thông tin không đến được khách hàng
+                </div>
+              </div>
+              <div class="problem-content">
+                <div class="problem-item">
+                  Người dùng ít kiểm tra email cá nhân, đặc biệt ở
+                  <span class="highlight">Việt Nam</span>
+                </div>
+                <div class="problem-item">
+                  Email dễ <span class="spam-text">rơi vào mục Spam</span> hoặc
+                  quảng cáo
+                </div>
+                <div class="problem-item">
+                  Khách sợ bị <span class="highlight">tấn công, virut</span>,nên
+                  không mở <span class="highlight">Email</span>
+                </div>
+              </div>
+            </div>
+            <div class="problem-card fade-in">
+              <div class="problem-header">
+                <div class="problem-icon icon-data">
+                  <img
+                    src="./image/Screenshot_12-removebg-preview.png"
+                    alt="Zalo icon"
+                  />
+                </div>
+                <div class="problem-title">Dữ liệu khách hàng bị rời rạc</div>
+              </div>
+              <div class="problem-content">
+                <div class="problem-item">
+                  <span class="highlight">Không thể theo dõi hành vi</span>
+                  khách hàng
+                </div>
+                <div class="problem-item">
+                  Thiếu liên kết giữa nội dung email và các
+                  <span class="highlight">hành động tiếp theo</span> để tạo các
+                  kịch bản phù hợp
+                </div>
+              </div>
+            </div>
+            <div class="problem-card fade-in">
+              <div class="problem-header">
+                <div class="problem-icon icon-automation">
+                  <img
+                    src="./image/Screenshot_13-removebg-preview.png"
+                    alt="Zalo icon"
+                  />
+                </div>
+                <div class="problem-title">
+                  Khó đo lường tác động thực tế đến doanh thu
+                </div>
+              </div>
+              <div class="problem-content">
+                <div class="problem-item">
+                  Khó xác định chính xác email nào mang lại đơn hàng.
+                </div>
+                <div class="problem-item">
+                  Tỷ lệ mở/click thấp, khó chuyển đổi thành hành động mua hàng.
+                </div>
+              </div>
+            </div>
+            <div class="problem-card fade-in">
+              <div class="problem-header">
+                <div class="problem-icon icon-personalization">
+                  <img
+                    src="./image/Screenshot_14-removebg-preview.png"
+                    alt="Zalo icon"
+                  />
+                </div>
+                <div class="problem-title">Khó phân hỏi nhanh</div>
+              </div>
+              <div class="problem-content">
+                <div class="problem-item">
+                  Email là kênh
+                  <span class="highlight">giao tiếp một chiều</span>, thiếu tính
+                  tương tác tức thời
+                </div>
+                <div class="problem-item">
+                  Mất cơ hội chăm sóc kịp thời, không có thể chuyển sang
+                  <span class="highlight">đơn vị khác</span>
+                </div>
+              </div>
+            </div>
+            <div class="problem-card fade-in">
+              <div class="problem-header">
+                <div class="problem-icon icon-relationship">
+                  <img
+                    src="./image/Screenshot_15-removebg-preview.png"
+                    alt="Zalo icon"
+                  />
+                </div>
+                <div class="problem-title">
+                  Khó xây dựng mối quan hệ cá nhân
+                </div>
+              </div>
+              <div class="problem-content">
+                <div class="problem-item">
+                  Người dùng Việt Nam chủ yếu dùng
+                  <span class="highlight">Zalo để giao tiếp</span>
+                </div>
+                <div class="problem-item">
+                  Không có để thể hiện sự quan tâm cá nhân như khi chat hoặc gọi
+                  điện
+                </div>
+              </div>
+            </div>
+            <div class="problem-card fade-in">
+              <div class="problem-header">
+                <div class="problem-icon icon-brand">
+                  <img
+                    src="./image/Screenshot_16-removebg-preview.png"
+                    alt="Zalo icon"
+                  />
+                </div>
+                <div class="problem-title">Giảm uy tín thương hiệu</div>
+              </div>
+              <div class="problem-content">
+                <div class="problem-item">
+                  Dễ gây phản cảm làm giảm uy tín thương hiệu
+                </div>
+                <div class="problem-item">
+                  Cảm điếm uy tín thấp miền, ảnh hưởng đến email sau.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-customer-care">
+          <h1>Zstep GIẢI PHÁP CHĂM SÓC KHÁCH HÀNG QUA ZALO</h1>
+          <div class="underline"></div>
+        </div>
+        <table class="comparison-table">
+          <thead class="table-header">
+            <tr>
+              <th style="width: 25%">Tiêu chí</th>
+              <th style="width: 25%">Zstep+Zalo</th>
+              <th style="width: 25%">Telecall<br />(Gọi điện)</th>
+              <th style="width: 25%">Email Marketing</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row">
+              <td class="feature-name">Khả năng tiếp cận</td>
+              <td class="zstep-highlight">Rất cao, 75% người Việt dùng Zalo</td>
+              <td>Phụ thuộc vào việc nghe máy</td>
+              <td>Dễ vào spam hoặc bị lãng quên</td>
+            </tr>
+            <tr class="table-row">
+              <td class="feature-name">Tự động hóa</td>
+              <td class="zstep-highlight">Linh hoạt, thông minh</td>
+              <td>Không có</td>
+              <td>Có, nhưng khó thiết lập</td>
+            </tr>
+            <tr class="table-row">
+              <td class="feature-name">Tương tác 2 chiều</td>
+              <td class="zstep-highlight">Chat tự nhiên, ngay trong Zalo</td>
+              <td>Có, nhưng cần người thực hiện</td>
+              <td>Hạn chế, không realtime</td>
+            </tr>
+            <tr class="table-row">
+              <td class="feature-name">Chi phí</td>
+              <td class="zstep-highlight">Rẻ, không tốn nhân lực</td>
+              <td>Cao, phụ thuộc telesales</td>
+              <td>Rẻ, nhưng hiệu quả thấp</td>
+            </tr>
+            <tr class="table-row">
+              <td class="feature-name">Tỷ lệ mở/click</td>
+              <td class="zstep-highlight">Trên 70%</td>
+              <td>~20-30%</td>
+              <td>~15-25%</td>
+            </tr>
+            <tr class="table-row">
+              <td class="feature-name">Cá nhân hóa</td>
+              <td class="zstep-highlight">Theo hành vi, gắn mác thông minh</td>
+              <td>Trực tiếp nếu làm tốt</td>
+              <td>Giới hạn hiệu không dùng phần mềm chuyên</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="bottom-section">
+          <div class="logo-container">
+            <div class="logo">
+              <img src="./image/lp30-removebg-preview.png" alt="Zalo icon" />
+            </div>
+          </div>
+          <div class="description">
+            <p>
+              <strong>Zstep được phát triển bởi Watermelon</strong> - đội ngũ đã
+              giúp hơn 100,000 doanh nghiệp
+              <span class="highlight-text"
+                >Nhật Bản thành công chuyển đổi chăm sóc khách hàng của
+                LINE</span
+              >.
+            </p>
+            <p>
+              Giờ đây, chúng tôi mang toàn bộ <strong>Kinh nghiệm</strong> đó về
+              <strong>Việt Nam</strong> - qua Zalo.
+            </p>
+          </div>
+        </div>
+        <div class="header-customer-care1">
+          <h1>Zstep GIẢI PHÁP CHĂM SÓC KHÁCH HÀNG QUA ZALO</h1>
+          <div class="underline"></div>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div style="display: flex">
+              <div class="feature-icon">
+                <img
+                  src="./image/lp7__1_-removebg-preview.png"
+                  alt="Zalo icon"
+                  style="width: 120px; margin-bottom: 10px"
+                />
+              </div>
+              <div class="feature-title">
+                75% người Việt đang dùng hàng ngày
+              </div>
+            </div>
+            <div class="feature-description">
+              Là nền tảng nhắn tin đã có mức độ phủ sóng cao nhất tại Việt Nam,
+              giúp doanh nghiệp tiếp cận khách hàng một cáchdễ dàng, trực tiếp
+              và liên tục.
+            </div>
+          </div>
+          <div class="feature-card">
+            <div style="display: flex">
+              <div class="feature-icon">
+                <img
+                  src="./image/lp8-removebg-preview.png"
+                  alt="Zalo icon"
+                  style="width: 120px; margin-bottom: 10px"
+                />
+              </div>
+              <div class="feature-title">Không spam – không bị chặn</div>
+            </div>
 
-					<div class="feature-description"> Gửi tin nhắn qua Zalo giúp doanh nghiệp tiếp cận khách hàng một cách hợp pháp, thân thiện – không bị coi là spam, <span class="highlight"> không lo bị chặn như SMS hay cuộc gọi lạ</span>. </div>
-				</div>
-				<div class="feature-card">
-                    <div style="display: flex">
-                        <div class="feature-icon">
-						    <img src="./image/lp6-removebg-preview.png" alt="Zalo icon" style="width: 120px; margin-bottom: 10px" />
-					</div>
-					    <div class="feature-title">Tương tác 2 chiều mượt mà</div>
-                    </div>
-					<div class="feature-description"> Khách hàng trò chuyện trực tiếp với doanh nghiệp ngay trong ứng dụng Zalo quen thuộc. Doanh nghiệp dễ dàng thu thập thông tin, phản hồi nhanh và tạo cảm giác <span class="highlight">chăm sóc đặc biệt</span>. </div>
-				</div>
-				<div class="feature-card">
-                    <div style="display: flex">
-                        <div class="feature-icon">
-						    <img src="./image/lp9-removebg-preview.png" alt="Zalo icon" style="width: 120px; margin-bottom: 10px" />
-					</div>
-					    <div class="feature-title">Tự động hóa + Cá nhân hoá</div>
-                    </div>
-					<div class="feature-description"> Dễ dàng thiết lập kịch bản tin nhắn tự động dựa trên hành vi, nhu cầu và phân khúc khách hàng. Giúp tiết kiệm nhân lực, tăng tốc độ xử lý và <span class="highlight">nâng cao tỷ lệ chuyển đổi</span>. </div>
-				</div>
-				<div class="feature-card">
-                    <div style="display: flex">
-                        <div class="feature-icon">
-						    <img src="./image/lp10-removebg-preview.png" alt="Zalo icon" style="width: 120px; margin-bottom: 10px" />
-					    </div>
-					    <div class="feature-title">Tỷ lệ mở & click vượt trội</div>
-                    </div>
-					<div class="feature-description"> Với hơn 70% người dùng đọc và tương tác với tin nhắn từ OA , Zalo là kênh có tỷ lệ mở cao gấp nhiều lần so với Email hay các kênh giao tiếp khác </div>
-				</div>
+            <div class="feature-description">
+              Gửi tin nhắn qua Zalo giúp doanh nghiệp tiếp cận khách hàng một
+              cách hợp pháp, thân thiện – không bị coi là spam,
+              <span class="highlight">
+                không lo bị chặn như SMS hay cuộc gọi lạ</span
+              >.
+            </div>
+          </div>
+          <div class="feature-card">
+            <div style="display: flex">
+              <div class="feature-icon">
+                <img
+                  src="./image/lp6-removebg-preview.png"
+                  alt="Zalo icon"
+                  style="width: 120px; margin-bottom: 10px"
+                />
+              </div>
+              <div class="feature-title">Tương tác 2 chiều mượt mà</div>
+            </div>
+            <div class="feature-description">
+              Khách hàng trò chuyện trực tiếp với doanh nghiệp ngay trong ứng
+              dụng Zalo quen thuộc. Doanh nghiệp dễ dàng thu thập thông tin,
+              phản hồi nhanh và tạo cảm giác
+              <span class="highlight">chăm sóc đặc biệt</span>.
+            </div>
+          </div>
+          <div class="feature-card">
+            <div style="display: flex">
+              <div class="feature-icon">
+                <img
+                  src="./image/lp9-removebg-preview.png"
+                  alt="Zalo icon"
+                  style="width: 120px; margin-bottom: 10px"
+                />
+              </div>
+              <div class="feature-title">Tự động hóa + Cá nhân hoá</div>
+            </div>
+            <div class="feature-description">
+              Dễ dàng thiết lập kịch bản tin nhắn tự động dựa trên hành vi, nhu
+              cầu và phân khúc khách hàng. Giúp tiết kiệm nhân lực, tăng tốc độ
+              xử lý và <span class="highlight">nâng cao tỷ lệ chuyển đổi</span>.
+            </div>
+          </div>
+          <div class="feature-card">
+            <div style="display: flex">
+              <div class="feature-icon">
+                <img
+                  src="./image/lp10-removebg-preview.png"
+                  alt="Zalo icon"
+                  style="width: 120px; margin-bottom: 10px"
+                />
+              </div>
+              <div class="feature-title">Tỷ lệ mở & click vượt trội</div>
+            </div>
+            <div class="feature-description">
+              Với hơn 70% người dùng đọc và tương tác với tin nhắn từ OA , Zalo
+              là kênh có tỷ lệ mở cao gấp nhiều lần so với Email hay các kênh
+              giao tiếp khác
+            </div>
+          </div>
 
-				<div class="feature-card">
-                    <div style="display: flex">
-                        <div class="feature-icon">
-						    <img src="./image/lp11__1_-removebg-preview.png" alt="Zalo icon" style="width: 120px; margin-bottom: 10px" />
-					    </div>
-					    <div class="feature-title">Lưu giữ tài sản chiến lược</div>
-                    </div>
-					<div class="feature-description"> Mọi tương tác đều được lưu trữ, phân loại và phân tích, giúp doanh nghiệp xây dựng được hệ thống dữ liệu khách hàng có <span class="highlight">giá trị lâu dài</span>. </div>
-				</div>
-			</div>
-			<div class="testimonial-section">
-				<div class="testimonial-text"> "Thương hiệu Việt - sự tin cậy đến thân thuộc. Zalo được phát triển bởi người Việt và được tin dùng rộng rãi, tạo sự an tâm và tin tưởng khi khách hàng tương tác với doanh nghiệp qua nền tảng này. </div>
-			</div>
-			<div class="header-benefits">
-				<h1>LỢI ÍCH KHI DÙNG ZSTEP</h1>
-				<div class="underline-benefits"></div>
-				<div class="logo-section-benefits">
-					<div class="logo-benefits"> Zstep <div class="logo-icon-benefits">
-							<img src="./image/lp30-removebg-preview.png" alt="Zalo icon" style="width: 40px" />
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="benefits-section">
-				<div class="benefits-grid">
-					<div class="left-column">
-						<div class="benefit-card">
-							<div class="benefit-header">
-								<div class="benefit-icon icon-automation">
-									<img src="./image/lp11__1_-removebg-preview.png" alt="Zalo icon" style="width: 82px" />
-								</div>
-								<div class="benefit-content">
-									<h3>Tự động nuôi dưỡng khách hàng qua Zalo</h3>
-								</div>
-							</div>
-							<div class="benefit-description"> Tạo và vận hành các kịch bản chăm sóc khách hàng linh hoạt, cá nhân hóa theo hành vi và lịch sử tương tác. </div>
-						</div>
-						<div class="benefit-card">
-							<div class="benefit-header">
-								<div class="benefit-icon icon-automation">
-									<img src="./image/lp11__1_-removebg-preview.png" alt="Zalo icon" style="width: 82px" />
-								</div>
-								<div class="benefit-content">
-									<h3>Tiết kiệm thời gian tối ưu nhân sự</h3>
-								</div>
-							</div>
-							<div class="benefit-description"> Tự động hóa <span class="highlight">công việc lặp lại</span> và lọc trước khách hàng không tiềm năng giúp nhân viên <span class="highlight">tập trung</span> vào khách hàng tiềm năng, nâng cao hiệu quả, giảm áp lực và tạo môi trường làm việc tích cực. </div>
-						</div>
-					</div>
-					<div class="right-column">
-						<div class="benefit-card">
-							<div class="benefit-header">
-								<div class="benefit-icon icon-automation">
-									<img src="./image/lp12-removebg-preview.png" alt="Zalo icon" style="width: 82px" />
-								</div>
-								<div class="benefit-content">
-									<h3>Nâng cao tỷ lệ chuyển đổi và giữ chân khách hàng</h3>
-								</div>
-							</div>
-							<div class="benefit-description">Nâng cao hiệu quả tiếp thị, từ đó gia tăng doanh thu và tối ưu vòng đời khách hàng. </div>
-						</div>
-						<div class="benefit-card">
-							<div class="benefit-header">
-								<div class="benefit-icon icon-automation">
-									<img src="./image/lp14-removebg-preview.png" alt="Zalo icon" style="width: 82px" />
-								</div>
-								<div class="benefit-content">
-									<h3>Số hóa hành vi khách hàng</h3>
-								</div>
-							</div>
-							<div class="benefit-description"> Ghi nhận và phân loại khách hàng dựa trên <span class="highlight">hành động thực tế</span>, giúp tối ưu hóa chiến lược tiếp cận và bán hàng. </div>
-						</div>
-						<div class="benefit-card">
-							<div class="benefit-header">
-								<div class="benefit-icon icon-automation">
-									<img src="./image/lp16-removebg-preview.png" alt="Zalo icon" style="width: 82px" />
-								</div>
-								<div class="benefit-content">
-									<h3>Chăm sóc liên tục không để khách rơi rụng</h3>
-								</div>
-							</div>
-							<div class="benefit-description"> Tự động gửi tin nhắn nhắc lịch, ưu đãi hoặc nội dung theo sau <span class="highlight">mua gói duy trì mối quan hệ với khách hàng</span>. Nhờ đó, doanh nghiệp gia tăng tỷ lệ mua lại và kéo dài vòng đời khách hàng. </div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="header-we">
-				<div class="header-content-we">
-					<div class="header-text-we">
-						<h1>KHÁCH HÀNG NÓI GÌ<br />VỀ CHÚNG TÔI</h1>
-						<div class="underline-we"></div>
-					</div>
-					<div class="header-illustration">
-						<div class="illustration-woman">
-							<div class="benefit-icon icon-automation">
-								<img src="./image/lp17-removebg-preview.png" alt="Zalo icon" />
-							</div>
-						</div>
-						<div class="zstep-badge">
-							<img src="./image/lp18-removebg-preview.png" alt="Zalo icon" style="width: 22px" />
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="testimonials-section">
-				<div class="testimonials-grid">
-					<div class="testimonial-card">
-						<div class="testimonial-header">
-							<div class="customer-info">
-								<div class="info-line" style="display: flex; align-items: center">
-									<img src="./image/Screenshot_17-removebg-preview.png" alt="User icon" style="width: 33px" />
-									<span style="margin-left: 6px">Anh:</span>
-								</div>
-								<div class="info-line">
-									<img src="./image/Screenshot_18-removebg-preview.png" alt="Company icon" style="width: 33px" />
-									<span style="
+          <div class="feature-card">
+            <div style="display: flex">
+              <div class="feature-icon">
+                <img
+                  src="./image/lp11__1_-removebg-preview.png"
+                  alt="Zalo icon"
+                  style="width: 120px; margin-bottom: 10px"
+                />
+              </div>
+              <div class="feature-title">Lưu giữ tài sản chiến lược</div>
+            </div>
+            <div class="feature-description">
+              Mọi tương tác đều được lưu trữ, phân loại và phân tích, giúp doanh
+              nghiệp xây dựng được hệ thống dữ liệu khách hàng có
+              <span class="highlight">giá trị lâu dài</span>.
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-section">
+          <div class="testimonial-text">
+            "Thương hiệu Việt - sự tin cậy đến thân thuộc. Zalo được phát triển
+            bởi người Việt và được tin dùng rộng rãi, tạo sự an tâm và tin tưởng
+            khi khách hàng tương tác với doanh nghiệp qua nền tảng này.
+          </div>
+        </div>
+        <div class="header-benefits">
+          <h1>LỢI ÍCH KHI DÙNG ZSTEP</h1>
+          <div class="underline-benefits"></div>
+          <div class="logo-section-benefits">
+            <div class="logo-benefits">
+              Zstep
+              <div class="logo-icon-benefits">
+                <img
+                  src="./image/lp30-removebg-preview.png"
+                  alt="Zalo icon"
+                  style="width: 40px"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="benefits-section">
+          <div class="benefits-grid">
+            <div class="left-column">
+              <div class="benefit-card">
+                <div class="benefit-header">
+                  <div class="benefit-icon icon-automation">
+                    <img
+                      src="./image/lp11__1_-removebg-preview.png"
+                      alt="Zalo icon"
+                      style="width: 82px"
+                    />
+                  </div>
+                  <div class="benefit-content">
+                    <h3>Tự động nuôi dưỡng khách hàng qua Zalo</h3>
+                  </div>
+                </div>
+                <div class="benefit-description">
+                  Tạo và vận hành các kịch bản chăm sóc khách hàng linh hoạt, cá
+                  nhân hóa theo hành vi và lịch sử tương tác.
+                </div>
+              </div>
+              <div class="benefit-card">
+                <div class="benefit-header">
+                  <div class="benefit-icon icon-automation">
+                    <img
+                      src="./image/lp11__1_-removebg-preview.png"
+                      alt="Zalo icon"
+                      style="width: 82px"
+                    />
+                  </div>
+                  <div class="benefit-content">
+                    <h3>Tiết kiệm thời gian tối ưu nhân sự</h3>
+                  </div>
+                </div>
+                <div class="benefit-description">
+                  Tự động hóa
+                  <span class="highlight">công việc lặp lại</span> và lọc trước
+                  khách hàng không tiềm năng giúp nhân viên
+                  <span class="highlight">tập trung</span> vào khách hàng tiềm
+                  năng, nâng cao hiệu quả, giảm áp lực và tạo môi trường làm
+                  việc tích cực.
+                </div>
+              </div>
+            </div>
+            <div class="right-column">
+              <div class="benefit-card">
+                <div class="benefit-header">
+                  <div class="benefit-icon icon-automation">
+                    <img
+                      src="./image/lp12-removebg-preview.png"
+                      alt="Zalo icon"
+                      style="width: 82px"
+                    />
+                  </div>
+                  <div class="benefit-content">
+                    <h3>Nâng cao tỷ lệ chuyển đổi và giữ chân khách hàng</h3>
+                  </div>
+                </div>
+                <div class="benefit-description">
+                  Nâng cao hiệu quả tiếp thị, từ đó gia tăng doanh thu và tối ưu
+                  vòng đời khách hàng.
+                </div>
+              </div>
+              <div class="benefit-card">
+                <div class="benefit-header">
+                  <div class="benefit-icon icon-automation">
+                    <img
+                      src="./image/lp14-removebg-preview.png"
+                      alt="Zalo icon"
+                      style="width: 82px"
+                    />
+                  </div>
+                  <div class="benefit-content">
+                    <h3>Số hóa hành vi khách hàng</h3>
+                  </div>
+                </div>
+                <div class="benefit-description">
+                  Ghi nhận và phân loại khách hàng dựa trên
+                  <span class="highlight">hành động thực tế</span>, giúp tối ưu
+                  hóa chiến lược tiếp cận và bán hàng.
+                </div>
+              </div>
+              <div class="benefit-card">
+                <div class="benefit-header">
+                  <div class="benefit-icon icon-automation">
+                    <img
+                      src="./image/lp16-removebg-preview.png"
+                      alt="Zalo icon"
+                      style="width: 82px"
+                    />
+                  </div>
+                  <div class="benefit-content">
+                    <h3>Chăm sóc liên tục không để khách rơi rụng</h3>
+                  </div>
+                </div>
+                <div class="benefit-description">
+                  Tự động gửi tin nhắn nhắc lịch, ưu đãi hoặc nội dung theo sau
+                  <span class="highlight"
+                    >mua gói duy trì mối quan hệ với khách hàng</span
+                  >. Nhờ đó, doanh nghiệp gia tăng tỷ lệ mua lại và kéo dài vòng
+                  đời khách hàng.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-we">
+          <div class="header-content-we">
+            <div class="header-text-we">
+              <h1>KHÁCH HÀNG NÓI GÌ<br />VỀ CHÚNG TÔI</h1>
+              <div class="underline-we"></div>
+            </div>
+            <div class="header-illustration">
+              <div class="illustration-woman">
+                <div class="benefit-icon icon-automation">
+                  <img
+                    src="./image/lp17-removebg-preview.png"
+                    alt="Zalo icon"
+                  />
+                </div>
+              </div>
+              <div class="zstep-badge">
+                <img
+                  src="./image/lp18-removebg-preview.png"
+                  alt="Zalo icon"
+                  style="width: 22px"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonials-section">
+          <div class="testimonials-grid">
+            <div class="testimonial-card">
+              <div class="testimonial-header">
+                <div class="customer-info">
+                  <div
+                    class="info-line"
+                    style="display: flex; align-items: center"
+                  >
+                    <img
+                      src="./image/Screenshot_17-removebg-preview.png"
+                      alt="User icon"
+                      style="width: 33px"
+                    />
+                    <span style="margin-left: 6px">Anh:</span>
+                  </div>
+                  <div class="info-line">
+                    <img
+                      src="./image/Screenshot_18-removebg-preview.png"
+                      alt="Company icon"
+                      style="width: 33px"
+                    />
+                    <span
+                      style="
                         display: flex;
                         margin-top: -33px;
                         margin-left: 37px;
-                      ">Đại lý oto toyota, Ford</span>
-								</div>
-							</div>
-						</div>
-						<div class="testimonial-content"> Trước đây chúng tôi dùng tele call lấy đánh giá khách hàng và đặc lịch bảo dưỡng. Sau khi triển khai Zstep đã giúp chúng tôi <span class="highlight-stat">60% chi phí</span>, lượng đánh giá thành công tăng lên gấp 3 lần giúp chúng tôi đánh giá chính xác chất lượng dịch vụ. </div>
-					</div>
-					<div class="testimonial-card">
-						<div class="testimonial-header">
-							<div class="customer-info">
-								<div class="info-line" style="display: flex; align-items: center">
-									<img src="./image/Screenshot_17-removebg-preview.png" alt="User icon" style="width: 33px" />
-									<span style="margin-left: 6px">Anh:</span>
-								</div>
-								<div class="info-line">
-									<img src="./image/Screenshot_18-removebg-preview.png" alt="Company icon" style="width: 33px" />
-									<span style="
+                      "
+                      >Đại lý oto toyota, Ford</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="testimonial-content">
+                Trước đây chúng tôi dùng tele call lấy đánh giá khách hàng và
+                đặc lịch bảo dưỡng. Sau khi triển khai Zstep đã giúp chúng tôi
+                <span class="highlight-stat">60% chi phí</span>, lượng đánh giá
+                thành công tăng lên gấp 3 lần giúp chúng tôi đánh giá chính xác
+                chất lượng dịch vụ.
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-header">
+                <div class="customer-info">
+                  <div
+                    class="info-line"
+                    style="display: flex; align-items: center"
+                  >
+                    <img
+                      src="./image/Screenshot_17-removebg-preview.png"
+                      alt="User icon"
+                      style="width: 33px"
+                    />
+                    <span style="margin-left: 6px">Anh:</span>
+                  </div>
+                  <div class="info-line">
+                    <img
+                      src="./image/Screenshot_18-removebg-preview.png"
+                      alt="Company icon"
+                      style="width: 33px"
+                    />
+                    <span
+                      style="
                         display: flex;
                         margin-top: -33px;
                         margin-left: 37px;
-                      ">Trung tâm tiếng anh</span>
-								</div>
-							</div>
-						</div>
-						<div class="testimonial-content">
-							<ul>
-								<li> Chỉ trong 3 tháng sử dụng Zstep, số lượng học viên đăng ký mới tăng <span class="highlight-stat">185%</span>. </li>
-								<li> Trước đây chúng tôi phải gọi điện từng khách một. Giờ chỉ cần chatbot hỏi nhu cầu, phân loại học viên và gửi thông tin phù hợp – gần như hoàn toàn tự động. </li>
-							</ul>
-						</div>
-					</div>
-					<div class="testimonial-card">
-						<div class="testimonial-header">
-							<div class="customer-info">
-								<div class="info-line" style="display: flex; align-items: center">
-									<img src="./image/Screenshot_17-removebg-preview.png" alt="User icon" style="width: 33px" />
-									<span style="margin-left: 6px">Anh:</span>
-								</div>
-								<div class="info-line">
-									<img src="./image/Screenshot_20-removebg-preview.png" alt="Company icon" style="width: 43px; margin-left: -4px" />
-									<span style="
+                      "
+                      >Trung tâm tiếng anh</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="testimonial-content">
+                <ul>
+                  <li>
+                    Chỉ trong 3 tháng sử dụng Zstep, số lượng học viên đăng ký
+                    mới tăng <span class="highlight-stat">185%</span>.
+                  </li>
+                  <li>
+                    Trước đây chúng tôi phải gọi điện từng khách một. Giờ chỉ
+                    cần chatbot hỏi nhu cầu, phân loại học viên và gửi thông tin
+                    phù hợp – gần như hoàn toàn tự động.
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-header">
+                <div class="customer-info">
+                  <div
+                    class="info-line"
+                    style="display: flex; align-items: center"
+                  >
+                    <img
+                      src="./image/Screenshot_17-removebg-preview.png"
+                      alt="User icon"
+                      style="width: 33px"
+                    />
+                    <span style="margin-left: 6px">Anh:</span>
+                  </div>
+                  <div class="info-line">
+                    <img
+                      src="./image/Screenshot_20-removebg-preview.png"
+                      alt="Company icon"
+                      style="width: 43px; margin-left: -4px"
+                    />
+                    <span
+                      style="
                         display: flex;
                         margin-top: -33px;
                         margin-left: 37px;
-                      ">Thẩm mĩ viện</span>
-								</div>
-							</div>
-						</div>
-						<div class="testimonial-content">
-							<ul>
-								<li> Khách cũ quay lại đặt lịch tăng rõ rệt sau khi chúng tôi thiết lập chuỗi tin nhắn chăm sóc qua Zstep. </li>
-								<li> Mỗi khách đều nhận được tin chúc sinh nhật kèm ưu đãi riêng – điều mà trước đây không thể làm nổi vì quá tốn thời gian. </li>
-							</ul>
-						</div>
-					</div>
-					<div class="testimonial-card">
-						<div class="testimonial-header">
-							<div class="customer-info">
-								<div class="info-line" style="display: flex; align-items: center">
-									<img src="./image/Screenshot_17-removebg-preview.png" alt="User icon" style="width: 33px" />
-									<span style="margin-left: 6px">Anh:</span>
-								</div>
-								<div class="info-line">
-									<img src="./image/Screenshot_21-removebg-preview.png" alt="Company icon" style="width: 35px; margin-left: -3px" />
-									<span style="
+                      "
+                      >Thẩm mĩ viện</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="testimonial-content">
+                <ul>
+                  <li>
+                    Khách cũ quay lại đặt lịch tăng rõ rệt sau khi chúng tôi
+                    thiết lập chuỗi tin nhắn chăm sóc qua Zstep.
+                  </li>
+                  <li>
+                    Mỗi khách đều nhận được tin chúc sinh nhật kèm ưu đãi riêng
+                    – điều mà trước đây không thể làm nổi vì quá tốn thời gian.
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="testimonial-card">
+              <div class="testimonial-header">
+                <div class="customer-info">
+                  <div
+                    class="info-line"
+                    style="display: flex; align-items: center"
+                  >
+                    <img
+                      src="./image/Screenshot_17-removebg-preview.png"
+                      alt="User icon"
+                      style="width: 33px"
+                    />
+                    <span style="margin-left: 6px">Anh:</span>
+                  </div>
+                  <div class="info-line">
+                    <img
+                      src="./image/Screenshot_21-removebg-preview.png"
+                      alt="Company icon"
+                      style="width: 35px; margin-left: -3px"
+                    />
+                    <span
+                      style="
                         display: flex;
                         margin-top: -33px;
                         margin-left: 37px;
-                      ">Đại lý bất động sản</span>
-								</div>
-							</div>
-						</div>
-						<div class="testimonial-content">
-							<ul>
-								<li> Chúng tôi dùng Zstep để thu thập thông tin khách hàng sau khi họ xem bất động sản trên web. </li>
-								<li> Khách được gắn thẻ tự động theo khu vực quan tâm và ngân sách, giúp đội sales dễ tư vấn hơn. </li>
-								<li> Tỷ lệ chốt deal tăng <span class="highlight-stat">142% trong 6 tháng</span>. </li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="header-typical-customers">
-				<h1 class="title-typical-customers">Khách Hàng Tiêu Biểu</h1>
-				<div class="underline-typical-customers"></div>
-			</div>
-			<div class="customers-grid">
-				<!-- Toyota Cards -->
-				<div class="customer-card toyota-card">
-					<div class="brand-name">
-						<img src="./image/lp19-removebg-preview.png" alt="Zalo icon" />
-					</div>
-					<!-- <div class="dealer-name">MỸ ĐÌNH</div> -->
-				</div>
-				<div class="customer-card toyota-card">
-					<div class="brand-name">
-						<img src="./image/21.png" alt="Zalo icon" />
-					</div>
-				</div>
-				<div class="customer-card toyota-card">
-					<div class="brand-name">
-						<img src="./image/lp21__1_-removebg-preview.png" alt="Zalo icon" />
-					</div>
-				</div>
-				<!-- Ford Cards -->
-				<div class="customer-card ford-card">
-					<div class="brand-name">
-						<img src="./image/lp23-removebg-preview.png" alt="Zalo icon" />
-					</div>
-				</div>
-				<div class="customer-card ford-card">
-					<div class="brand-name">
-						<img src="./image/lp24-removebg-preview.png" alt="Zalo icon" />
-					</div>
-				</div>
-				<div class="customer-card ford-card">
-					<div class="brand-name">
-						<img src="./image/lp25 (1).png" alt="Zalo icon" />
-					</div>
-				</div>
-				<!-- Toyota Additional Cards -->
-				<div class="customer-card toyota-card">
-					<div class="brand-name">
-						<img src="./image/lp26.png" alt="Zalo icon" />
-					</div>
-				</div>
-				<div class="customer-card toyota-card">
-					<div class="brand-name">
-						<img src="./image/lp27-removebg-preview.png" alt="Zalo icon" />
-					</div>
-				</div>
-				<div class="customer-card ford-card">
-					<div class="brand-name">
-						<img src="./image/lp28-removebg-preview.png" alt="Zalo icon" />
-					</div>
-				</div>
-				<!-- Other Brands -->
-				<div class="customer-card other-brand">
-					<div class="brand-name missiona">
-						<img src="./image/lp28-removebg-preview.png" alt="Zalo icon" />
-					</div>
-				</div>
-				<div class="customer-card other-brand">
-					<div class="brand-name elcowa">
-						<img src="./image/lp29.png" alt="Zalo icon" />
-					</div>
-				</div>
-				<div class="customer-card other-brand">
-					<div class="brand-name idealvision">
-						<img src="./image/lp29.png" alt="Zalo icon" />
-					</div>
-				</div>
-			</div>
-			<div class="cta-section">
-				<h2 style="margin-bottom: 20px; font-size: 1.8em"> Giải pháp tối ưu với Zstep! </h2>
-				<p style="font-size: 1.2em; opacity: 0.9"> Chăm sóc khách hàng tự động qua Zalo - hiệu quả hơn, tiết kiệm hơn, thân thiện hơn. </p>
-			</div>
-			<div class="card">
-				<div class="header">
-					<h1 class="header-title">WATERMELON ĐỒNG HÀNH CÙNG THỜI ĐẠI DẪN ĐẦU ĐỔI MỚI</h1>
-				</div>
-				<div class="info-section">
-					<div class="info-item">
-						<div class="icon">
-							<img src="./image/Screenshot_28-removebg-preview.png" alt="Zalo logo" style="width: 100%;" />
-						</div>
-						<div class="info-content">
-							<div class="info-title">Phát triển và vận hành hệ thống phần mềm</div>
-						</div>
-					</div>
-					<div class="info-item">
-						<div class="icon"><img src="./image/Screenshot_28-removebg-preview.png" alt="Zalo logo" style="width: 100%;" /></div>
-						<div class="info-content">
-							<div class="info-title">Tư vấn chuyển đổi số hoạt động bán hàng, chăm sóc khách hàng</div>
-						</div>
-					</div>
-				</div>
-				<div class="business-info">
-					<div class="business-item">
-						<div class="business-icon">
-							<img src="./image/Screenshot_27-removebg-preview.png" alt="Zalo logo" style="width: 100%;" />
-						</div>
-						<div class="business-text">
-							<span class="highlight">CEO</span><br> Lê Quang Tuấn </div>
-					</div>
-					<div class="business-item">
-						<div class="business-icon">
-							<img src="./image/Screenshot_25-removebg-preview.png" alt="Zalo logo" style="width: 100%;" />
-						</div>
-						<div class="business-text">
-							<span class="highlight">Địa chỉ</span><br> Tầng 2, nhà 34G-X4 - Phường Mai Dịch - Quận Cầu Giấy - Hà Nội. </div>
-					</div>
-					<div class="business-item">
-						<div class="business-icon"><img src="./image/Screenshot_23-removebg-preview.png" alt="Zalo logo" style="width: 100%;" /></div>
-						<div class="business-text">
-							<span class="highlight">Thành lập</span><br> 2015/10 </div>
-					</div>
-					<div class="business-item">
-						<div class="business-icon"><img src="./image/Screenshot_24-removebg-preview.png" alt="Zalo logo" style="width: 100%;" /></div>
-						<div class="business-text">
-							<span class="highlight">Vốn điều lệ</span><br> 11 Tỷ VNĐ </div>
-					</div>
-				</div>
-			</div>
-			<div class="timeline-header">
-				<div class="timeline-icon"></div>
-				<h1 class="timeline-title">Lịch sử phát triển</h1>
-			</div>
-			<div class="timeline-content">
-				<div class="timeline-line"></div>
-				<div class="timeline-item">
-					<div class="timeline-year special-year">2015</div>
-					<div class="timeline-card special-card">
-						<div class="timeline-description">
-							<strong>Thành lập Watermelon Việt Nam</strong>
-						</div>
-					</div>
-				</div>
-				<div class="timeline-item">
-					<div class="timeline-year">2016</div>
-					<div class="timeline-card">
-						<div class="timeline-description"> Thành lập Watermelon Japan Triển khai phần mềm bán hàng trên Merukari đạt <span class="company-stats">5000 doanh nghiệp</span> chỉ sau 3 tháng triển khai </div>
-					</div>
-				</div>
-				<div class="timeline-item">
-					<div class="timeline-year special-year">2017</div>
-					<div class="timeline-card special-card">
-						<div class="timeline-description">
-							<span class="highlight"></span>Triển khai mềm bán hàng trên Yahoo auction đạt <span class="company-stats">1000 khách hàng</span> sau 3 tháng triển khai </span> </div>
-					</div>
-				</div>
-				<div class="timeline-item">
-					<div class="timeline-year">2018</div>
-					<div class="timeline-card">
-						<div class="timeline-description"> Triển khai nền tảng định giá bán tự động trên <span class="platform-tag"> Amazon, Rakuten, Yahoo Shoping</span>
-						</div>
-					</div>
-				</div>
-				<div class="timeline-item">
-					<div class="timeline-year">2022</div>
-					<div class="timeline-card">
-						<div class="timeline-description"> Triển khai phần mềm chăm sóc khách hàng chủ động qua line. <span class="company-stats">5000 công ty</span> sử dụng sau 3 tháng triển khai. Đến 2024 có <span class="company-stats">100.000 công ty</span> đang sử dụng </div>
-					</div>
-				</div>
-				<div class="timeline-item">
-					<div class="timeline-year">2024</div>
-					<div class="timeline-card">
-						<div class="timeline-description"> Triển khai nền tảng mềm chăm sóc khách hàng qua Instagram, sau <span class="company-stats"> 1</span> năm có <span class="company-stats">100000 doanh nghiệp</span> sử dụng </div>
-					</div>
-				</div>
-				<div class="timeline-item">
-					<div class="timeline-year">2025</div>
-					<div class="timeline-card">
-						<div class="timeline-description"> Triển khai phần mềm chăm sóc khách hàng qua <span class="highlight-blue">Zalo</span> cho thị trường Việt Nam </div>
-					</div>
-				</div>
-			</div>
-			<div class="introdue-header">
-				<div class="header-icon"></div>
-				<h1 class="timeline-title">Tại sao lại chọn Watermelon</h1>
-			</div>
-			<div class="intro-text">
-				<p>Watermelon là doanh nghiệp công nghệ tiên phong, chuyên cung cấp các giải pháp và dịch vụ bất kịp xu hướng thị trường, đồng thời giải quyết hiệu quả các vấn đề cốt lõi của người dùng.</p>
-			</div>
-			<div class="features-grid">
-				<div class="feature-card">
-					<div class="feature-header">
-						<img src="./image/Screenshot_23.png" alt="Zalo logo" style="width: 100%;" />
-					</div>
-					<div class="feature-content">
-						<div class="feature-title">Trên 10 năm kinh nghiệm tại Nhật Bản</div>
-						<div class="feature-description">
-							<span class="highlight">Tại Nhật Bản</span> - thị trường đòi hỏi chất lượng và hiệu quả cao hàng đầu, chúng ta đã tạp trung chuyên sâu vào việc xây dựng và tối ưu hệ thống bán hàng các sàn thương mại điện tử nổi tiếng. Đồng thời tối ưu hóa hoạt động kinh doanh hoạt động doanh nghiệp <span class="highlight">Việt Nam</span> từ năm <span class="highlight">2015</span>. </div>
-					</div>
-				</div>
-				<div class="feature-card">
-					<div class="feature-header">
-						<img src="./image/Screenshot_24.png" alt="Zalo logo" style="width: 100%;" />
-					</div>
-					<div class="feature-content">
-						<div class="feature-title">Hơn 100,000 doanh nghiệp tin dùng</div>
-						<div class="feature-description"> Watermelon không chỉ cung cấp phần mềm. <span class="highlight">Chúng tôi khách hàng kiến tạo sự thay đổi</span>.Với kinh nghiệm thực tiễn đa ngành, chúng tôi đồng hành cùng khách hàng xây dựng lộ trình chuyển đổi phù hợp cho từng quy mô doanh nghiệp. </div>
-					</div>
-				</div>
-				<div class="feature-card">
-					<div class="feature-header">
-						<img src="./image/Screenshot_22.png" alt="Zalo logo" style="width: 100%;" />
-					</div>
-					<div class="feature-content">
-						<div class="feature-title">Phát triển linh hoạt theo mô hình Lean Startup</div>
-						<div class="feature-description"> Bằng việc áp dụng mô hình <span class="highlight-green">Lean Startup</span> - Giúp chúng tôi:<br> • Đưa sản phẩm ra thị trường nhanh hơn<br> • Giảm thiểu rủi ro đầu tư sau hướng<br> • Tối ưu theo phản hồi thực tế từ <span class="highlight">người dùng</span>
-						</div>
-					</div>
-				</div>
-				<div class="feature-card">
-					<div class="feature-header">
-						<img src="./image/Screenshot_24.png" alt="Zalo logo" style="width: 100%;" />
-					</div>
-					<div class="feature-content">
-						<div class="feature-title">Hỗ trợ kỹ thuật 24/7</div>
-						<div class="feature-description"> Đội ngũ kỹ thuật và vận hành của Watermelon<span class="highlight-blue"> luôn sẵn sàng 24/7</span>, kể cả ngày nghỉ, giờ cao điểm. Chúng tôi đảm bảo hệ thống <span class="highlight-blue"> vận hành liên tục – không gián đoạn </span>, mang lại sự an tâm tuyệt đối cho doanh nghiệp. </div>
-					</div>
-				</div>
-			</div>
-			<div class="footer">
-				<div class="footer-content">
-					<span class="copyright">© 2012 - 2025 Một sản phẩm của Zalo Group - </span>
-					<a href="https://zalo.vn/dieukhoan/" target="_blank" class="footer-link">Điều khoản sử dụng dịch vụ</a>
-					<span class="separator"> - </span>
-					<a href="https://zalo.me/policy/thongbaoxulydulieu/" target="_blank" class="footer-link">Thông báo xử lý dữ liệu</a>
-				</div>
-			</div>
-		</div>
-	</main>
-	<!-- Gộp JS -->
-	<script>
-	function highlightFeature(element) {
-		document.querySelectorAll(".feature-item").forEach((item) => {
-			item.style.background = "#f8f9ff";
-			item.style.borderColor = "#e6ebff";
-		});
-		element.style.background = "linear-gradient(135deg, #e6f3ff 0%, #cce7ff 100%)";
-		element.style.borderColor = "#4facfe";
-		element.style.animation = "pulse 0.6s ease";
-		setTimeout(() => {
-			element.style.animation = "";
-		}, 600);
-	}
+                      "
+                      >Đại lý bất động sản</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="testimonial-content">
+                <ul>
+                  <li>
+                    Chúng tôi dùng Zstep để thu thập thông tin khách hàng sau
+                    khi họ xem bất động sản trên web.
+                  </li>
+                  <li>
+                    Khách được gắn thẻ tự động theo khu vực quan tâm và ngân
+                    sách, giúp đội sales dễ tư vấn hơn.
+                  </li>
+                  <li>
+                    Tỷ lệ chốt deal tăng
+                    <span class="highlight-stat">142% trong 6 tháng</span>.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-typical-customers">
+          <h1 class="title-typical-customers">Khách Hàng Tiêu Biểu</h1>
+          <div class="underline-typical-customers"></div>
+        </div>
+        <div class="customers-grid">
+          <!-- Toyota Cards -->
+          <div class="customer-card toyota-card">
+            <div class="brand-name">
+              <img src="./image/lp19-removebg-preview.png" alt="Zalo icon" />
+            </div>
+            <!-- <div class="dealer-name">MỸ ĐÌNH</div> -->
+          </div>
+          <div class="customer-card toyota-card">
+            <div class="brand-name">
+              <img src="./image/21.png" alt="Zalo icon" />
+            </div>
+          </div>
+          <div class="customer-card toyota-card">
+            <div class="brand-name">
+              <img
+                src="./image/lp21__1_-removebg-preview.png"
+                alt="Zalo icon"
+              />
+            </div>
+          </div>
+          <!-- Ford Cards -->
+          <div class="customer-card ford-card">
+            <div class="brand-name">
+              <img src="./image/lp23-removebg-preview.png" alt="Zalo icon" />
+            </div>
+          </div>
+          <div class="customer-card ford-card">
+            <div class="brand-name">
+              <img src="./image/lp24-removebg-preview.png" alt="Zalo icon" />
+            </div>
+          </div>
+          <div class="customer-card ford-card">
+            <div class="brand-name">
+              <img src="./image/lp25 (1).png" alt="Zalo icon" />
+            </div>
+          </div>
+          <!-- Toyota Additional Cards -->
+          <div class="customer-card toyota-card">
+            <div class="brand-name">
+              <img src="./image/lp26.png" alt="Zalo icon" />
+            </div>
+          </div>
+          <div class="customer-card toyota-card">
+            <div class="brand-name">
+              <img src="./image/lp27-removebg-preview.png" alt="Zalo icon" />
+            </div>
+          </div>
+          <div class="customer-card ford-card">
+            <div class="brand-name">
+              <img src="./image/lp28-removebg-preview.png" alt="Zalo icon" />
+            </div>
+          </div>
+          <!-- Other Brands -->
+          <div class="customer-card other-brand">
+            <div class="brand-name missiona">
+              <img src="./image/lp28-removebg-preview.png" alt="Zalo icon" />
+            </div>
+          </div>
+          <div class="customer-card other-brand">
+            <div class="brand-name elcowa">
+              <img src="./image/lp29.png" alt="Zalo icon" />
+            </div>
+          </div>
+          <div class="customer-card other-brand">
+            <div class="brand-name idealvision">
+              <img src="./image/lp29.png" alt="Zalo icon" />
+            </div>
+          </div>
+        </div>
+        <div class="cta-section">
+          <h2 style="margin-bottom: 20px; font-size: 1.8em">
+            Giải pháp tối ưu với Zstep!
+          </h2>
+          <p style="font-size: 1.2em; opacity: 0.9">
+            Chăm sóc khách hàng tự động qua Zalo - hiệu quả hơn, tiết kiệm hơn,
+            thân thiện hơn.
+          </p>
+        </div>
 
-	function contactUs() {
-		// Add click animation
-		const btn = event.target;
-		btn.style.transform = "scale(0.95)";
-		setTimeout(() => {
-			btn.style.transform = "";
-		}, 150);
-		// You can add actual contact functionality here
-		alert("Cảm ơn bạn đã quan tâm! Chúng tôi sẽ liên hệ sớm nhất.");
-	}
-	// Add CSS for pulse animation
-	const stylePulse = document.createElement("style");
-	stylePulse.textContent = `
+        <div class="footer">
+          <div class="footer-content">
+            <p class="copyright">
+              © 2015 - 2025 Công ty cổ phần giải pháp phần mềm Watermelon Việt
+              Nam
+            </p>
+            <p style="text-align: center; margin-top: 5px">
+              <a href="./about.html">Về chúng tôi</a>
+              <span class="separator"> - </span>
+              <a
+                href="https://zalo.vn/dieukhoan/"
+                target="_blank"
+                class="footer-link"
+                >Điều khoản sử dụng dịch vụ</a
+              >
+              <span class="separator"> - </span>
+              <a
+                href="https://zalo.me/policy/thongbaoxulydulieu/"
+                target="_blank"
+                class="footer-link"
+                >Thông báo xử lý dữ liệu</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Gộp JS -->
+    <script>
+      function highlightFeature(element) {
+        document.querySelectorAll(".feature-item").forEach((item) => {
+          item.style.background = "#f8f9ff";
+          item.style.borderColor = "#e6ebff";
+        });
+        element.style.background =
+          "linear-gradient(135deg, #e6f3ff 0%, #cce7ff 100%)";
+        element.style.borderColor = "#4facfe";
+        element.style.animation = "pulse 0.6s ease";
+        setTimeout(() => {
+          element.style.animation = "";
+        }, 600);
+      }
+
+      function contactUs() {
+        // Add click animation
+        const btn = event.target;
+        btn.style.transform = "scale(0.95)";
+        setTimeout(() => {
+          btn.style.transform = "";
+        }, 150);
+        // You can add actual contact functionality here
+        alert("Cảm ơn bạn đã quan tâm! Chúng tôi sẽ liên hệ sớm nhất.");
+      }
+      // Add CSS for pulse animation
+      const stylePulse = document.createElement("style");
+      stylePulse.textContent = `
             @keyframes pulse {
                 0% { transform: scale(1); }
                 50% { transform: scale(1.05); }
@@ -3438,11 +3713,11 @@
                 to { transform: translateY(0); opacity: 1; }
             }
         `;
-	document.head.appendChild(stylePulse);
-	// Add some interactive particles
-	function createParticle() {
-		const particle = document.createElement("div");
-		particle.style.cssText = `
+      document.head.appendChild(stylePulse);
+      // Add some interactive particles
+      function createParticle() {
+        const particle = document.createElement("div");
+        particle.style.cssText = `
                 position: fixed;
                 width: 4px;
                 height: 4px;
@@ -3452,16 +3727,16 @@
                 z-index: 1000;
                 animation: float-up 3s linear forwards;
             `;
-		particle.style.left = Math.random() * window.innerWidth + "px";
-		particle.style.top = window.innerHeight + "px";
-		document.body.appendChild(particle);
-		setTimeout(() => {
-			particle.remove();
-		}, 3000);
-	}
-	// Add float-up animation
-	const particleStyle = document.createElement("style");
-	particleStyle.textContent = `
+        particle.style.left = Math.random() * window.innerWidth + "px";
+        particle.style.top = window.innerHeight + "px";
+        document.body.appendChild(particle);
+        setTimeout(() => {
+          particle.remove();
+        }, 3000);
+      }
+      // Add float-up animation
+      const particleStyle = document.createElement("style");
+      particleStyle.textContent = `
             @keyframes float-up {
                 to {
                     transform: translateY(-100vh) rotate(360deg);
@@ -3469,28 +3744,28 @@
                 }
             }
         `;
-	document.head.appendChild(particleStyle);
-	// Create particles periodically
-	setInterval(createParticle, 2000);
-	// Add smooth scrolling and animations
-	window.addEventListener("scroll", () => {
-		const cards = document.querySelectorAll(".problem-card");
-		cards.forEach((card) => {
-			const rect = card.getBoundingClientRect();
-			const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-			if(isVisible) {
-				card.style.transform = "translateY(0)";
-				card.style.opacity = "1";
-			}
-		});
-	});
+      document.head.appendChild(particleStyle);
+      // Create particles periodically
+      setInterval(createParticle, 2000);
+      // Add smooth scrolling and animations
+      window.addEventListener("scroll", () => {
+        const cards = document.querySelectorAll(".problem-card");
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+          if (isVisible) {
+            card.style.transform = "translateY(0)";
+            card.style.opacity = "1";
+          }
+        });
+      });
 
-	function contactNow() {
-		const btn = event.target;
-		btn.style.transform = "scale(0.95)";
-		// Add ripple effect
-		const ripple = document.createElement("div");
-		ripple.style.cssText = `
+      function contactNow() {
+        const btn = event.target;
+        btn.style.transform = "scale(0.95)";
+        // Add ripple effect
+        const ripple = document.createElement("div");
+        ripple.style.cssText = `
                 position: absolute;
                 border-radius: 50%;
                 background: rgba(102, 126, 234, 0.3);
@@ -3498,50 +3773,52 @@
                 animation: ripple 0.6s linear;
                 pointer-events: none;
             `;
-		const rect = btn.getBoundingClientRect();
-		const size = Math.max(rect.width, rect.height);
-		ripple.style.width = ripple.style.height = size + "px";
-		ripple.style.left = event.clientX - rect.left - size / 2 + "px";
-		ripple.style.top = event.clientY - rect.top - size / 2 + "px";
-		btn.style.position = "relative";
-		btn.appendChild(ripple);
-		setTimeout(() => {
-			btn.style.transform = "";
-			ripple.remove();
-		}, 600);
-		// Show contact info
-		setTimeout(() => {
-			alert("🚀 Cảm ơn bạn quan tâm đến Zstep!\n\n📞 Hotline: 1900-xxxx\n📧 Email: info@zstep.vn\n💬 Zalo: ZstepVietnam\n\nChúng tôi sẽ liên hệ trong 24h!");
-		}, 100);
-	}
-	const observerOptions = {
-		threshold: 0.1,
-		rootMargin: "0px 0px -50px 0px",
-	};
-	const observer = new IntersectionObserver((entries) => {
-		entries.forEach((entry) => {
-			if(entry.isIntersecting) {
-				entry.target.style.animation = "fadeInUp 0.6s ease forwards";
-			}
-		});
-	}, observerOptions);
-	document.querySelectorAll(".fade-in").forEach((el) => {
-		observer.observe(el);
-	});
-	document.querySelectorAll(".fade-in").forEach((el) => {
-		observer.observe(el);
-	});
-	// Contact button functionality
-	function contactNow() {
-		// Show contact modal
-		setTimeout(() => {
-			showContactModal();
-		}, 100);
-	}
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        ripple.style.width = ripple.style.height = size + "px";
+        ripple.style.left = event.clientX - rect.left - size / 2 + "px";
+        ripple.style.top = event.clientY - rect.top - size / 2 + "px";
+        btn.style.position = "relative";
+        btn.appendChild(ripple);
+        setTimeout(() => {
+          btn.style.transform = "";
+          ripple.remove();
+        }, 600);
+        // Show contact info
+        setTimeout(() => {
+          alert(
+            "🚀 Cảm ơn bạn quan tâm đến Zstep!\n\n📞 Hotline: 1900-xxxx\n📧 Email: info@zstep.vn\n💬 Zalo: ZstepVietnam\n\nChúng tôi sẽ liên hệ trong 24h!"
+          );
+        }, 100);
+      }
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.animation = "fadeInUp 0.6s ease forwards";
+          }
+        });
+      }, observerOptions);
+      document.querySelectorAll(".fade-in").forEach((el) => {
+        observer.observe(el);
+      });
+      document.querySelectorAll(".fade-in").forEach((el) => {
+        observer.observe(el);
+      });
+      // Contact button functionality
+      function contactNow() {
+        // Show contact modal
+        setTimeout(() => {
+          showContactModal();
+        }, 100);
+      }
 
-	function showContactModal() {
-		const modal = document.createElement("div");
-		modal.style.cssText = `
+      function showContactModal() {
+        const modal = document.createElement("div");
+        modal.style.cssText = `
                 position: fixed;
                 top: 0;
                 left: 0;
@@ -3554,8 +3831,8 @@
                 z-index: 1000;
                 animation: fadeIn 0.3s ease;
             `;
-		const modalContent = document.createElement("div");
-		modalContent.style.cssText = `
+        const modalContent = document.createElement("div");
+        modalContent.style.cssText = `
                 background: white;
                 padding: 40px;
                 border-radius: 20px;
@@ -3565,7 +3842,7 @@
                 box-shadow: 0 20px 60px rgba(0,0,0,0.3);
                 animation: slideUp 0.3s ease;
             `;
-		modalContent.innerHTML = `
+        modalContent.innerHTML = `
                 <h3 style="color: #4285f4; margin-bottom: 20px; font-size: 1.5em;">🚀 Liên hệ Zstep</h3>
                 <div style="margin-bottom: 15px; color: #666;">
                     📞 <strong>Hotline:</strong> 1900-ZSTEP
@@ -3592,30 +3869,30 @@
                     font-weight: bold;
                 ">Đóng</button>
             `;
-		modal.appendChild(modalContent);
-		document.body.appendChild(modal);
-		window.closeModal = () => {
-			modal.style.animation = "fadeOut 0.3s ease";
-			setTimeout(() => {
-				document.body.removeChild(modal);
-			}, 300);
-		};
-		modal.onclick = (e) => {
-			if(e.target === modal) closeModal();
-		};
-	}
-	document.querySelectorAll(".problem-card").forEach((card, index) => {
-		card.style.transitionDelay = `${index * 0.1}s`;
-	});
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+        window.closeModal = () => {
+          modal.style.animation = "fadeOut 0.3s ease";
+          setTimeout(() => {
+            document.body.removeChild(modal);
+          }, 300);
+        };
+        modal.onclick = (e) => {
+          if (e.target === modal) closeModal();
+        };
+      }
+      document.querySelectorAll(".problem-card").forEach((card, index) => {
+        card.style.transitionDelay = `${index * 0.1}s`;
+      });
 
-	function scrollToCustomers() {
-		const section = document.getElementById("khach-hang-tieu-bieu");
-		if(section) {
-			section.scrollIntoView({
-				behavior: "smooth",
-			});
-		}
-	}
-	</script>
-</body>
+      function scrollToCustomers() {
+        const section = document.getElementById("khach-hang-tieu-bieu");
+        if (section) {
+          section.scrollIntoView({
+            behavior: "smooth",
+          });
+        }
+      }
+    </script>
+  </body>
 </html>
