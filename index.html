@@ -359,6 +359,13 @@
         padding: 0;
       }
 
+        .problems-grid-phone {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+                gap: 25px;
+                padding: 40px;
+        }
+
       .problem-card {
         background: linear-gradient(135deg, #f8f9ff 0%, #e6f3ff 100%);
         border: 2px solid #e1ecf4;
@@ -515,6 +522,11 @@
         .problems-grid {
           grid-template-columns: 1fr;
           padding: 0;
+        }
+        .problems-grid-phone {
+            grid-template-columns: 1fr;
+            padding: 20px;
+            gap: 25px;
         }
 
         .problem-card {
@@ -2692,55 +2704,55 @@
             </div>
           </div>
         </div>
-        <div class="problems-grid">
-          <div class="problem-card fade-in" style="animation-delay: 0.1s">
-            <div class="problem-header">
-              <div class="problem-icon icon-phone">
-                <img
-                  src="./image/Screenshot_2-removebg-preview.png"
-                  alt="Zalo icon"
-                  style="width: 60px"
-                />
-              </div>
-              <div class="problem-title">Khó tiếp cận khách hàng</div>
+        <div class="problems-grid-phone">
+            <div class="problem-card fade-in" style="animation-delay: 0.1s">
+                <div class="problem-header">
+                    <div class="problem-icon icon-phone">
+                        <img
+                        src="./image/Screenshot_2-removebg-preview.png"
+                        alt="Zalo icon"
+                        style="width: 60px"
+                        />
+                    </div>
+                    <div class="problem-title">Khó tiếp cận khách hàng</div>
+                </div>
+                <div class="problem-content">
+                    <div class="problem-item">
+                        <span class="highlight">65%</span> Khách không nghe máy, từ 
+                        <span class="highlight">chối cuộc</span> gọi hoặc chặn số lạ.
+                    </div>
+                    <div class="problem-item">
+                        Gọi vào thời điểm
+                        <span class="highlight">không phù hợp, gây khó chịu.</span>
+                    </div>
+                </div>
             </div>
-            <div class="problem-content">
-              <div class="problem-item">
-                <span class="highlight">65%</span> Khách không nghe máy, từ 
-                <span class="highlight">chối cuộc</span> gọi hoặc chặn số lạ.
-              </div>
-              <div class="problem-item">
-                Gọi vào thời điểm
-                <span class="highlight">không phù hợp, gây khó chịu.</span>
-              </div>
+            <div class="problem-card fade-in" style="animation-delay: 0.2s">
+                <div class="problem-header">
+                <div class="problem-icon icon-phone">
+                    <img
+                    src="./image/Screenshot_3-removebg-preview.png"
+                    alt="Zalo icon"
+                    style="width: 60px"
+                    />
+                </div>
+                <div class="problem-title">
+                    Dễ gây phản cảm hoặc phản ứng tiêu cực
+                </div>
+                </div>
+                <div class="problem-content">
+                <div class="problem-item">
+                    
+                    Một số khách hàng cảm thấy bị <span class="highlight"> làm phiền</span> hoặc bị<span
+                    class="highlight"
+                    >"ép mua"</span
+                    >
+                </div>
+                <div class="problem-item">
+                    Dễ <span class="highlight">ảnh hưởng </span> đến hình ảnh <span class="highlight">thương hiệu </span>nếu xử lý không khéo.
+                </div>
             </div>
-          </div>
-          <div class="problem-card fade-in" style="animation-delay: 0.2s">
-            <div class="problem-header">
-              <div class="problem-icon icon-phone">
-                <img
-                  src="./image/Screenshot_3-removebg-preview.png"
-                  alt="Zalo icon"
-                  style="width: 60px"
-                />
-              </div>
-              <div class="problem-title">
-                Dễ gây phản cảm hoặc phản ứng tiêu cực
-              </div>
-            </div>
-            <div class="problem-content">
-              <div class="problem-item">
-                
-                Một số khách hàng cảm thấy bị <span class="highlight"> làm phiền</span> hoặc bị<span
-                  class="highlight"
-                  >"ép mua"</span
-                >
-              </div>
-              <div class="problem-item">
-                Dễ <span class="highlight">ảnh hưởng </span> đến hình ảnh <span class="highlight">thương hiệu </span>nếu xử lý không khéo.
-              </div>
-            </div>
-          </div>
+        </div>
           <div class="problem-card fade-in" style="animation-delay: 0.3s">
             <div class="problem-header">
               <div class="problem-icon icon-phone">
